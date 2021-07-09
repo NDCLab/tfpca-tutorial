@@ -1,0 +1,22 @@
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": ["contexts"]
+  },
+  "enforce_admins": false,
+  "allow_deletions": false,
+  "required_pull_request_reviews": {
+    "dismissal_restrictions": {
+      "users": ["users"],
+      "teams": ["teams"]
+    },
+    "dismiss_stale_reviews": false,
+    "require_code_owner_reviews": false,
+    "required_approving_review_count": 1
+  },
+  "restrictions": {
+    "users": ["users"],
+    "teams": ["teams"],
+    "apps": ["apps"]
+  }
+}

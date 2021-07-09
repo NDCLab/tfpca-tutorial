@@ -1,0 +1,40 @@
+FROM continuumio/miniconda3
+
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get -y upgrade\
+ bash-completion \
+ build-essential \
+ curl \
+ git \
+ git-core \
+ golang \
+ htop \
+ locales \
+ man \
+ nmap \
+ python3-pip \
+ ruby-full \
+ strace \
+ sudo \
+ tig \
+ vim \
+ wget
+
+RUN locale-gen en_US.UTF-8
+
+WORKDIR /tmp
+
+# Create the environment:
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
+RUN apt-get -y install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+
+# Disable password and not ask for finger info
+RUN adduser --disabled-password --gecos '' ubuntu
+RUN adduser ubuntu sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER ubuntu
+
+WORKDIR /projects
