@@ -1,0 +1,8 @@
+START RUNNING ID:	Flanker_stim_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac3
+MESSAGE: computed decomposition and components:  Flanker_stim_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac3.mat not found in cache, computing ...
+MESSAGE: computed decomposition:  Flanker_stim_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac3-PCs.mat not found in cache, computing ...
+Size of PCA matrix -- Rows:  3534 Cols:       429
+ 
+PCASVD -- decomposition and rotation processing time: 0.040843 seconds 
+ 
+END RUNNING ID:		Flanker_stim_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac3
