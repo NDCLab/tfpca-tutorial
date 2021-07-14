@@ -1,8 +1,0 @@
-
-  remove pack statement that's giving a warning 
-  check statistics available before running each comparison. 
-    don't run that comparison if stat not available -- cycle? 
- 
-
-
-
