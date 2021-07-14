@@ -1,0 +1,606 @@
+<HTML>
+<HEAD>
+<TITLE>epsmerge -- a program for merging encapsulated postscript files.</TITLE>
+<LINK REV="made" HREF="mailto:perl@packages.debian.org">
+</HEAD>
+
+<BODY>
+
+<A NAME="__index__"></A>
+<!-- INDEX BEGIN -->
+
+<UL>
+
+	<LI><A HREF="#name">NAME</A></LI>
+	<LI><A HREF="#synopsis">SYNOPSIS</A></LI>
+	<LI><A HREF="#description">DESCRIPTION</A></LI>
+	<LI><A HREF="#options">OPTIONS</A></LI>
+	<UL>
+
+		<LI><A HREF="#options: version and help">Options: Version and help</A></LI>
+		<LI><A HREF="#options: general options">Options: general options</A></LI>
+		<LI><A HREF="#options: formatting options, standard formatter">Options: formatting options, standard formatter</A></LI>
+		<LI><A HREF="#formatting options, stacking formatter">Formatting options, stacking formatter</A></LI>
+	</UL>
+
+	<LI><A HREF="#how to write labels">How to write labels</A></LI>
+	<LI><A HREF="#the configuration file">The configuration file</A></LI>
+	<UL>
+
+		<LI><A HREF="#further configuration">Further configuration</A></LI>
+	</UL>
+
+	<LI><A HREF="#how to generate multiple files">How to generate multiple files</A></LI>
+	<LI><A HREF="#using postscript">Using Postscript</A></LI>
+	<LI><A HREF="#the path">The Path</A></LI>
+	<LI><A HREF="#terminology and abbreviations">Terminology and abbreviations</A></LI>
+	<LI><A HREF="#author">Author</A></LI>
+	<LI><A HREF="#warranty and copyright">Warranty and Copyright</A></LI>
+	<LI><A HREF="#bugs">Bugs</A></LI>
+	<LI><A HREF="#references">References</A></LI>
+	<LI><A HREF="#see also">See also</A></LI>
+	<LI><A HREF="#trademarks">Trademarks</A></LI>
+</UL>
+<!-- INDEX END -->
+
+<HR>
+<P>
+<H1><A NAME="name">NAME</A></H1>
+<P>epsmerge -- a program for merging encapsulated postscript files.</P>
+<P>This file documents version 2.2.2 of epsmerge.</P>
+<P>
+<HR>
+<H1><A NAME="synopsis">SYNOPSIS</A></H1>
+<P><STRONG>epsmerge</STRONG> [<EM>option</EM> <EM>value</EM>] [<STRONG>--</STRONG>] <EM>file-1</EM> <EM>file-2</EM> ...</P>
+<P>
+<HR>
+<H1><A NAME="description">DESCRIPTION</A></H1>
+<P><STRONG>epsmerge</STRONG> is a program that merges several EPS files into one
+big EPS file.  The original files are untouched.  (Unless your output
+file is also one of the input files; don't do that :-)</P>
+<P><STRONG>epsmerge</STRONG> is provided AS IS copyrighted under the GNU GPL.
+Be sure to read the copyright section if you do not know what this
+means.</P>
+<P>
+<HR>
+<H1><A NAME="options">OPTIONS</A></H1>
+<P>An <EM>option</EM> is a string telling epsmerge how to behave; each option
+begins with '-' (called short options) or '--' (called long options).
+Usually, an option should be followed by a single <EM>value</EM> (could be a
+number, a string, or a filename or something else), but some options
+need not have any value (they will then take a default value) or could
+have more than one.</P>
+<P>There <EM>must</EM> be a space or a '=' separating the option from its value.
+The value may not contain whitespaces (unless the entire value is
+quoted).</P>
+<P>Short options are case sensitive (i.e., <STRONG>-O</STRONG> is not equivalent to <STRONG>-o</STRONG>),
+but the long ones are case insensitive (<STRONG>--orientation</STRONG> is equivalent to
+<STRONG>--orIeNtAtIon</STRONG>).</P>
+<P>Note that if you <EM>don't</EM> specify an option on the command line when
+invoking epsmerge, then the value in your configuration file will be
+used.  Except if there isn't any specified in the configuration file (or
+there is no configuration file); then an internal default will be used.
+Most of the information about the options below also tells you what the
+internal default is.  You can also get some of this information when you
+you give the <STRONG>-?</STRONG> option to epsmerge.</P>
+<P>Note also that a <STRONG>--</STRONG> (two dashes) by itself signifies the end of the
+option list.  You can use this, e.g., if you want to specify '-'
+(standard input) as the first input file.  (Or if the first input file
+is called '-rf', cf. Larry Wall's comment :-)</P>
+<PRE>
+        Just don't create a file called -rf.  :-)
+                -- Larry Wall in &lt;11393@jpl-devvax.JPL.NASA.GOV&gt;</PRE>
+<P><STRONG>epsmerge</STRONG> currently understands the following options:</P>
+<P>
+<H2><A NAME="options: version and help">Options: Version and help</A></H2>
+<P><STRONG>-?</STRONG></P>
+<P><STRONG>-h</STRONG></P>
+<P><STRONG>--help</STRONG></P>
+<P>Causes <STRONG>epsmerge</STRONG> to allege a hopefully useful arranged abridged
+epsmerge usage message barrage, and then stop.</P>
+<P><STRONG>-v</STRONG></P>
+<P><STRONG>--version</STRONG></P>
+<P>Causes <STRONG>epsmerge</STRONG> to print a version string (one line) and then
+stop.</P>
+<P>
+<H2><A NAME="options: general options">Options: general options</A></H2>
+<P><STRONG>--font</STRONG></P>
+<P>This option specifies the font to be used to print labels and headers
+(see below).  The value should be a case-sensitive string.  It is passed
+uncritically into the generated file, so please make sure that your
+postscript interpreter/printer knows the font.  Default value is
+'Times-Roman'.</P>
+<P><STRONG>-b</STRONG></P>
+<P><STRONG>--header</STRONG></P>
+<P>This option writes a header (which could be at the bottom of the page).  See
+section <A HREF="#how to write labels">How to write labels</A> for how to specify the header string.</P>
+<P><STRONG>-u</STRONG></P>
+<P><STRONG>--labels</STRONG></P>
+<P>Use this option to print labels for each EPS file.  See section
+<A HREF="#how to write labels">How to write labels</A> for how to specify the label string.</P>
+<P><STRONG>-o</STRONG></P>
+<P><STRONG>--output-file</STRONG></P>
+<P>This option tells <STRONG>epsmerge</STRONG> to write its output to the specified file.
+Otherwise, the default is to write to standard output.  Which you can then
+pipe on to your favourite printer (but you may want to see <A HREF="#examples of usage">Examples of usage</A>
+below).  And the <STRONG>--print</STRONG> switch.  However, if you generate multiple files
+(see <A HREF="#how to generate multiple files">How to generate multiple files</A>) then the filename you specify
+will only be used to <EM>derive</EM> the names of the output files.</P>
+<P><STRONG>-O</STRONG></P>
+<P><STRONG>--orientation</STRONG></P>
+<P>Orientation means that the paper should be turned 90 degrees.  The value following
+should be `Landscape' or `Portrait', or just `L' or `P' (case unimportant).  The
+default value is Portrait.</P>
+<P><STRONG>-r</STRONG></P>
+<P>Landscape.  Equivalent to <STRONG>--orientation=L</STRONG>.</P>
+<P><STRONG>-R</STRONG></P>
+<P>Portrait.  Equivalent to <STRONG>--orientation=P</STRONG>.</P>
+<P><STRONG>-p</STRONG></P>
+<P><STRONG>--paper</STRONG></P>
+<P>Paper specifies the paper size.  Normally for an EPS file the size of
+the bounding box doesn't really matter (since it will probably be rescaled anyway
+when included in some document).  But if you want to send it to a printer
+then it matters.  Default is A4 (this can easily be changed in the script,
+though), and the currently recognized sizes are: A2, A3, A4, A5, B4, B5,
+letter, tabloid, ledger, legal, and executive.  See also '-pw' and '-ph'.</P>
+<P><STRONG>-ph</STRONG></P>
+<P><STRONG>--paper-height</STRONG></P>
+<P>Specifies the height of the paper directly.  Should be used with <STRONG>-pw</STRONG>.
+As with all distances, the width may be given in postscript points, centimetres,
+millimetres, or inches.</P>
+<P><STRONG>-pw</STRONG></P>
+<P><STRONG>--paper-width</STRONG></P>
+<P>Specifies the width of the paper directly.  Should be used with <STRONG>-ph</STRONG>.</P>
+<P><STRONG>-ps</STRONG></P>
+<P><STRONG>--postscript</STRONG></P>
+<P>Causes epsmerge to produce a postscript file (non-encapsulated).  The
+biggest difference is that a postscript file (unlike EPS) can contain
+several pages, so if you format more than one page (see section <A HREF="#how to generate multiple files">How to generate multiple files</A>), you will get them all in one postscript file.
+This option automatically implies <STRONG>--print</STRONG>.</P>
+<P><STRONG>--print</STRONG></P>
+<P>This option can be useful when printing an EPS file directly; it causes
+the '%%EOF' DSC to be preceded with the otherwise illegal 'showpage'
+operator, which is necessary since the printers I know will otherwise
+happily ignore everything.  You will still need to pipe the output to
+the printer yourself, though.</P>
+<P><STRONG>--script</STRONG></P>
+<P>This option allows you to specify a Perl script that will generate a
+label for you, one for each label specifier (see <A HREF="#how to write labels">How to write labels</A>)
+that contains the specifier letter <STRONG>s</STRONG>.  The script should return a one
+line string (either as returned by the last statement, or by an explicit
+<EM>return</EM> statement).  If you do not specify a script on the command
+line, then epsmerge will prompt you for a script every time it needs to
+format something with a label; if you just press return then it will
+take the last script also as the current script.  Inside the script, the
+following variables are at your disposal: $f is the current filename, $n
+is the number of the current label, starting with the zeroth (if you
+specify both <STRONG>--header</STRONG> and <STRONG>--labels</STRONG> then the header label will be
+the last), and $l is the number of times the script has been run for the
+current label (again starting with zero).  This means that if you
+specify, say, <STRONG>sss</STRONG> as the value to <STRONG>--labels</STRONG>, then your script will
+be called three times for each label, with $l equal to, respectively, 0,
+1, and 2 for each call.  See <A HREF="#examples of usage">Examples of usage</A>.  Oh, and be sure that
+your script is enclosed in quotes if typed on the command line, just as
+you would when running <STRONG>perl -e</STRONG> (in the configuration file just type
+the script as any normal perl program (block)).</P>
+<P><STRONG>--ignore-eof</STRONG></P>
+<P>This option causes the reader to ignore the %%EOF DSC which normally marks
+the end of a postscript file.  Default is to use them.</P>
+<P>
+<H2><A NAME="options: formatting options, standard formatter">Options: formatting options, standard formatter</A></H2>
+<P>These options are the ones understood by the default formatter.  This
+formatter places things in rows and columns of <EM>cells</EM>.  Imagine each
+page as a matrix made of cells each of the same size, and normally
+(modulo the <STRONG>-prs</STRONG> and <STRONG>-par</STRONG> options, see below) images are formatted
+to fit each into one cell (in the order they are given on the command
+line, but see also the <STRONG>-rmo</STRONG> option).</P>
+<P>Option values that specify a distance may be specified in postscript
+points (1/72th of an inch), centimetres, millimetres, or inches, and
+they may be negative.  Examples: '42', '0.1cm', '-42mm', '3.6in'.
+Normally you would not type the quotes; note that there is no space
+between the number and the unit.  For boolean options (true/false), the
+value is optional, but true values can be specified as 'yes', 'y', '1',
+'true', 't', whereas the false ones are 'no', 'n', '0', 'f', 'false',
+'nil', '``'''.  The default is (usually) true.</P>
+<P><STRONG>-x</STRONG></P>
+<P><STRONG>--columns</STRONG></P>
+<P>The number following the <STRONG>-x</STRONG> switch specifies how many cells you want
+in a row, or, if you will, how many columns you want.</P>
+<P><STRONG>-y</STRONG></P>
+<P><STRONG>--rows</STRONG></P>
+<P>Like <STRONG>-x</STRONG>, but how many cells you want in each column, i.e. how many
+rows you want.  You may specify either, both, or none, of <STRONG>-x</STRONG> and
+<STRONG>-y</STRONG>; if you specify none then the formatter will make an (educated)
+guess.</P>
+<P><STRONG>--margin</STRONG></P>
+<P><STRONG>-lmar</STRONG></P>
+<P><STRONG>-rmar</STRONG></P>
+<P><STRONG>-tmar</STRONG></P>
+<P><STRONG>-bmar</STRONG></P>
+<P>The <STRONG>--margin</STRONG> option sets a default margin (its default is, in turn,
+20 postscript points).  However, the other switches can be used to
+override the default for, respectively, the left, right, top, and bottom
+margins.</P>
+<P><STRONG>-xcs</STRONG></P>
+<P>X Cell Spacing.  Says how much space you want between each cell in the
+horizontal direction.  You may specify a negative value if you wish.  The
+default value is 20 (postscript points).</P>
+<P><STRONG>-ycs</STRONG></P>
+<P>Y Cell Spacing.  Analogous to the <STRONG>-xcs</STRONG> option (qv).</P>
+<P><STRONG>-rmo</STRONG></P>
+<P>Row major order.  If true (this is the default, too) then the cells will
+be set with <EM>rows</EM> first (starting with the first EPS file you
+specified, then the next, etc), filling out the top row first.  If the
+value is false, then the <EM>columns</EM> will be set one at a time, starting
+with the leftmost.</P>
+<P><STRONG>--major</STRONG></P>
+<P>Must be either <STRONG>--major=rows</STRONG> (the default) or <STRONG>--major=columns</STRONG>.  The
+former is equivalent to <STRONG>-rmo=true</STRONG>, and the latter equivalent to
+<STRONG>-rmo=false</STRONG>.</P>
+<P><STRONG>-par</STRONG></P>
+<P>Preserve Aspect Ratio.  If true, then the formatter will preserve the
+aspect ratio of the cells by (if necessary) compressing them even
+further.</P>
+<P><STRONG>-prs</STRONG></P>
+<P>Preserve Relative Size.  If true, then the formatter will preserve the
+relative sizes of the cells by (if necessary) compressing them even
+further.</P>
+<P>
+<H2><A NAME="formatting options, stacking formatter">Formatting options, stacking formatter</A></H2>
+<P>This formatter is a rather simple one which simply stacks its images in
+either the horizontal or the vertical direction (but currently not
+both).  Images are scaled so that the sides where they meet have the
+same lengths.</P>
+<P><STRONG>--stack</STRONG></P>
+<P>Boolean.  This option activates the stacking formatter, rather than the
+default one.</P>
+<P><STRONG>-x</STRONG></P>
+<P>Same as for the standard formatter; says to format cells horizontally.
+Note that if you want more pages with the stacked formatter, you should
+specify both <STRONG>-x</STRONG> and <STRONG>-y</STRONG> (one of which should be 1), e.g.,</P>
+<PRE>
+        epsmerge -o foo.ps -x 4 -y 1 file-1 [..] file-8</PRE>
+<P>(This is a bug)</P>
+<P><STRONG>-y</STRONG></P>
+<P>The moral equivalent of <STRONG>-x</STRONG> (qv).</P>
+<P><STRONG>-cs</STRONG></P>
+<P>Cell spacing.  This tells how much distance there should be between two
+images.  The default is zero, and it can be negative.</P>
+<P>
+<HR>
+<H1><A NAME="how to write labels">How to write labels</A></H1>
+<P>Two options, namely the <STRONG>--header</STRONG> and <STRONG>--labels</STRONG> options, allow you
+to write a label for, respectively, the entire generated EPS file and
+for each included EPS file.  The option (if present) should be followed
+by a string which specifies what to print as follows:</P>
+<OL>
+<LI>
+The first letter should be `a', `t' or `b', stating that the labels should be written
+above (top) or below (bottom) the image of the EPS file.  You may omit this letter;
+by default <STRONG>--labels</STRONG> writes labels <EM>below</EM> its EPS file, and <STRONG>--header</STRONG> writes
+its labels <EM>above</EM> the EPS files (i.e., on top of the page).
+<P></P>
+<LI>
+Each of the following letters specifies that the label should contain one line
+of information as follows:
+<P><STRONG>d</STRONG>:
+The letter `d' says to include the creation date for the EPS file.  For
+the <STRONG>--header</STRONG> option, this just means the time when epsmerge is run,
+written in standard (UNIX) time format.  For the <STRONG>--labels</STRONG> option,
+this is read from the EPS file's DSC if it has one, otherwise epsmerge
+reads the last time the file was modified.</P>
+<P><STRONG>f</STRONG>:
+The letter `f' says to write the filename (of the EPS file or the generated file).
+For the generated file, if you haven't given a filename (via the <STRONG>-o</STRONG> option),
+`stdout' is written.</P>
+<P><STRONG>F</STRONG>:
+The letter `F' does the same as `f' except that the file's extension (if present)
+is stripped.  So if your file is called <EM>foo.eps</EM>, only <EM>foo</EM> is written.</P>
+<P><STRONG>i</STRONG>:
+The letter `i' tells epsmerge to prompt you for a one line label (only
+if run interactively).  If you want more than one line as a label, just
+specify as many `i's in your label string as you want.</P>
+<P><STRONG>s</STRONG>:
+The letter `s' says that epsmerge should run your Perl script to
+generate a one line label.  Normally you would specify the script with
+the <STRONG>--script</STRONG> option (qv), but if you don't, epsmerge will prompt you
+for a script every time it wants one.  If you type a script once and
+would like epsmerge to use it next time it prompts you, then just press
+return at the prompt.</P>
+<P><STRONG>T</STRONG>:
+The letter `T' says to include the title of the EPS file (this is given in the
+EPS file's DSC -- if not, it's ignored).</P>
+<P>Each of these letters gives you one <EM>line</EM> of labelling (or, if you are
+from the US, labeling).</P>
+<P>If you omit <EM>all</EM> of these letters, then some default is assumed.</P>
+<P></P>
+<LI>
+As the final information in the label string you may write a number, specifying the
+required font size.  The default for <STRONG>--labels</STRONG> is 12, the default for <STRONG>--header</STRONG>
+is 20.
+<P></P></OL>
+<P>
+<HR>
+<H1><A NAME="the configuration file">The configuration file</A></H1>
+<P>As of version 1.2.0, you can now write a configuration file specifying
+your favourite options and their values.  Create a file called .epsmergerc
+and put it somewhere in Perl's include path (next to the .pm files would
+be good).  Or you can put it in your home directory.  Also, you can put
+it in the current working directory, and this will be checked first.  This
+allows you to have a per-project configuration file, assuming that you keep
+each project in a separate directory.</P>
+<P>Each line of the file may be:</P>
+<OL>
+<LI>
+A blank line, or
+<P></P>
+<LI>
+A comment line: these begin with a `#' character and the rest of the line
+will then be ignored (really; there is no backslash continuation), or
+<P></P>
+<LI>
+A line consisting of <EM>option</EM>=<EM>value</EM> or <EM>option</EM>: <EM>value</EM>.  The
+option is just the long or short option name with the leading '-' or
+'--' stripped off (this method was chosen to make it easier to
+remember), and the value should just be a value just like you would
+write it on the command line (except that there <EM>must</EM> be a value; for
+a boolean value you would have to write explicitly yes/true or
+no/false).
+<P></P></OL>
+<P>Here is an example of what could be written in an .epsmergerc file:</P>
+<PRE>
+        # Sample epsmerge config file
+        o=my_output_file.eps
+        rmo = false
+        paper = A3
+        lmar: 2cm
+        rmar: 30mm
+        script: '(' . chr( ord('a')+$n ) . ')'</PRE>
+<P>If epsmerge doesn't seem to do what you thought it should, take a look
+again at your configuration file.  For example, if you redirect stdout,
+thinking that your data will go into a file:</P>
+<PRE>
+        epsmerge file1.eps file2.eps &gt; new_file.eps</PRE>
+<P>but you have forgotten about some <STRONG>o=</STRONG> in your config file, then
+epsmerge will write to the <STRONG>o</STRONG> file, leaving <STRONG>new_file.eps</STRONG> empty.  In
+this case, you should use the <STRONG>-o</STRONG> switch.</P>
+<P>
+<H2><A NAME="further configuration">Further configuration</A></H2>
+<P>There are a couple of other things you might want to configure when you
+install epsmerge.  These are currently</P>
+<OL>
+<LI>
+The default paper size.
+<P></P>
+<LI>
+The filename-page separator, used to say which pages from a multi-page
+postscript file you want to use.  See section <A HREF="#using postscript">Using Postscript</A> below.
+<P></P></OL>
+<P>These can be configured by editing the epsmerge file <EM>epsmerge</EM>; look
+for the section `User serviceable parts'.</P>
+<P>
+<HR>
+<H1><A NAME="how to generate multiple files">How to generate multiple files</A></H1>
+<P>epsmerge can print multiple files as follows: if you call epsmerge with
+something like</P>
+<P><STRONG>epsmerge</STRONG> <STRONG>-x</STRONG> <EM>x</EM> <STRONG>-y</STRONG> <EM>y</EM> <STRONG>-o</STRONG> foo.eps filea.eps fileb.eps ...</P>
+<P>where the number of input files is greater than the product of <EM>x</EM> and
+<EM>y</EM>, then epsmerge will generate several output files.  In the first
+file, epsmerge will format the first <EM>xy</EM> input files; the second
+output file will contain the next <EM>xy</EM> input files, etc.  (As usual,
+if there are not enough input files to fill the last output file
+then some of the spaces will be blank.)  Note that all files will be
+formatted with <EM>exactly</EM> the same options.</P>
+<P>The filenames of the output files will be generated by the given
+filename (in the example <STRONG>foo.eps</STRONG>) as follows: If less than 10 files
+are generated, then they will be named <STRONG>foo-0.eps</STRONG>, <STRONG>foo-1.eps</STRONG>, etc.
+If 10 or more but less than 100 files are generated, then they will be
+named <STRONG>foo-00.eps</STRONG>, <STRONG>foo-01.eps</STRONG>, etc.  Thus the output files are
+generated in alphabetical order.  And are thus easier to handle
+wholesale by the shell as <STRONG>foo-??.eps</STRONG>.</P>
+<P>Alternatively, if you use the <STRONG>--postscript</STRONG> option, you will get a
+single postscript file with <EM>xy</EM> EPS files formatted on each page.</P>
+<P>Unless specified otherwise, this will be decided by looking at the
+file's extension: if the file is called <STRONG>foo.eps</STRONG> you get multi-file
+EPS'es; if the file is called <STRONG>foo.ps</STRONG> you get single-file multi-page
+(non-encapsulated) postscript.
+=head1 Examples of usage</P>
+<P>These examples assume that you have set up an epsmerge script somewhere
+in your path.  See <A HREF="#the path">The Path</A> below.</P>
+<UL>
+<LI>
+Format five EPS files into one:
+<PRE>
+        epsmerge -o newfile.eps file-a.eps file-b.eps file-c.eps file-d.eps file-e.eps</PRE>
+<P>or let the shell do the job (remember: the shell is your <EM>friend</EM>!)</P>
+<PRE>
+        epsmerge -o newfile.eps file-?.eps</PRE>
+<P></P>
+<LI>
+Reformat a single EPS file to fit one A4 page with 1 centimetre margins
+everywhere and send it to the printer (note the pipe at the end):
+<PRE>
+        epsmerge -lmar 1cm -rmar 1cm -tmar 1cm -bmar 1cm --print myfile.eps | lpr</PRE>
+<P>This time use default margins, but print in landscape mode on letter paper:</P>
+<PRE>
+        epsmerge -O L -paper letter --print y myfile.eps | lpr</PRE>
+<P></P>
+<LI>
+Format a page with three EPS files in the first row and just two in the second:
+<P>First method leaves a space in the lower right corner where the sixth cell should
+have been:</P>
+<PRE>
+        epsmerge -o myoutputfile.eps -x 3 -y 2 file-11.eps file-12.eps file-13.eps \
+        file-21.eps file-22.eps</PRE>
+<P>Second method uses <STRONG>epsmerge</STRONG> to create temporary files:</P>
+<PRE>
+        epsmerge -o tmp1.eps -x 3 -y 1 file-11.eps file-12.eps file-13.eps
+        epsmerge -o tmp2.eps -x 2 -y 1 file-21.eps file-22.eps
+        epsmerge -x 1 -y 2 -o myoutputfile.eps tmp1.eps tmp2.eps</PRE>
+<P></P>
+<LI>
+For each included EPS file write below it its name with .eps extension
+stripped off, and creation date.  The output file should have filename
+and creation date written above all the included EPS files.  The font
+sizes should be 20 and 30, respectively:
+<PRE>
+        epsmerge -o myoutput.eps --labels bFd20 --header tfd30 a.eps b.eps c.eps</PRE>
+<P></P>
+<LI>
+I want to write my EPS files with labels (a), (b), (c), etc.
+<PRE>
+        epsmerge -o myoutput.eps --labels s --script '&quot;(&quot; . chr( ord(&quot;a&quot;)+$n ) . &quot;)&quot;' a.eps b.eps c.eps d.eps</PRE>
+<P>(Note the single quotes preventing the UNIX shell from messing with the
+script.  If you are not on a UNIX shell, consult your local system guru
+(possibly yourself) for how to prevent the shell from tampering with
+your data.)</P>
+<P></P>
+<LI>
+I am confused about the variables available to my script.  What do I do?
+<PRE>
+        epsmerge -o myoutput.eps --labels sss --headers sss --script '&quot;(\$n,\$l)=($n,$l)&quot;' ?.eps</PRE>
+<P>where ?.eps is your favourite selection of simple EPS files.  Note that
+the shell strips the outer single quotes, so the inner double quotes say
+to Perl: this is an interpolated string.  Also try it without the
+<STRONG>--headers</STRONG> switch.</P>
+<P></P>
+<LI>
+I have ten EPS files, and I want them formatted to some files, each
+containing four input files.
+<PRE>
+        epsmerge -o page.eps -x 2 -y 2 firstfile.eps [ ... ] tenthfile.eps</PRE>
+<P>This will generate the ouput files <STRONG>page-0.eps</STRONG> (containing the first four
+input files), <STRONG>page-1.eps</STRONG> (containing the next four), and <STRONG>page-2.eps</STRONG>
+(containing the last two).</P>
+<P>Alternatively, generate a single postscript file:</P>
+<PRE>
+        epsmerge -o pages.ps -x 2 -y 2 -ps firstfile.eps [ ... ] tenthfile.eps</PRE>
+<P></P></UL>
+<P>
+<HR>
+<H1><A NAME="using postscript">Using Postscript</A></H1>
+<P>As of version 1.2.4, epsmerge has support for reading non-encapsulated
+(i.e., consisting of several pages) postscript (provided that the
+postscript file has a bounding box DSC).  By default, it does that with
+a postscript file, i.e., if the file <EM>warp-drive.ps</EM> contains eight
+pages, then it will get expanded as eight pages in your input.  Example:</P>
+<PRE>
+        epsmerge -o foo.ps -x 2 -y 2 warp-drive.ps</PRE>
+<P>will take the pages of the file <EM>warp-drive.ps</EM> and reformat them
+into a postscript file with four of the original pages on each page.</P>
+<P>However, you can pick out which pages you actually want, in any order
+you want.  Example: if you write</P>
+<PRE>
+        epsmerge -o foo.ps -x 2 -y 2 bar.eps eek.ps:3,1,5-9,4 moo.eps</PRE>
+<P>then epsmerge will generate a three page postscript file with four (two
+by two) images on each page; the first image will be <EM>bar.eps</EM>, the
+next three images on the first page will be pages 3, 1, and 5 of
+<EM>eek.ps</EM>.  The second page will contain pages 6, 7, 8, and 9 of
+<EM>eek.ps</EM>.  The third and final page will contain page 4 of <EM>eek.ps</EM>
+and <EM>moo.eps</EM>.</P>
+<P>Observe that in the specification</P>
+<PRE>
+        eek.ps:3,1,5-9,4</PRE>
+<P>there is <EM>no space</EM> anywhere.  The format is <EM>filename</EM> followed by the
+<EM>separator</EM> followed by a sequence of comma-separated numbers in which a dash
+between two numbers <EM>5-9</EM> is interpreted as the range <EM>5,6,7,8,9</EM>.  If the
+separator is not immediately followed by a sequence of integers as described,
+then it is interpreted as a part of the filename.  You can also use a dollar
+sign to mean the last page.</P>
+<P>The above example assumes that the <EM>separator</EM> is the single character
+`:'.  However, this might have been changed when epsmerge was installed (see
+section <A HREF="#further customization">Further customization</A> for details).  Type</P>
+<PRE>
+        epsmerge -?</PRE>
+<P>displays the separator (along with lots of options and things).</P>
+<P>
+<HR>
+<H1><A NAME="the path">The Path</A></H1>
+<P><STRONG>epsmerge</STRONG> is distributed as several files: the main file and several
+files with .pm extension (Perl modules).  If you use <STRONG>epsmerge</STRONG> often, you may
+consider writing a script telling Perl where to find epsmerge.  On a UNIX system
+your script could look like this (one line):</P>
+<PRE>
+        /usr/bin/perl -I/home/foo/epsm/ /home/foo/epsm/epsmerge $@</PRE>
+<P>assuming you unpacked epsmerge in the directory /home/foo/epsm and that <EM>perl</EM> is
+in /usr/bin.  Make the script executable (with <EM>chmod</EM>) and put it in your path.
+If the script is called <EM>epsmerge</EM> then you can go to your favourite EPS directory
+and merge away by just writing <EM>epsmerge</EM> (plus all the options and filenames).</P>
+<P>
+<HR>
+<H1><A NAME="terminology and abbreviations">Terminology and abbreviations</A></H1>
+<P><STRONG>Bounding Box</STRONG>: Part of Adobe's DSC (qv).  As far as epsmerge is concerned,
+this is the most important part of any (encapsulated or not) postscript file.</P>
+<P><STRONG>DSC</STRONG>: Document Structuring Conventions.  Adobe's DSC specify how an EPS file
+is formatted by requiring certain comments, all starting with %% and then a
+keyword.  Example: '%%BoundingBox: 0 0 485 384'.</P>
+<P><STRONG>EPS</STRONG>: Encapsulated Postscript.  This is a file that contains postscript commands
+to draw a figure which may later be included in other postscript documents.  The
+first line of an EPS file must look something like '%!PS-Adobe-3.0 EPSF-3.0'.
+Observe that, unlike postscript files, an EPS file can only be <EM>one</EM> page.</P>
+<P><STRONG>Perl</STRONG>: Practical Extraction and Report Language.  Or as its many fans will
+have it: Pathologically Eclectic Rubbish Lister.  Chosen for portability; although
+developed for a UNIX (Linux) system, <STRONG>epsmerge</STRONG> <EM>might</EM> run happily on many
+other platforms (currently it doesn't, though).  Oh, and Perl is <EM>fun</EM>, too.
+See
+<A HREF="http://www.perl.com/">http://www.perl.com/</A></P>
+<P>
+<HR>
+<H1><A NAME="author">Author</A></H1>
+<P>Jens G Jensen &lt;<A HREF="mailto:jens@argaeus.ma.rhul.ac.uk">jens@argaeus.ma.rhul.ac.uk</A>&gt;</P>
+<P>
+<HR>
+<H1><A NAME="warranty and copyright">Warranty and Copyright</A></H1>
+<P><STRONG>epsmerge</STRONG> is distributed under the GNU General Public Licence:
+<A HREF="http://www.gnu.org/copyleft/gpl.html">http://www.gnu.org/copyleft/gpl.html</A></P>
+<PRE>
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.</PRE>
+<PRE>
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.</PRE>
+<P>
+<HR>
+<H1><A NAME="bugs">Bugs</A></H1>
+<UL>
+<LI>
+Doesn't yet support page specific DSC, like %%PageOrientation or
+%%Begin(End)PageSetup, etc.
+<P></P>
+<LI>
+Using the stack formatter with options from the other formatter is,
+cough, undefined.  In fact, the stack formatter is a bit of a hack.
+Expect unusual behaviour occasionally.
+<P></P>
+<LI>
+A company called ``Microsoft'' produces a program, ``Word'', which,
+judging from the name, must be a text editor.  It would appear, though,
+that this editor can also somehow produce EPS files.  epsmerge does not
+read these files well, or at all.  Not sure why.
+<P></P></UL>
+<P>
+<HR>
+<H1><A NAME="references">References</A></H1>
+<P>
+<HR>
+<H1><A NAME="see also">See also</A></H1>
+<P><STRONG>a2ps</STRONG>, the all-to-postscript program at
+<A HREF="http://www-inf.enst.fr/~demaille/a2ps/">http://www-inf.enst.fr/~demaille/a2ps/</A></P>
+<P><STRONG>psutils</STRONG>, Angus Duggan's postscript utility programs; in particular,
+there is a program for putting several postscript <EM>pages</EM> into one page
+(<STRONG>psnup</STRONG>), and also a program for fitting one EPS file into a
+constrained box (<STRONG>epsffit</STRONG>), and <STRONG>psmerge</STRONG>, a program for merging
+several postscript documents (created with the same application) into
+one document.</P>
+<P>
+<HR>
+<H1><A NAME="trademarks">Trademarks</A></H1>
+<P><STRONG>Postscript</STRONG> is a trademark of Adobe Systems Inc.</P>
+
+</BODY>
+
+</HTML>

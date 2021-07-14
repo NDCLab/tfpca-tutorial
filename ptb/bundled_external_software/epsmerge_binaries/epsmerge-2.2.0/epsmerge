@@ -1,0 +1,232 @@
+#!/usr/bin/perl -w
+# -*- perl -*-
+
+# epsmerge: A Perl script to merge several encapsulated postscript files
+# into one single EPS file.
+
+# Copyright (C) 1998-1999 Jens G. Jensen
+# Currently: jens@argaeus.ma.rhbnc.ac.uk
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+# Or see http://www.gnu.org/copyleft/gpl.html
+
+# $Id: epsmerge,v 1.15.2.3 2000/01/30 13:56:23 jens Exp $
+
+############################################################################
+####									####
+####		    BEGIN USER SLIGHTLY SERVICEABLE PARTS		####
+####									####
+############################################################################
+
+# These are things that you might want to configure for your site (defaults
+# and suchlike) which I didn't really want to have in a config file anywhere.
+
+# See function check_paper at the end of this file for a list of which
+# paper sizes are accepted.
+
+$Default_Paper_Size = 'A4';
+
+# Filename-pagenumber separator.  Used to indicate which pages in a
+# multi-page (non-encapsulated) postscript file you are interested in.
+# For example, if the separator is '::' then the filename
+# spadz.ps::1,3-4
+# says that you want pages 1, 3, 4 from the postscript file spadz.ps
+# The separator doesn't have to be a single letter.
+
+$Separator = ':';
+
+# The following says whether scripts are, in general, allowed.  It is
+# possible for users to specify a script for the labels so that the
+# text of the label is ``calculated'' from indices, etc.
+
+#$Allow_Scripts = 1;
+
+############################################################################
+####									####
+####		    END USER SLIGHTLY SERVICEABLE PARTS			####
+####									####
+############################################################################
+
+# if invoked via a symlink, add pointed-to-directory to include path;
+# directory might be "ugly" (i.e., 'foo//./bar/' etc) but should work
+# on all Unixen.  BEGIN makes this black magic run early.
+
+BEGIN {
+    if( -l $0 ) {
+	my $dir = readlink $0;
+	if( $dir !~ m+^/+ ) {				# relative path
+	    my $where;					# get dir from $0
+	    ($where = $0) =~ s![^/]*$!!;
+	    $dir = $where . $dir;
+	}
+	$dir =~ s![^/]+$!!;				# again kill basename
+	unshift @INC, "$dir/lib";				# add to include path
+    }
+}
+
+# Apologies in advance for having long lines throughout this project.  Yes, this is also one of them.
+
+require 5;
+use strict;
+use Options;
+use Driver;
+use Io;
+
+use vars qw| $Default_Paper_Size $Separator |;
+
+my $Official_Version = '2.2.0 "Bethnal Green"';
+
+# See the POD in Options.pm for what all this stuff is.
+my $opts = Options->new([
+			 # Special options
+			 [ '-h', '--help', ':b', undef, 0, 'Display help message, then exit' ],
+			 [ '-v', '--version', ':b', undef, 0, 'Display version info, then exit' ],
+			 # General options
+			 [ undef, '--header', '=s', undef, '', 'A label specifier for the generated eps file' ],
+			 [ undef, '--labels', '=s', undef, '', 'Label specifier for the included eps files' ],
+			 [ '-fn', '--font', '=s', undef, 'Times-Roman', 'The name of the font used to print labels' ],
+			 [ '-o', '--output-file', '=s', undef, 'stdout', 'Filename of the to-be-generated eps file' ],
+			 [ '-O', '--orientation', '=s', \&check_orientation, 'P', 'Landscape or Portrait?' ],
+			 [ '-p', '--paper', '=s', \&check_paper, check_paper($Default_Paper_Size), 'Paper size (e.g., A4, letter)' ],
+			 [ '-ph', '--paper-height', '=s', \&check_length, '', 'Physical height of output' ],
+			 [ '-pw', '--paper-width', '=s', \&check_length, '', 'Physical width of output' ],
+			 [ undef, '--print', ':b', \&check_bool, 0, 'Generates a \`showpage\' for output to printer' ],
+			 [ undef, '--script', '=s', undef, '', 'A perl script for generating labels' ],
+			 [ '-ps', '--postscript', ':b', \&check_bool, 'default', 'Generate postscript output' ],
+			 # Formatting options
+			 [ undef, '--stack', ':b', \&check_bool, 0, 'Stack images horiz or vert' ],
+			 [ '-x', undef, '=i', \&check_posint, 0, 'How many images per row' ],
+			 [ '-y', undef, '=i', \&check_posint, 0, 'How many images per column' ],
+			 [ '-lmar', undef, '=s', \&check_poslength, '20', 'Size of left margin' ],
+			 [ '-rmar', undef, '=s', \&check_poslength, '20', 'Size of right margin' ],
+			 [ '-tmar', undef, '=s', \&check_poslength, '20', 'Size of top margin' ],
+			 [ '-bmar', undef, '=s', \&check_poslength, '20', 'Size of bottom margin' ],
+			 [ '-xcs', undef, '=s', \&check_length, '20', 'Horizontal spacing between images' ],
+			 [ '-ycs', undef, '=s', \&check_length, '20', 'Vertical spacing between images' ],
+			 [ '-cs', undef, '=s', \&check_length, '0e0', 'Spacing between images' ],
+			 [ '-rmo', undef, ':b', \&check_bool, 1, 'Arrange in row-major-order (first rows then cols)' ],
+			 [ '-par', undef, ':b', \&check_bool, 0, 'Preserve aspect ration' ],
+			 [ '-prs', undef, ':b', \&check_bool, 0, 'Preserve relative sizes of images' ],
+			 [ undef, '--ignore-eof', ':b', \&check_bool, 0, 'Ignore %%EOF comments in EPS files' ],
+			 ],
+			\@ARGV,
+			".epsmergerc",
+			"\$_ $Official_Version; usage:\n\t\$_ [options] <files>\nwhere file can be <postscriptfile>$Separator<pagenumbers> and default paper size is $Default_Paper_Size"
+			);
+
+if( $opts->getopts('h') ) {
+    $opts->usage();
+    exit(0);
+}
+
+if( $opts->getopts('v') ) {
+    print_version();
+    exit(0);
+}
+
+$opts->setopts(v => $Official_Version);
+
+$opts->setopts(files => \@ARGV);
+
+unless( @ARGV ) {					# no files specified
+    $opts->usage();
+    exit(1);
+}
+$opts->forget();					# save some memory
+Driver_Console->new()->main_loop();
+
+
+
+
+sub print_version {
+    print STDOUT "epsmerge $Official_Version: merge encapsulated postscript files.\n";
+}
+
+sub print_license {
+    print STDOUT <<LICENSE;
+epsmerge Copyright (C) Jens G Jensen 1998-2000.
+epsmerge is distributed "AS IS" under the GNU General Public License in the
+hope that it may be useful; see the file COPYING for details.
+LICENSE
+}
+
+# Value checker functions
+
+sub check_length {
+    $_ = shift;
+    no integer;
+    my $number = '[+-]?(\d+.?\d*|\.\d+)';
+    if( /^(${number})cm$/io ) {
+	return 28.346457 * $1;
+    }
+    if( /^(${number})mm$/io ) {
+	return 2.8346457 * $1;
+    }
+    if( /^(${number})in$/io ) {
+	return 72 * $1;
+    }
+    return $_ if /^${number}$/o;
+    return;
+}
+
+sub check_poslength {
+    $_ = check_length(@_);
+    return $_ if defined $_ && $_ > 0;
+    return;
+}
+
+sub check_bool {
+    $_ = shift;
+    return 1 if(/^1$/ || /^y(es)?$/i || /^t(rue)?$/i);
+    return 0 if(/^0$/ || /^no?$/i || /^f(alse)?$/i || /^nil$/i);
+    return;
+}
+
+sub check_posint {
+    $_ = shift;
+    return $_ if /^[1-9]\d*$/;
+    return;
+}
+
+sub check_orientation {
+    $_ = shift;
+    return 'P' if /^p/i;
+    return 'L' if /^l/i;
+    return;
+}
+
+sub check_posfloat {
+    $_ = shift;
+    return $_ if /^\d+\.?\d*$/ || /^\d*\.\d+$/;
+    return;
+}
+
+# Converts a name (if recognized) into a ref to an array with dimensions
+sub check_paper {
+    my $sizeref = {
+	'a2' => [ 1190, 1684 ],
+	'a3' => [ 842, 1190 ],
+	'a4' => [ 595, 842 ],
+	'a5' => [ 420, 595 ],
+	'b4' => [ 709, 1001 ],
+	'b5' => [ 499, 709 ],
+	'letter' => [ 612, 792 ],
+	'tabloid' => [ 792, 1224 ],
+	'ledger' => [ 1224, 792 ],
+	'legal' => [ 612, 1008 ],
+	'executive' => [ 540, 720 ],
+    }->{ lc( shift ) };
+    return $sizeref;
+}
