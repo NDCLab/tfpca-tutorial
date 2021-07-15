@@ -1,0 +1,248 @@
+        EMF11P PROGRAMMER'S GUIDE
+
+        File:   EMF11P.GID
+        Author: Gregory A. Miller
+        Date:   4/2/88
+
+Introduction
+
+        This file is a brief user's guide for program EMF11P, an adaptation
+(Miller, Gratton, & Yee, 1988) to RT-11 Fortran IV of Gabriele Gratton's EMCP
+software for eye movement correction in EEG data (Gratton, Coles, & Donchin,
+1983). The present file provides an introductory discussion to a number of
+aspects of the program. More extensive documentation is provided in file
+EMF11P.TXT.
+
+        The adaptation to RT-11 Fortran IV was not intended for maximum
+portability to other vendors' compilers, but compatibility with other
+compilers (Fortran IV and Fortran 77) should be quite high, and conversion for
+other DEC compilers should be trivial. Conversion hints are included below. As
+of this writing, two other labs have successfully adapted the program to their
+own RT-11 systems, and another lab has begun conversion to a Hewlett-Packard
+machine. The original code developed by Gratton ran under the Fortran 66
+compiler of a Harris H800 machine. Its vendor-specific structured-language
+features made it far more difficult to adapt to other compilers. Much of the
+initial work of developing the RT-11 version consisted of replacing the
+structured-language features with standard Fortran IV language.
+
+Notes on Eye Movement Correction Algorithm
+
+        For N channels of ERP data, the EMCP algorithm (see Gratton et al.,
+1983) computes 2xN correction factors. That is, for each channel, it computes
+blink and saccade correction factors separately. Virtually all data points
+across all trials are used in the computation. Trials are scanned for blinks;
+all data points classified as not involved in a blink are used to compute
+correction factors for saccades.
+
+        Two screening rules are built into the program: (1) "flat spots"
+(defined as 5 or more consecutive points having the same value within any
+channel) and (2) data off-scale. The former might seem to be subsumed by the
+latter, but sometimes data have already had a baseline removed, and in some
+cases such data will consist of all zeroes. Thus, flat-spot checking allows
+detection of data off-scale regardless of baseline. If any channel in a trial
+is found to have a flat spot or to be off-scale for all or part of a trial,
+that trial is excluded from the computations of correction factors and from
+the computations of uncorrected and corrected averages. Of course, future
+users in other labs may wish to alter or augment these screening rules as they
+see fit.
+
+Input
+
+        Data are processed (read and number-crunched) one trial at a time.
+Prefixed to the data for each trial are values of the same data type which
+serve as descriptors of the data. These descriptors are called IDs. Typically
+in Donchin's lab and in mine, 20-50 IDs are stored with the data for each
+channel for each trial. This can consume a large amount of disk or tape space.
+However, these IDs facilitate (a) trial selection and (b) passing of channel-
+and trial-specific information to number-crunching and scoring programs. The
+way EMF11P makes use of such information is documented below.
+
+Output
+
+        There are 4 output files, typically distinguished by the RT-11 file
+name extensions .E1, .E2, .E3, and .E4.  The .E1 file consists of cross-trial
+averages of corrected data; the .E2 is identical except is based on
+uncorrected data.  The .E3 file, which is optional, consists of the corrected
+single trials.  The .E4 file is essentially a log of the run of the program,
+including lists of excluded trials, trials with blinks, and correction
+factors.
+
+More Than One EOG Channel
+
+        EMCP was originally developed to correct midline EEG data for vertical
+eye movement artifact. I extended it to handle other EOG channels on the
+assumption that a VEM channel would represent blinks sufficiently. Thus, to
+correct for both vertical and horiztonal eye movement artifact (VEM and HEM),
+the program is run twice. During the first pass, the HEM channel is treated as
+an EEG channel, and VEM blink and saccade corrections are done for the HEM and
+EEG channels. During the second pass, the EEG channels are corrected for HEM
+artifact, with blink detection and correction code turned off. Gratton has
+independently done a similar extension of his Harris Fortran program.
+
+Program Size and Execution Speed
+
+        The program is big relative to the address space of a 16-bit machine
+such as the PDP-11. Extensive use is made of the ability of PDP-11 Fortran to
+maintain arrays outside of the default 16-bit address space -- what are called
+"virtual arrays". The program's very substantial array usage depends largely
+on the dimensions of the data for one trial.
+
+        For example, the first RT-11 version I created, EMF11A, was set up for
+4 channels of data per trial (VEM and 3 EEG channels), 780 points per channel,
+and 3 'bins' (a 'bin' is what is commonly called a 'condition'; rare and
+frequent tones in an oddball study constitute two different bins; the program
+wants to use the highest bin as a garbage bin, so there should be one more bin
+dimensioned than there are conditions; see discussion of the concept of 'bins'
+below). In this configuration, about 1000 words of non-virtual and 74,000
+words of virtual array storage were used, and the .MAP file showed a task size
+of less than 18,000 words. (The total task -- lower memory + virtual arrays --
+filled most of a 128K word = 256KB addressing space.) Depending on a user's
+needs, arrays could be re-dimensioned, and more or less of them declared
+virtual. With that configuration, 30 trials in each of two bins took 42
+minutes with output of corrected single trials (11/73, RL02, and unloaded
+TSX-Plus system; job size was 207KB).
+
+        Another version, EMF11B, set up for 7 channels, 100 points per
+channel, and 5 bins, included only 23K words of virtual array space, with the
+.MAP showing 25K words for the task size and a run-time task size of 108KB. It
+processes 4000 trials, including single-trial correction, in 2 hours and 50
+minutes, on an 11/73 w/ FPA chip and relatively fast MSCP/DU: winchester disk.
+
+        Another version, EMF11D, set up for 4 channels, 125 points, and 11
+bins, processed 1500 trials in 60 minutes, including single-trial correction.
+
+        The present version, EMF11P, processes the sample data set (25 trials,
+4 channels, 125 points, 4 bins; see below) in about 2 minutes.
+
+        Execution is much faster if corrected single trials are not requested
+(uncorrected and corrected averages are output in any case). Single-trial
+correction requires a second pass on the input file and can double the run
+time. In addition to reading the input a second time, a nearly equal amount of
+output must be written.
+
+Specification File
+
+        A number of parameters or specifications are set by the user without
+having to re-compile the program. The program reads a standard specification
+file provided by the user, defining such things as number of channels, whether
+to produce the .E3 file of corrected single trials, etc. An important feature
+is the definition of each bin on the basis of specific values of specific IDs.
+Details on and examples of the specification file are provided in file
+EMF11P.TXT.
+
+The Concept of "Bins"
+
+        Prior to computing correction factors, the EMCP algorithm subtracts
+the average ERP from each single trial. (This is done separately for each
+channel.) The user must define the appropriate average to be removed from each
+trial. This is done at the end of the specification file, where 1 or more
+'bins' are defined. A bin is defined by a list of ID numbers and a value for
+each ID (see documentation in subroutines 'CHECK' and 'SELECT'). This is a
+scientific question, not a programming issue. All trials meeting the ID
+selection criteria for a specific bin are averaged together; that average is
+then subtracted from each of those single trials. What is needed is to define
+a bin such that all systematic, event-related activity is captured in the
+average, so that the single-trial residual will not contain event-related
+activity. Thus, when the correlation between EOG and an EEG channel is
+computed, it will not be contaminated by event-related activity.
+
+        For example, the two types of trials in a traditional oddball study
+should probably be defined as separate bins. The user may also want to
+distinguish between "fast" and "slow" trials in a reaction-time task, or
+between 4 categories in a signal detection task.
+
+        Note that only a single blink correction factor and a single saccade
+correction factor are computed, despite the existence of multiple bins. Data
+across trials are able to be pooled to compute a single correction factor
+precisely because the event-related activity which distinguishes the bins has
+been removed by subtracting from each trial the average for the bin it falls
+into.
+
+Miscellaneous Program Notes
+
+        The code is written assuming that the Fortran compiler can read all
+80 columns (unlike the old Fortran convention of 72 columns). This is a
+standard feature of PDP-11 Fortran IV (under RT-11, this feature is enabled by
+using the /EXTEND switch on the FORT command). If your compiler is limited to
+72 columns, you'll want to edit the source file by adding continuation lines.
+
+        Extensive commenting of the source code is implemented partly by
+reliance on the DEC Fortran convention that everything on a line following
+a "!" character is treated as a comment by the compiler.  If your compiler
+behaves differently, you'll want to edit the source file accordingly.
+
+        DEC Fortran array declarations can be done with data type declaration
+statements, and these, optionally, can indicate the physical size in bytes for
+each storage location. For example, a single-precision real number consumes 4
+bytes (= 2 words = 32 bits) of memory, so the declaration is REAL*4. This may
+have to be adjusted for other compilers.
+
+        Subroutine 'OPNFIL' does nearly all of the file opening for the
+program. Adaptations for other systems will undoubtedly need to redesign this
+subroutine. As it implements particular file-naming conventions, that, too,
+may have to change on other systems.
+
+Sample Data Set
+
+        Sample data and EMCP output are included with the present set of
+files, to facilitate new users verifying the operation of the program on their
+system. The sample data files were collected from one pilot subject (#105) run
+using program DT1.SAV in an ERP study of a dual-task paradigm. In the
+paradigm, auditory and visual stimuli alternated at a varying ITI averaging
+1400 msec, with the subject instructed to make a choice reaction-time response
+to stimuli in one modality in some trial blocks, in the other modality in some
+blocks, and to both in some blocks. Each block consisted of 50 auditory and 50
+visual trials.
+
+        The sample data are 25 auditory trials selected from the second block,
+for which the task was auditory-only. The auditory task consisted of a
+50/50-probability oddball involving pitch discrimination. DT1.SAV produced raw
+data files named D1105z.RW (a separate file was written for each block,
+denoted by the 'z'). For each trial, vertical EOG, Fz, Cz, and Pz channels
+were sampled every 8 msec for 1000 msec beginning 80 msec prior to stimulus
+onset. A record of 20 integers of identifying information (IDs) plus 500
+integers of data (4 channels x 125 points) was written for each trial. A
+second program (DTA1.SAV) was run on the *.RW files to produce D1105A.RE, in
+which data are converted from A/D units to 10ths of microvolts, and the data
+for the separate blocks are concatenated. A third program (DO4ED.FOR) was run
+on that to produce D1105A.ED, containing the selected 25 trials.
+
+        The eye-movement correction program, EMF11P.SAV, was run on D1105A.ED,
+using specification file EMF11P.SPC, to produce 4 files named D1105A.En (n = 1
+2 3 4). The format of all data files (except the .RW and .RE files, not
+included in the present set) is 10I6 ASCII.
+
+        EMF11P.SPC was set up for 4 bins -- low tone/correct, low
+tone/incorrect, high tone/correct, and high tone/incorrect. This subject had
+no incorrect trials in this block, so bins 2 and 4 contain no trials. Also,
+bin 5 (the "garbage" bin) is empty, as all 25 trials met criteria for another
+bin. Because EMF11 outputs averages only for bins containing trials, only 2
+bins of averages were written to the .E1 and .E2 files.
+
+        This subject produced virtually no large saccades, so no major
+examples are included in the sample data set. Of the 25 trials, the following
+8 have blinks --
+        original trial number within block 2:   8 12 30 34 40 80 88 90
+        sequence number in current data file:   4  6 14 16 19 20 24 25
+
+        Trials 19 and 24 have the biggest blinks. Trial 25 has the smallest.
+The user should consider whether apparent blinks as small as that in trial 25
+are worth classifying as a blink. All non-blink points are used in
+computations for saccades. Thus, the points contained in a small blink such as
+trial 25's would be used for computing the saccade correction factors, if
+those points are not classified as a blink.
+        The issue of exactly what the cutoff is between blink and non-blink is
+probably not greatly important. In general, the correction factors for blinks
+and saccades differ somewhat. However, the smaller the blink in question, the
+less is the impact of the difference between the two correction factors.
+        Note trial 13, in which a blink begins just as the trial ends. In this
+run, the algorithm did not classify this as a blink. Such cases -- that is,
+when only a part of a blink occurs in a trial -- are not always caught by the
+algorithm. Adjustments to the EOGSEN parameter in the .SPC specification file
+or to the line beginning ICRIT= in the .FOR source file may alter the
+likelihood of such cases being classified as a blink.
+
+        File SAMPLE.DAT is an annotated listing of the first 4 corrected
+single trials.
+
+

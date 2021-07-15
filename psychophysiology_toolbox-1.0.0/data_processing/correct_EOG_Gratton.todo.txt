@@ -1,0 +1,9 @@
+I was looking at the emcp code, and I noticed that there is a variable
+N_ELECT that is defined to be 65 in several of the source files.  That
+should probably be increased when you recompile to accommodate larger
+arrays, since it might overflow the buffer.
+
+thanks,
+
+Bill  
+
