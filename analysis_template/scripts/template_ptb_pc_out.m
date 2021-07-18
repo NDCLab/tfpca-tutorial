@@ -23,8 +23,17 @@ load(['../output_data' filesep 'Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16
 % PC weighting
 % before doing this, cut data down to part of surface that pca was run (7:19 - freq3-8hz, 17:49 - time-500ms~500ms)
 % avg power with pc weighting 
-factors = 1;
-channel = 1:31;
+factors = size(Pmat,3);
+
+chan_number = size(avgTFD, 3);
+channel = 1:chan_number;
+
+% cut data down to part of surface that pca was run (freq3-9hz and time-500ms~500ms)
+% To calculate the freq3-9hz: 3*2+1=7 - start freqency; 9*2+1=19 - end frenqency.
+% To calculate the time500ms~500ms: the example data has 32 sampling rate
+% and epoch is from -1000ms~2000ms. The time bin starts from 1 (no negative values) 
+% and 0ms is 33 timebin. Therefore, -500ms is 33-32/2=17; 500ms is 33+32/2=49.
+% Edit those parameters (7:19 & 17:49) based on your own data.
 DataToWeight_avg = avgTFD(:, :, channel, 7:19, 17:49);
 
 facs = length(factors);
@@ -49,8 +58,17 @@ Theta_AvgPower_resp_TFD_pcWeighted.WeightedTFD_avg = WeightedTFD_avg;
 Theta_AvgPower_resp_TFD_pcWeighted.subs = AvgPower_resp_TFD.subs;
 
 % total power with pc weighting 
-factors = 1;
-channel = 1:31;
+factors = size(Pmat,3);
+
+chan_number = size(totalTFD, 3);
+channel = 1:chan_number;
+
+% cut data down to part of surface that pca was run (freq3-9hz and time-500ms~500ms)
+% To calculate the freq3-9hz: 3*2+1=7 - start freqency; 9*2+1=19 - end frenqency.
+% To calculate the time500ms~500ms: the example data has 32 sampling rate
+% and epoch is from -1000ms~2000ms. The time bin starts from 1 (no negative values) 
+% and 0ms is 33 timebin. Therefore, -500ms is 33-32/2=17; 500ms is 33+32/2=49.
+% Edit those parameters (7:19 & 17:49) based on your own data.
 DataToWeight_total = totalTFD(:, :, channel, 7:19, 17:49);
 
 facs = length(factors);

@@ -15,14 +15,19 @@
 load(['../data_cache' filesep 'Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat']);
 
 % the example erpcore data has 38 participants, 3 conditions and 31 EEG
-% channels. Additionally, 33 refers freq bins and 96 time bins that were
-% setup while running tf_pca scripts with ptb. Edit those parameters based
-% on your own data.
-avgTFD = zeros(38,3,31,33,96);
-for sub = 1:38
-    for cat = 1:3
-        for chan = 1:31
-            avgTFD(sub,cat,chan,:,:) = erptfd.data(intersect(intersect(find(erptfd.subnum == sub),find(erptfd.stim.catcodes == cat)),find(erptfd.elec == chan)) , 1:33, 1:96);
+% channels. Additionally, it also has 33 freq bins and 96 time bins that were
+% setup while running tf_pca scripts with ptb.
+subs_number = length(erptfd.subs.name);
+cat_number = length(erptfd.stimkeys);
+chan_number = length(unique(erptfd.elec));
+freq_bin_number = size(erptfd.data, 2);
+time_bin_number = size(erptfd.data, 3);
+
+avgTFD = zeros(subs_number, cat_number, chan_number, freq_bin_number, time_bin_number);
+for sub = 1:subs_number
+    for cat = 1:cat_number
+        for chan = 1:chan_number
+            avgTFD(sub,cat,chan,:,:) = erptfd.data(intersect(intersect(find(erptfd.subnum == sub),find(erptfd.stim.catcodes == cat)),find(erptfd.elec == chan)) , 1:freq_bin_number, 1:time_bin_number);
         end
     end
 end
@@ -57,14 +62,19 @@ save(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat'], 'AvgPower_resp_TFD')
 load(['../data_cache' filesep 'Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat']);
 
 % the example erpcore data has 38 participants, 3 conditions and 31 EEG
-% channels. Additionally, 33 refers freq bins and 96 time bins that were
-% setup while running tf_pca scripts with ptb. Edit those parameters based
-% on your own data.
-totalTFD = zeros(38,3,31,33,96);
-for sub = 1:38
-    for cat = 1:3
-        for chan = 1:31
-            totalTFD(sub,cat,chan,:,:) = erptfd.data(intersect(intersect(find(erptfd.subnum == sub),find(erptfd.stim.catcodes == cat)),find(erptfd.elec == chan)) , 1:33, 1:96);
+% channels. Additionally, it also has 33 freq bins and 96 time bins that were
+% setup while running tf_pca scripts with ptb.
+subs_number = length(erptfd.subs.name);
+cat_number = length(erptfd.stimkeys);
+chan_number = length(unique(erptfd.elec));
+freq_bin_number = size(erptfd.data, 2);
+time_bin_number = size(erptfd.data, 3);
+
+totalTFD = zeros(subs_number, cat_number, chan_number, freq_bin_number, time_bin_number);
+for sub = 1:subs_number
+    for cat = 1:cat_number
+        for chan = 1:chan_number
+            totalTFD(sub,cat,chan,:,:) = erptfd.data(intersect(intersect(find(erptfd.subnum == sub),find(erptfd.stim.catcodes == cat)),find(erptfd.elec == chan)) , 1:freq_bin_number, 1:time_bin_number);
         end
     end
 end
