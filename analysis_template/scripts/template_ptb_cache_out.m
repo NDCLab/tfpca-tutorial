@@ -26,13 +26,13 @@ for sub = 1:38
         end
     end
 end
-AvgPower_resp_MasterTFD.avgTFD = avgTFD;
+AvgPower_resp_TFD.avgTFD = avgTFD;
 
 for i = 1:length(erptfd.subs.name)
     subs_name = erptfd.subs.name{i}(1:2);
     subs(i) = str2double(strrep(subs_name, '_', ''));
 end
-AvgPower_resp_MasterTFD.subs = subs';
+AvgPower_resp_TFD.subs = subs';
 
 % create folder if not exist
 if exist('../extra_out_data','dir') == 0,
@@ -40,7 +40,7 @@ if exist('../extra_out_data','dir') == 0,
 end
 
 % save data
-save(['../extra_out_data' filesep 'AvgPower_resp_MasterTFD.mat'], 'AvgPower_resp_MasterTFD');
+save(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat'], 'AvgPower_resp_TFD');
 
 
 % ---------------------------------------------------------------------------------------------
@@ -68,14 +68,14 @@ for sub = 1:38
         end
     end
 end
-TotalPower_resp_MasterTFD.totalTFD = totalTFD;
+TotalPower_resp_TFD.totalTFD = totalTFD;
 
 for i = 1:length(erptfd.subs.name)
     subs_name = erptfd.subs.name{i}(1:2);
     subs(i) = str2double(strrep(subs_name, '_', ''));
 end
-TotalPower_resp_MasterTFD.subs = subs';
+TotalPower_resp_TFD.subs = subs';
 
 % save data
-save(['../extra_out_data' filesep 'TotalPower_resp_MasterTFD.mat'], 'TotalPower_resp_MasterTFD');
+save(['../extra_out_data' filesep 'TotalPower_resp_TFD.mat'], 'TotalPower_resp_TFD');
 

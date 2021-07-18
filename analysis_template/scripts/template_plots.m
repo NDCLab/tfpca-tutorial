@@ -8,9 +8,9 @@
 %                     Weighted TFD(total power) Plotting
 %
 % ------------------------------------------------------------------------
-load(['../extra_out_data' filesep 'Theta_TotalPower_resp_MasterTFD_pcWeighted.mat']);
+load(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
 
-WeightedTFD_total = Theta_TotalPower_resp_MasterTFD_pcWeighted.WeightedTFD_total;
+WeightedTFD_total = Theta_TotalPower_resp_TFD_pcWeighted.WeightedTFD_total;
 
 % select conditions - the example data has 3 conditions: 
 % 1: congruent & correct;
@@ -151,13 +151,13 @@ colorbar;
 %           Baseline Corrected TF Surface(total power) Plottig
 %
 % ------------------------------------------------------------------------
-load(['../extra_out_data' filesep 'TotalPower_resp_MasterTFD_baseRemoved.mat']);
-MasterTFD_baseRemoved_total = TotalPower_resp_MasterTFD_baseRemoved.MasterTFD_baseRemoved_total;
+load(['../extra_out_data' filesep 'TotalPower_resp_TFD_baseRemoved.mat']);
+TFD_baseRemoved_total = TotalPower_resp_TFD_baseRemoved.TFD_baseRemoved_total;
 
 % select conditions
-TFD_congruent_corr = squeeze(MasterTFD_baseRemoved_total(:,1,:,:,:));
-TFD_incongruent_error = squeeze(MasterTFD_baseRemoved_total(:,2,:,:,:));
-TFD_incongruent_corr = squeeze(MasterTFD_baseRemoved_total(:,3,:,:,:));
+TFD_congruent_corr = squeeze(TFD_baseRemoved_total(:,1,:,:,:));
+TFD_incongruent_error = squeeze(TFD_baseRemoved_total(:,2,:,:,:));
+TFD_incongruent_corr = squeeze(TFD_baseRemoved_total(:,3,:,:,:));
 
 % average across select channels - edit the cluster based on your own data 
 chansToAvg = [20];
@@ -225,9 +225,9 @@ colorbar();
 % "xxx-fac1-PCs.mat" stores the 1pc weights/time-frequency PCA loadings (derived from the average power TF surface)
 % here take 1 factor as an example. You can load the data that you are
 % interested (i.e. "xxx-fac2-PCs.mat", "xxx-fac3-PCs.mat" etc.)
-load(['../extra_out_data' filesep 'Theta_TotalPower_resp_MasterTFD_pcWeighted.mat']);
+load(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
 
-DataToPlot = Theta_TotalPower_resp_MasterTFD_pcWeighted.Pmat;
+DataToPlot = Theta_TotalPower_resp_TFD_pcWeighted.Pmat;
 
 [height width] = size(DataToPlot);
 figure(7);

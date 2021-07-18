@@ -8,11 +8,11 @@
 % 
 % ---------------------------------------------------------------------------------------------
 % load the average and total power data that has been already saved in "../extra_out_data" folder with "template_ptb_cache_out.m"
-load(['../extra_out_data' filesep 'AvgPower_resp_MasterTFD.mat']);
-avgTFD = AvgPower_resp_MasterTFD.avgTFD;
+load(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat']);
+avgTFD = AvgPower_resp_TFD.avgTFD;
 
-load(['../extra_out_data' filesep 'TotalPower_resp_MasterTFD.mat']);
-totalTFD = TotalPower_resp_MasterTFD.totalTFD;
+load(['../extra_out_data' filesep 'TotalPower_resp_TFD.mat']);
+totalTFD = TotalPower_resp_TFD.totalTFD;
 
 % load the PCA loadings from ptb 'output_data' folder
 % "xxx-fac1-PCs.mat" stores the 1pc weights/time-frequency PCA loadings (derived from the average power TF surface)
@@ -44,9 +44,9 @@ for fa = 1:facs
     end
 end
 
-Theta_AvgPower_resp_MasterTFD_pcWeighted.Pmat = Pmat;
-Theta_AvgPower_resp_MasterTFD_pcWeighted.WeightedTFD_avg = WeightedTFD_avg;
-Theta_AvgPower_resp_MasterTFD_pcWeighted.subs = AvgPower_resp_MasterTFD.subs;
+Theta_AvgPower_resp_TFD_pcWeighted.Pmat = Pmat;
+Theta_AvgPower_resp_TFD_pcWeighted.WeightedTFD_avg = WeightedTFD_avg;
+Theta_AvgPower_resp_TFD_pcWeighted.subs = AvgPower_resp_TFD.subs;
 
 % total power with pc weighting 
 factors = 1;
@@ -70,11 +70,11 @@ for fa = 1:facs
     end
 end
 
-Theta_TotalPower_resp_MasterTFD_pcWeighted.Pmat = Pmat;
-Theta_TotalPower_resp_MasterTFD_pcWeighted.WeightedTFD_total = WeightedTFD_total;
-Theta_TotalPower_resp_MasterTFD_pcWeighted.subs = TotalPower_resp_MasterTFD.subs;
+Theta_TotalPower_resp_TFD_pcWeighted.Pmat = Pmat;
+Theta_TotalPower_resp_TFD_pcWeighted.WeightedTFD_total = WeightedTFD_total;
+Theta_TotalPower_resp_TFD_pcWeighted.subs = TotalPower_resp_TFD.subs;
 
 % save data into '../extra_out_data'
-save(['../extra_out_data' filesep 'Theta_AvgPower_resp_MasterTFD_pcWeighted.mat'], 'Theta_AvgPower_resp_MasterTFD_pcWeighted');
-save(['../extra_out_data' filesep 'Theta_TotalPower_resp_MasterTFD_pcWeighted.mat'], 'Theta_TotalPower_resp_MasterTFD_pcWeighted');
+save(['../extra_out_data' filesep 'Theta_AvgPower_resp_TFD_pcWeighted.mat'], 'Theta_AvgPower_resp_TFD_pcWeighted');
+save(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat'], 'Theta_TotalPower_resp_TFD_pcWeighted');
 
