@@ -1,7 +1,7 @@
 % This script#5 is from ERP CORE (https://osf.io/2emjz/) and the main
 % purpose of this step is to epoch the data. This script#5 was only edited at
-% line 52&53 - changing from [-600.0  400.0] (as being commented) segementing 
-% into [-1000.0  2000.0] segementing to fulfill the following data analysis 
+% line 52&53 - changing from [-600.0  400.0] (as being commented) segmenting
+% into [-1000.0  2000.0] segmenting to fulfill the following data analysis 
 % of interest. Other than this, all remains unchanged.
 %--------------------------------------------------------------------------
 
