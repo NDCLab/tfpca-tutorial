@@ -1,3 +1,5 @@
+% This emplate script is mainly for computing db power from data created by ptb-cache-out (in ../output_data); 
+
 % ---------------------------------------------------------------------------------------------
 % 
 %                             Avg power with db power conversion

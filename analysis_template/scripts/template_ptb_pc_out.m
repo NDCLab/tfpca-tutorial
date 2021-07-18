@@ -1,3 +1,6 @@
+% This template sript is mainly for converting the pc weights output (in ../output_data) 
+% to a format that is easy to plot/potential statistical analysis etc.
+
 % ---------------------------------------------------------------------------------------------
 %
 % Apply the factor loading of interest to average and total power respectively 

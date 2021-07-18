@@ -1,3 +1,8 @@
+% This template sript is mainly for plotting data that was created by template_ptb_pc_out.m,
+% template_ptb_cache_out.m and template_dbpower.m.
+% Examples for plotting tf surface with or without dbpower conversion, as well as with or without pc weighting. 
+% Also includes example of plotting just the pc weights themselves.
+
 % ------------------------------------------------------------------------
 % 
 %                     Weighted TFD(total power) Plotting
@@ -243,5 +248,4 @@ xlabel('\it Time Relative to Response (ms)', 'FontSize', 16);
 ylabel('\it Frequency (Hz)', 'FontSize', 16)
 title('PC Weights - 1Factor', ' ', 'FontSize', 18, 'FontWeight','normal');
 colorbar();
-
 

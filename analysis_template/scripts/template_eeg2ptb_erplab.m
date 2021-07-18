@@ -1,3 +1,6 @@
+% This template script is mainly for converting eeglab formatted data to ptb)
+% This will just be for the version that converts the erpcore (erplab formatted) data to ptb. 
+
 % ---------------------------------------------------------------------------------------------------------------------
 %  Reads EEGLAB structured matlab files, and convertes them to the Psychophysiology Toolbox format. 
 %  The input data has to be "clean" data (after artifacts removal and being epoched). 

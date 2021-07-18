@@ -1,3 +1,6 @@
+% This template sript is mainly for converting the data cache output from ptb (in ../output_data) 
+% to a format that is easy to plot/potential statistical analysis etc.
+
 % ---------------------------------------------------------------------------------------------
 %
 % Reorganize the Average Power data into a subject x condition x channel x freq x time array
