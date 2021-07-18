@@ -1,3 +1,10 @@
+% This script#6 is from ERP CORE (https://osf.io/2emjz/) and the main
+% purpose of this step is to performs artifact rejection. This script
+% remains unchanged and is provided here for rerunning this step to get the
+% example data being used for following tf-pca (as the previous - script#5
+% was edited)
+%--------------------------------------------------------------------------
+
 %Script #6
 %Operates on individual subject data
 %Uses the output from Script #5: Elist_Bin_Epoch.m
