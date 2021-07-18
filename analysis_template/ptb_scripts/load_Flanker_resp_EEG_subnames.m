@@ -1,5 +1,7 @@
 % -----------------------------------------------------------------------------
-% List of each subject to be included for analysis.
+% Loop over the data folder (../ptb_data) to get the list of each subject/data 
+% to be included for analysis (each subject's data/file name will be used as the 
+% name for this subject).
 % -----------------------------------------------------------------------------
 
 subnum = dir(['../ptb_data' filesep '*.mat']);

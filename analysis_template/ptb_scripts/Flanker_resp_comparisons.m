@@ -6,7 +6,7 @@
   %  - Difference interpolated topographical maps of amplitude  
   %  - Statistical interpolated topographical maps of p values  
   %
-  % See README_comparisons.txt for more information about comparison parameters.
+  % See README_comparisons.txt (in ptb/documentation) for more information about comparison parameters.
   % -------------------------------------
   % The following example is a within-subjects comparisons of different catcodes to one another. 
 

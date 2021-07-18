@@ -1,5 +1,7 @@
 % -----------------------------------------------------------------------------
-% List of each subject to be included for analysis.
+% Copy and paste the PC solutions from AVGS_AMPL to ISFA_AMPL, so that applied 
+% identified PC solutions (computed from average power) to a time-frequency 
+% decomposition of total power.
 % -----------------------------------------------------------------------------
 
 subnum = dir(['./output_data' filesep 'Flanker_resp_ISFA_AMPL_*-PCs.mat']);

@@ -1,13 +1,15 @@
 % -----------------------------------------------------------------------------
-% Base_loaddata parameters.
-% Contains basic information about how to find and process individual-subject files.
+% This ISFA_base_loaddata will be called by ISFA_base_averages (trial-level 
+% averaging or trial-to-average). 
+% This script sets up basic information about how to find and process individual-subject 
+% data/files (file list and locations, baseline, etc).
 % -----------------------------------------------------------------------------
 % Load list of subject names.
   load_Flanker_resp_EEG_subnames; 
 
 % Define parameters for individual subject processing
   clear erp
-  erp.innamebeg       = '../ptb_data/';                 % Pathway to folder containing data.
+  erp.innamebeg       = '../ptb_data/';                     % Pathway to folder containing data.
   erp.innameend       = '.mat';                             % Tag at the end of each individual file.
   erp.subnames        = subnames;                           % Individual subject name (takem from 'load...subnames.m').
   erp.baselinestartms =  -400;                              % Baseline start (ms)

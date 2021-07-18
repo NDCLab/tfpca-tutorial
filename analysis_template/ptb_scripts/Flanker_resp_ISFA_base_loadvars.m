@@ -1,18 +1,20 @@
 % -----------------------------------------------------------------------------
-% This loadvars script has several parameters that can be set. Examples of such parameters are:
-  % The setup of catcodes (category codes) from triggers.
-  % Setting parameters for subsampling.
-  % Links to electrode location files (.ced).
-  % Output plot parameters.
+% This ISFA_base_loadvars will be called by ISFA_base_averages (trial-level 
+% averaging or trial-to-average). 
+% This script sets up several parameters. Examples of such parameters are:
+% The setup of catcodes (category codes) to do the condition averaging.
+% Setting parameters for subsampling - optional.
+% Links to electrode location files (.ced).
+% Output plot parameters (i.e. electrode to plot).
 % -----------------------------------------------------------------------------
 % The following section  sets up catcodes.
   clear catcodes %Clears any leftover information that may be in the "catcodes" variable. Prevents interference with the new catcodes that follow.
 
   %Note: The '(#)' following catcodes is the numerical designation. This is different from it's catcodes name, and the name and number do not have to be identical. 
-  %Note: Catcodes names will be used to reference this catcode later on. Catcode names can be numerical or characters with a length of 2
+  %Note: Catcodes names will be used to reference this catcode later on. Catcode names can be numerical or characters with a length of 2.
   %Note: Triggers must be defined as characters, within a pair of single-quotations. The '&', '|', '>=', and '<=' signs can be useful at these steps.
-  %Note: It is reccomended to leave a note following each catcode to define it's category..
-
+  %Note: Triggers have already been defined while converting eeglab format data into ptb format data.
+  %Note: It is reccomended to leave a note following each catcode to define it's category.
   catcodes(1).name   = 1; catcodes(1).text  = 'erp.stim.bin==4'; % congruent & corr
   catcodes(2).name   = 2; catcodes(2).text  = 'erp.stim.bin==5'; % incongruent & error
   catcodes(3).name   = 3; catcodes(3).text  = 'erp.stim.bin==6'; % incongruent & corr

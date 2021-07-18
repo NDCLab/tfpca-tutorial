@@ -1,5 +1,6 @@
 % -----------------------------------------------------------------------------
-% Parameters for Principal Component Analysis in Time-Frequency Domain (PCATFD) script.
+% The run script for Principal Component Analysis in Time-Frequency Domain (PCATFD)
+% based on average power (averaging across trials).
 % -----------------------------------------------------------------------------
 % Dataset Parameters 
   PlotAvgs     = 1; % Plot average waveforms (1 = yes, 0 = no)
@@ -14,12 +15,12 @@
   dmx          = 'acov'; % Data matrix for decomposition
   facs         =  [1 2 3 4]; % Number of PCA factors to extract - see below for looping syntax required
 
-% Define Comparisons 
+% Define Comparisons - point to Flanker_resp_comparisons.m to load comparison-related parameters.
   Comparisons = {
                 'Flanker_resp_comparisons'
                 };
 
-% DatasetDef to run 
+% DatasetDef to run (‘DatasetDef’ scripts tell run script how to run) 
   Flanker_resp_AVGS_AMPL_theta_DatasetDef;
 
 % Run pcatfd_startup Script
@@ -33,7 +34,7 @@ for cc = 1:length(Comparisons),
   end
 end 
 
-%  Note: The "32,32,0,32,32,1,24" in pcatfd_startup represent 7 separate parameters:
+%  Note: The "32,32,-16,16,32,7,19" in pcatfd_startup represent 7 separate parameters:
 %  1st Number: Sampling_Rate for analysis.
 %  2nd Number: Time bins used per second in epoch
 %  3rd Number: Start time bin for TF cut-off
@@ -41,3 +42,8 @@ end
 %  5th Number: Frequency bins used in usable data - nyquist frequency
 %  6th Number: Start bin in frequency for TF cut-off
 %  7th Number: End bin in frequency for TF cut-off
+
+%  3rd Number: -16 - -500ms;
+%  4th Number:  16 -  500ms;
+%  6th Number:   7 -  (7-1)/2=3Hz;
+%  7th Number:  19 - (19-1)/2=9HZ.
