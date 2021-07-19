@@ -10,10 +10,10 @@
 % ---------------------------------------------------------------------------------------------------------------------
 
 % Locate raw data on hard drive
-data_location = '../../eeglab_data';
+data_location = '../../eeglab_data/';
 
 % Specify location to save processed data
-out_location = '../../ptb_data';
+out_location = '../../ptb_data/';
 
 
 % subject list
