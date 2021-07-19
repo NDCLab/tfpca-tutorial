@@ -15,6 +15,9 @@ Additionally, the TFPCA-Tutorial also includes:
 3) eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
 4) Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org). — would you please confirm the source link for tftb?
 
+<p align="center">
+  <img src="/.github/_assets/tfpca400.jpg" />
+</p>
 
 ## Quick Start
 
