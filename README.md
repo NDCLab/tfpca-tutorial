@@ -3,7 +3,7 @@
 
 ## Overview
 
-The TFPCA-Tutorial aims for serving as a jumping off point for more advanced analyses leveraging Cohen's class reduced interference distribution (RID) and/or Time-frequency Principle Components Analysis (TF-PCA). It consists of template scripts to showcase how to :
+The TFPCA-Tutorial aims for serving as a jumping off point for more advanced analyses leveraging Cohen's class reduced interference distribution (RID) and/or Time-frequency Principle Components Analysis (TF-PCA) (Bernat, Williams & Gehring, 2005). It consists of template scripts to showcase how to :
 1) prepare data for psychophysiology toolbox (ptb);
 2) implement Cohen's class RID on the data to compute both average and total power by using ptb; 
 3) compute tf-pca on average power and then copy weights over to total power by using ptb; 
