@@ -126,13 +126,13 @@ This folder is populated with main scripts that call the psychophysiology toolbo
 
 |————————————`Flanker_resp_ISFA_base_loadvars.m`
 
-Those three scripts together produce an averaged ERP dataset (average power). `Flanker_resp_ISFA_base_averages` is the run script. It calls `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` sets up basic information about how to find and process individual-subject data/files (file list and locations, baseline, etc). `Flanker_resp_ISFA_base_loadvars` sets up several parameters, including catcodes (category codes), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. electrode to plot) etc.. Furthermore, `Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) to get the list of each subject/data to be included (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subjects’ `.mat` dataset (in ptb format). 
+Those three scripts together produce an averaged ERP dataset. `Flanker_resp_ISFA_base_averages` is the run script. It calls `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` sets up basic information about how to find and process individual-subject data/files (file list and locations, baseline, etc). `Flanker_resp_ISFA_base_loadvars` sets up several parameters, including catcodes (category codes), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. electrode to plot) etc.. Furthermore, `Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) to get the list of each subject/data to be included (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subjects’ `.mat` dataset (in ptb format). 
 
 In sum, `Flanker_resp_ISFA_base_averages` is the run script to produce an averaged ERP dataset (average power). Before running `Flanker_resp_ISFA_base_averages`,  parameters can be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
 
 Main output:
 * data_cache : 
-    * `Flanker_resp_ISFA_base_averages_128.mat` - Averaged ERP dataset (average power);
+    * `Flanker_resp_ISFA_base_averages_128.mat` - Averaged ERP dataset;
     * `Flanker_resp_ISFA_base_averages_subsampling.mat` - Subsampling dataset.
 
 
@@ -142,15 +142,15 @@ Main output:
 
 |————————————`Flanker_resp_comparisons.m`
 		         
-Those three scripts together produce time-frequency average power surface and its intended PCA factor solutions. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Those three scripts together produce time-frequency average power surface (average power) and its intended PCA factor solutions. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
 
 In sum, `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script to produce time-frequency average power surface and its intended PCA factor solutions. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
 
 Main output: 
 * data_cache : 
-    * `Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat` - TF average power surface;
+    * `Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat` - TF average power surface (average power);
 * output_data :	
-    * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - TF-PCA loadings (based on TF average power surface).
+    * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - TF-PCA loadings (based on average power).
 
 
 |————————————`Flanker_resp_ISFA_AMPL_theta_pcatfd.m`
@@ -159,15 +159,15 @@ Main output:
 
 |————————————`Flanker_resp_comparisons.m`
 
-Those three scripts together produce time-frequency total power surface and its intended PCA factor solutions. `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up parameters including information about how to find and process individual-subject data,  parameters for subsampling, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Those three scripts together produce time-frequency total power surface (total power) and its intended PCA factor solutions. `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up parameters including information about how to find and process individual-subject data,  parameters for subsampling, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
 
 In sum, `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script to produce time-frequency total power surface and its intended PCA factor solutions. Before running `Flanker_resp_ISFA_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
 
 Main output: 
 * data_cache : 
-    * `Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` - TF total power surface;
+    * `Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` - TF total power surface (total power);
 * output_data :
-    * `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - TF-PCA loadings (based on TF total power surface).
+    * `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - TF-PCA loadings (based on total power).
 
 
 |————————————`cp_avg_power_pcs.m`
