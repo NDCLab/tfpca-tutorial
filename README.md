@@ -5,8 +5,8 @@
 
 The TFPCA-Tutorial aims for serving as a jumping off point for more advanced analyses leveraging Cohen's class reduced interference distribution (RID) and/or Time-frequency Principle Components Analysis (TF-PCA) (Bernat, Williams & Gehring, 2005). It consists of template scripts to showcase how to :
 1) prepare data for psychophysiology toolbox (ptb);
-2) implement Cohen's class RID on the data to compute both average and total power by using ptb; 
-3) compute tf-pca on average power and then copy weights over to total power by using ptb; 
+2) implement Cohen's class RID on the data to compute both average and total power by using the ptb; 
+3) compute tf-pca on average power and then copy pc weights over to total power by using the ptb; 
 4) export variables for statistical analyses and conduct basic plotting.
 
 <p align="center">
@@ -83,11 +83,11 @@ The Time-Frequency Toolbox (TFTB) is a collection of about 100 scripts for GNU O
 
 EEGLAB is an interactive Matlab toolbox for processing continuous and event-related EEG, MEG and other electrophysiological data (https://sccn.ucsd.edu/eeglab).
 
-Note, to work with the example data (ERP CORE ERN), the plugin erplab (https://erpinfo.org/erplab) has been integrated.
+Note, to work with the example data (ERP CORE ERN), the erplab plugin (https://erpinfo.org/erplab) has been integrated.
 
 |——`eeglab_data`
 
-This folder is populated with ERP CORE ERN data that this tutorial works with as the initial example data (https://osf.io/q6gwp/). 
+This folder is populated with the ERP CORE ERN data that this tutorial works with as the initial example data (https://osf.io/q6gwp/). 
 
 The ERP CORE (https://doi.org/10.18115/D5JW4R) is a freely available online resource consisting of optimized paradigms, experiment control scripts, example data from 40 neurotypical adults, data processing pipelines and analysis scripts, and a broad set of results for 7 widely used ERP components: N170, mismatch negativity (MMN), N2pc, N400, P3, lateralized readiness potential (LRP), and error-related negativity (ERN).
 
@@ -106,7 +106,7 @@ This folder is populated with the ERP CORE ERN data that has already been conver
 
 |——`analysis_template`
 
-This folder is populated with main template scripts, including implementing TFPCA with the ptb toolbox, and plotting the results.
+This folder is populated with main template scripts, including implementing TF-PCA with the ptb toolbox, and plotting the results.
 
 |——————`startup.m`
 
@@ -114,7 +114,7 @@ This setup script adds all needed paths (eeglab, ptb toolbox, tufts toolbox and 
 
 |——————`erp_core_35_locs.ced`
 
-The electrode location file for ERP CORE ERN example data.
+The electrode location file for the ERP CORE ERN example data.
 
 |——————`ptb_scripts`
 
@@ -128,7 +128,7 @@ This folder is populated with main scripts that call the psychophysiology toolbo
 
 Those three scripts together produce an averaged ERP dataset. `Flanker_resp_ISFA_base_averages` is the run script. It calls `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` sets up basic information about how to find and process individual-subject data/files (file list and locations, baseline, etc). `Flanker_resp_ISFA_base_loadvars` sets up several parameters, including catcodes (category codes), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. electrode to plot) etc.. Furthermore, `Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) to get the list of each subject/data to be included (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subjects’ `.mat` dataset (in ptb format). 
 
-In sum, `Flanker_resp_ISFA_base_averages` is the run script to produce an averaged ERP dataset (average power). Before running `Flanker_resp_ISFA_base_averages`,  parameters can be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
+In sum, `Flanker_resp_ISFA_base_averages` is the run script to produce an averaged ERP dataset. Before running `Flanker_resp_ISFA_base_averages`,  parameters can be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
 
 Main output:
 * data_cache : 
@@ -142,15 +142,15 @@ Main output:
 
 |————————————`Flanker_resp_comparisons.m`
 		         
-Those three scripts together produce time-frequency average power surface (average power) and its intended PCA factor solutions. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Those three scripts together compute the average power and implement the TF-PCA on the average power. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) right after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
 
-In sum, `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script to produce time-frequency average power surface and its intended PCA factor solutions. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
+In sum, `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script to compute the average power and implement the TF-PCA on the average power. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
 
 Main output: 
 * data_cache : 
-    * `Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat` - TF average power surface (average power);
+    * `Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat` - the average power;
 * output_data :	
-    * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - TF-PCA loadings (based on average power).
+    * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - pc weights (based on the average power).
 
 
 |————————————`Flanker_resp_ISFA_AMPL_theta_pcatfd.m`
@@ -159,20 +159,20 @@ Main output:
 
 |————————————`Flanker_resp_comparisons.m`
 
-Those three scripts together produce time-frequency total power surface (total power) and its intended PCA factor solutions. `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up parameters including information about how to find and process individual-subject data,  parameters for subsampling, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Those three scripts together compute the total power and implement the TF-PCA on the total power. `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up parameters including information about how to find and process individual-subject data,  parameters for subsampling, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) right after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
 
-In sum, `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script to produce time-frequency total power surface and its intended PCA factor solutions. Before running `Flanker_resp_ISFA_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
+In sum, `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script to compute the total power and implement the TF-PCA on the total power. Before running `Flanker_resp_ISFA_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
 
 Main output: 
 * data_cache : 
-    * `Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` - TF total power surface (total power);
+    * `Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` - the total power;
 * output_data :
-    * `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - TF-PCA loadings (based on total power).
+    * `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - pc weights (based on the total power).
 
 
 |————————————`cp_avg_power_pcs.m`
 
-If the total power weighted by the average power TF-PCA loadings is of interest, further calculation (applying identified average power factor loadings to the time-frequency decomposition of total power) is involved. To preview/visualize the results, `Flanker_resp_ISFA_AMPL_theta_pcatfd` could be run again but with the average power TF-PCA loadings. To do this, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` needs to be replaced by `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`. Instead of doing these tedious and error-prone operations manually, `cp_avg_power_pcs.m` is the script to do such copy and paste operations. After running `cp_avg_power_pcs.m`, `Flanker_resp_ISFA_AMPL_theta_pcatfd` can be run again to generate the plots for the total power measure weighted by the average power TF-PCA loadings.
+If the total power weighted by the pc weight that was computed with the average power is of interest, further calculation (applying identified average power factor loadings to the total power) is involved. To preview/visualize the results, `Flanker_resp_ISFA_AMPL_theta_pcatfd` could be run again but with the pc weights computed with the average power. To do this, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` needs to be replaced by `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`. Futermore, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.log` and `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat` need to be deleted.  Instead of doing these tedious and error-prone operations manually, `cp_avg_power_pcs.m` is the script to do such copy and paste operations. After running `cp_avg_power_pcs.m`, `Flanker_resp_ISFA_AMPL_theta_pcatfd` can be run again to generate the plots for the total power measure weighted by the average power TF-PCA loadings.
 
 
 |——————`data_cache`
@@ -181,34 +181,34 @@ If the total power weighted by the average power TF-PCA loadings is of interest,
 
 |——————`output_plots`
 
-Those three folders were populated by the results generated by scripts in `ptb_scripts`. Specifically, `data_cache` stores computed waveform and TF data (i.e., average and total power). `output_data` stores various TF-PCA loadings. `output_plots` stores various plots (waveforms, topomaps, statistical topomaps,etc.) generated while running the scripts in `.eps` format.
+Those three folders were populated by the results generated by scripts in `ptb_scripts`. Specifically, `data_cache` stores computed erps and TF data (the average and the total power). `output_data` stores various pc weights. `output_plots` stores various plots (waveforms, topomaps, statistical topomaps, etc.) generated while running the scripts (in `.eps` format).
 
 
 |——————`scripts`
 
-This folder is populated with supplementary scripts, including converting erplab format data to ptb format data before running TF-PCA with ptb toolbox, as well as converting the resulting data generated by ptb toolbox into a format that is easy-to-understand/plotting/intended analysis.
+This folder is populated with supplementary scripts, including converting erplab format data to ptb format data before running TF-PCA with the ptb toolbox, converting the resulting data generated by ptb toolbox into a format that is easy-to-understand/plot/analyze, as well as basic plottings.
 
 
 |————————————`template_eeg2ptb_erplab.m`
 
-This template script converts erplab format data to ptb format data that was used by the following TF-PCA. The generated ptb format data is stored in `../ptb_scripts`
+This template script converts erplab format data to ptb format data that was used by the ptb toolbox. The generated ptb format data is stored in `../ptb_scripts`
 
 
 |————————————`template_ptb_cache_out.m`
 
-This template script converts TF average power surface and TF total power surface respectively (in ../output_data) from ptb format data to a format that is easy to plot/potential statistical analysis. The output data (`AvgPower_resp_TFD.mat` and `TotalPower_resp_TFD.mat`) was stored in `../extra_out_data`.
+This template script converts the average power and the total power respectively (in ../data_cache) from ptb format data to a format that is easy to plot/analyze. The output data (`AvgPower_resp_TFD.mat` and `TotalPower_resp_TFD.mat`) was stored in the `../extra_out_data` folder.
 
 |————————————`template_ptb_pc_out.m`
 
-This template script applies the pc weights (based on TF average power surface) to TF average power surface and TF total power surface respectively. The generated PC-weighted data (`Theta_AvgPower_resp_TFD_pcWeighted.mat` and `Theta_TotalPower_resp_TFD_pcWeighted.mat`) was stored in `../extra_out_data`.
+This template script applies the pc weights (based on the average power) to the average power and the total power respectively. The generated PC-weighted data (`Theta_AvgPower_resp_TFD_pcWeighted.mat` and `Theta_TotalPower_resp_TFD_pcWeighted.mat`) was stored in the `../extra_out_data` folder.
 
 |————————————`template_dbpower.m`
 
-This template script implements baseline correction to TF average power surface and TF total power surface respectively. The generated baseline removed TF average power surface and TF total power surface (`AvgPower_resp_TFD_baseRemoved.mat` and `TotalPower_resp_TFD_baseRemoved.mat`) was stored in `../extra_out_data`.
+This template script conducts dB power conversion to the average power and the total power respectively. The generated data (`AvgPower_resp_TFD_baseRemoved.mat` for the average power with dB power conversion and `TotalPower_resp_TFD_baseRemoved.mat` for the total power with dB power conversion) was stored in `../extra_out_data`.
 
 |————————————`template_plots.m`
 
-This template script plots the results from `template_ptb_cache_out.m`, `emplate_ptb_pc_out.m` and `template_dbpower.m`.  Specifically, it plots TF total power surface with baseline corrected, pc-weighted total power TFD, topographical plots of pc-weighted total power TFD, and the pc weight itself.
+This template script plots the results from `template_ptb_cache_out.m`, `emplate_ptb_pc_out.m` and `template_dbpower.m`.  Specifically, it plots the total power  with dB power conversion, pc-weighted total power, topographical plots of pc-weighted total power, and the pc weight itself.
 
 |——————`extra_out_data`
 
