@@ -1,6 +1,6 @@
 % -----------------------------------------------------------------------------
-% The main script to run to create the averaged ERP for each Participant 
-% + Catcode (trial type) + Electrode; and subsampling file; and plot grand
+% The main script to run to create the averaged ERP for each participant 
+% + Catcode (trial type) + Electrode; and subsampling data; and plot grand
 % average ERP.
 % The 'run' script references parameters in '...base_loaddata.m' and
 % '...base_loadvars.m'.

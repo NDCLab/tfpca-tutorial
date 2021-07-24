@@ -1,5 +1,8 @@
-% This template sript is mainly for converting the data cache output from ptb (in ../output_data) 
-% to a format that is easy to plot/potential statistical analysis etc.
+% This template sript is mainly for converting the average power and the total
+% power (../data_cache) from ptb format into a format that is easy to
+% plot/analyze etc.
+%
+% Finally, the data will be saved to (../extra_out_data).
 
 % ---------------------------------------------------------------------------------------------
 %
@@ -9,14 +12,14 @@
 % Save the result into "extra_out_data" folder.
 %
 % ---------------------------------------------------------------------------------------------
-% load the avg power data from ptb 'data_cache' folder.
+% load the average power data from the '../data_cache' folder.
 % 'Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat' stores the average power data. 
 % (average power refers to a time-frequency distribution of power values that includes primarily phase-locked information)
 load(['../data_cache' filesep 'Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat']);
 
 % the example erpcore data has 38 participants, 3 conditions and 31 EEG
 % channels. Additionally, it also has 33 freq bins and 96 time bins that were
-% setup while running tf_pca scripts with ptb.
+% setup while running tf-pca scripts with ptb.
 subs_number = length(erptfd.subs.name);
 cat_number = length(erptfd.stimkeys);
 chan_number = length(unique(erptfd.elec));
@@ -56,7 +59,7 @@ save(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat'], 'AvgPower_resp_TFD')
 % Save the result into "extra_out_data" folder.
 %
 % ---------------------------------------------------------------------------------------------
-% load the data from ptb 'data_cache' folder.
+% load the total power from ptb 'data_cache' folder.
 % 'Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat' stores the total power. 
 % (total power refers to a time-frequency distribution of power values that includes both phase- and non-phase-locked information)
 load(['../data_cache' filesep 'Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat']);

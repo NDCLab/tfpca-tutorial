@@ -102,12 +102,12 @@ colorbar();
 
 % ------------------------------------------------------------------------
 % 
-%                             Topo Plotting
+%              Topo Plotting of Weighted TFD(total power)
 %
 % ------------------------------------------------------------------------
-% extract time-frequency distribution of factor 1 in each condition
-% the example data is only interested in factor 1. Therefore, add other
-% interested factors based on your own data.
+% extract pc weighted total power in each condition
+% this template script taks 1 factor pc weight as the example. 
+% Therefore, add other interested pc weights based on your own data.
 F1_TFD_congruent_corr = squeeze(WeightedTFD_total(1,:,1,:,:,:));
 F1_TFD_incongruent_error = squeeze(WeightedTFD_total(1,:,2,:,:,:));
 F1_TFD_incongruent_corr = squeeze(WeightedTFD_total(1,:,3,:,:,:));
@@ -148,7 +148,7 @@ colorbar;
 
 % ------------------------------------------------------------------------
 % 
-%           Baseline Corrected TF Surface(total power) Plottig
+%              Plottig for Total power with dB conversion 
 %
 % ------------------------------------------------------------------------
 load(['../extra_out_data' filesep 'TotalPower_resp_TFD_baseRemoved.mat']);
@@ -221,9 +221,9 @@ colorbar();
 %                           PC Weights Plottig
 %
 % ------------------------------------------------------------------------
-% load the PCA loadings from ptb 'output_data' folder
-% "xxx-fac1-PCs.mat" stores the 1pc weights/time-frequency PCA loadings (derived from the average power TF surface)
-% here take 1 factor as an example. You can load the data that you are
+% load the pc weight from ptb 'output_data' folder
+% "xxx-fac1-PCs.mat" stores the 1pc weights (derived from the average power TF surface)
+% here take 1 factor pc weight as the example. You can load the pc weights that you are
 % interested (i.e. "xxx-fac2-PCs.mat", "xxx-fac3-PCs.mat" etc.)
 load(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
 

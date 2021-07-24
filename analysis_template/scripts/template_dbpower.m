@@ -1,8 +1,15 @@
-% This emplate script is mainly for computing db power from data created by ptb-cache-out (in ../output_data); 
+% Here assume that the average power and the total power have already been
+% converted to an easy-to-understand format in (template_ptb_cache_out.m)
+% and the resulting data has been saved to (../extra_out_data).
+%
+% This emplate script is mainly for conducting dB power conversion for the average power 
+% and the total power.
+%
+% Finally, the data will be saved to (../extra_out_data).
 
 % ---------------------------------------------------------------------------------------------
 % 
-%                             Avg power with db power conversion
+%                             The average power with dB conversion
 %
 % ---------------------------------------------------------------------------------------------
 % load the average power data that has been already saved in "../extra_out_data" folder with "template_ptb_cache_out.m"
@@ -38,7 +45,7 @@ save(['../extra_out_data' filesep 'AvgPower_resp_TFD_baseRemoved.mat'], 'AvgPowe
 
 % ---------------------------------------------------------------------------------------------
 % 
-%                          Total power with db power conversion
+%                          The total power with dB conversion
 %
 % ---------------------------------------------------------------------------------------------
 % load the total power data that has been already saved in "../extra_out_data" folder with "template_ptb_cache_out.m"

@@ -1,6 +1,6 @@
 % -----------------------------------------------------------------------------
 % The run script for Principal Component Analysis in Time-Frequency Domain (PCATFD)
-% based on total power (trial-level averaging).
+% based on the total power (trial-level averaging).
 % -----------------------------------------------------------------------------
 % Dataset Parameters 
   PlotAvgs     = 1; % Plot average waveforms (1 = yes, 0 = no)

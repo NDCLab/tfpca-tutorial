@@ -1,6 +1,6 @@
 % -----------------------------------------------------------------------------
 % The run script for Principal Component Analysis in Time-Frequency Domain (PCATFD)
-% based on average power (averaging across trials).
+% based on the average power (averaging across trials).
 % -----------------------------------------------------------------------------
 % Dataset Parameters 
   PlotAvgs     = 1; % Plot average waveforms (1 = yes, 0 = no)
@@ -13,7 +13,7 @@
 % PCA parameters 
   rot          =  'vmx'; % Rotation (e.g., vmx = varimax)
   dmx          = 'acov'; % Data matrix for decomposition
-  facs         =  [1 2 3 4]; % Number of PCA factors to extract - see below for looping syntax required
+  facs         =  [1]; % Number of PCA factors to extract - see below for looping syntax required
 
 % Define Comparisons - point to Flanker_resp_comparisons.m to load comparison-related parameters.
   Comparisons = {
