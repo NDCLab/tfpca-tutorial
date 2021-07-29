@@ -105,7 +105,7 @@ This folder is populated with the ERP CORE ERN data that has already been conver
 
 |——`analysis_template`
 
-This folder contains all scripts, files, and data that the user will interact with to run the tutorial. Additionally, this folder is pre-populated with the outputs resulting from running the included scripts. As described below, the `analysis_template` folder contains subfolders for example PTB scripts (`ptb_scripts`), example scripts for converting data to the PTB format, as well as for exporting and plotting the data outside of PTB ('scripts'), and several subfolders for various outputs created by running the tutorial scripts ('data_cache', 'output_data', 'output_plots', 'extra_out_data). This folder also contains the 'startup.m' script and the `erp_core_35_locs.ced` file.
+This folder contains all scripts, files, and data that the user will interact with to run the tutorial. Additionally, this folder is pre-populated with the outputs resulting from running the included scripts. As described below, the `analysis_template` folder contains subfolders for example PTB scripts (`ptb_scripts`), example scripts for converting data to the PTB format, as well as for exporting and plotting the data outside of PTB ('scripts'), and several subfolders for various outputs created by running the tutorial scripts ('data_cache', 'output_data', 'output_plots', 'exported_data). This folder also contains the 'startup.m' script and the `erp_core_35_locs.ced` file.
 
 |——————`startup.m`
 
@@ -119,37 +119,45 @@ This file contains the electrode locations file for the ERP CORE ERN example dat
 
 This folder contains the PTB template scripts that can be edited and then executed in order to compute ERPs, TF representations, and decompose TF-PCA solutions.
 
-|————————————`Flanker_resp_ISFA_base_averages.m`
+|————————————`run_Flanker_resp_ISFA_base_averages.m`
 
 |————————————`Flanker_resp_ISFA_base_loaddata.m`
 
 |————————————`Flanker_resp_ISFA_base_loadvars.m`
 
-Together, these three scripts will produce an averaged ERP dataset. `Flanker_resp_ISFA_base_averages` is the run script that is executed by the user, whereas `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` are essentially parameter files that are called by the `Flanker_resp_ISFA_base_averages` run script to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` designates basic information about where to find and how to process individual-subject data/files (file list and locations, time-domain baseline period, etc). `Flanker_resp_ISFA_base_loadvars` sets up several additional parameters, including "catcodes" (category codes; i.e. the conditions of interest), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. which electrode to plot) etc.. Furthermore, `Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) in order to get the list of each subject/data to be included in the analysis (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subject files in the '.mat' PTB format.
+Together, these three scripts will produce an averaged ERP dataset. `run_Flanker_resp_ISFA_base_averages` is the run script that is executed by the user, whereas `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` are scripts that act as parameter files are called by the `run_Flanker_resp_ISFA_base_averages` run script to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` designates basic information about where to find and how to process individual-subject data/files (file list and locations, time-domain baseline period, etc). `Flanker_resp_ISFA_base_loadvars` sets up several additional parameters, including "catcodes" (category codes; i.e. the conditions of interest), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. which electrode to plot) etc.. Furthermore, `run_Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) in order to get the list of each subject/data to be included in the analysis (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subject files in the '.mat' PTB format.
 
-In sum, `Flanker_resp_ISFA_base_averages` is the run script that is executed to produce an averaged ERP dataset, which is stored in 'data_cache'. Before running `Flanker_resp_ISFA_base_averages`,  parameters should be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
+In sum, `run_Flanker_resp_ISFA_base_averages` is the run script that is executed to produce an averaged ERP dataset, which is stored in 'data_cache'. Before running `Flanker_resp_ISFA_base_averages`, parameters should be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
 
-Main output:
+Main outputs:
 * data_cache: 
     * `Flanker_resp_ISFA_base_averages_128.mat` - Averaged ERP dataset;
     * `Flanker_resp_ISFA_base_averages_subsampling.mat` - Subsampling dataset.
+* output_plots :
+    *  plot_x - brief description;
+    *  plot_y - brief description;
+    *  plot_z - brief description 
 
 
-|————————————`Flanker_resp_AVGS_AMPL_theta_pcatfd.m`
+|————————————`run_Flanker_resp_AVGS_AMPL_theta_pcatfd.m`
 
 |————————————`Flanker_resp_AVGS_AMPL_theta_DatasetDef.m`
 
 |————————————`Flanker_resp_comparisons.m`
 		         
-Together, these three scripts compute the average power and implement the TF-PCA on the average power. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) right after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Together, these three scripts compute "average power" (phase-locked) TF representations and decompose TF-PCA solutions for these TF representations. `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script that is executed by the user, whereas`Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' are scripts that act as parameter files called by the `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` run script to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up various parameters, including the electrode_locations file to use, the TF transformation method to use, and the dataset name that will be used in all related outputs to 'data_cache', 'output_data', and 'output_plots'. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` calls an additional script to perform filtering of the data (`preproc_filter'). 'Flanker_resp_comparisons' defines the parameters associated with plotting and statistical comparisons between condtiions (catcodes).
 
-In sum, `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script to compute the average power and implement the TF-PCA on the average power. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
+In sum, `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script executed by the user in order to compute average (phase-locked) power and decompose TF-PCA solutions. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters should be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef`, `preproc_filter`, and 'Flanker_resp_comparisons'.
 
-Main output: 
+Main outputs: 
 * data_cache : 
     * `Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat` - the average power;
 * output_data :	
     * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - pc weights (based on the average power).
+* output_plots :
+    *  plot_x - brief description; 
+    *  plot_y - brief description; 
+    *  plot_z - brief description 
 
 
 |————————————`Flanker_resp_ISFA_AMPL_theta_pcatfd.m`
@@ -167,7 +175,10 @@ Main output:
     * `Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` - the total power;
 * output_data :
     * `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - pc weights (based on the total power).
-
+* output_plots :
+    *  plot_x - brief description; 
+    *  plot_y - brief description; 
+    *  plot_z - brief description 
 
 |————————————`cp_avg_power_pcs.m`
 
@@ -195,27 +206,27 @@ This template script converts erplab format data to ptb format data that was use
 
 |————————————`template_ptb_cache_out.m`
 
-This template script converts the average power and the total power respectively (in ../data_cache) from ptb format data to a format that is easy to plot/analyze. The output data (`AvgPower_resp_TFD.mat` and `TotalPower_resp_TFD.mat`) was stored in the `../extra_out_data` folder.
+This template script converts the average power and the total power respectively (in ../data_cache) from ptb format data to a format that is easy to plot/analyze. The output data (`AvgPower_resp_TFD.mat` and `TotalPower_resp_TFD.mat`) was stored in the `../exported_data` folder.
 
 |————————————`template_ptb_pc_out.m`
 
-This template script applies the pc weights (based on the average power) to the average power and the total power respectively. The generated PC-weighted data (`Theta_AvgPower_resp_TFD_pcWeighted.mat` and `Theta_TotalPower_resp_TFD_pcWeighted.mat`) was stored in the `../extra_out_data` folder.
+This template script applies the pc weights (based on the average power) to the average power and the total power respectively. The generated PC-weighted data (`Theta_AvgPower_resp_TFD_pcWeighted.mat` and `Theta_TotalPower_resp_TFD_pcWeighted.mat`) was stored in the `../exported_data` folder.
 
 |————————————`template_dbpower.m`
 
-This template script conducts dB power conversion to the average power and the total power respectively. The generated data (`AvgPower_resp_TFD_baseRemoved.mat` for the average power with dB power conversion and `TotalPower_resp_TFD_baseRemoved.mat` for the total power with dB power conversion) was stored in `../extra_out_data`.
+This template script conducts dB power conversion to the average power and the total power respectively. The generated data (`AvgPower_resp_TFD_baseRemoved.mat` for the average power with dB power conversion and `TotalPower_resp_TFD_baseRemoved.mat` for the total power with dB power conversion) was stored in `../exported_data`.
 
 |————————————`template_plots.m`
 
 This template script plots the results from `template_ptb_cache_out.m`, `emplate_ptb_pc_out.m` and `template_dbpower.m`.  Specifically, it plots the total power  with dB power conversion, pc-weighted total power, topographical plots of pc-weighted total power, and the pc weight itself.
 
-|——————`extra_out_data`
+|——————`exported_data`
 
 This folder is populated with fore-mentioned dataset generated by scripts in the `scripts` folder.
 
 |——`new_analysis_template`
 
-This folder is a copy of the `analysis-template` folder, but with all output cache, data, and plots folders empty (`data_cache`, `output_data`, `output_plots` and `extra_out_data`). So that users would use this folder to perform new analyses and/or follow along with the tutorial without needing to delete the example outputs.
+This folder is a copy of the `analysis-template` folder, but with all output cache, data, and plots folders empty (`data_cache`, `output_data`, `output_plots` and `exported_data`). So that users would use this folder to perform new analyses and/or follow along with the tutorial without needing to delete the example outputs.
 
 
 ## Glossary
