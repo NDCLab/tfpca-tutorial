@@ -95,9 +95,9 @@ Please note that the ERP CORE data available online (https://doi.org/10.18115/D5
 2) Downloaded script #5 (https://osf.io/4whf6/);
 3) Edited script #5 on lines 52 &5 3 - changing the segmentation delimiters from [-600.0  400.0] to [-1000.0  2000.0] (See `Script5_Elist_Bin_Epoch.m`).
 4) Ran the edited script #5 on the data downloaded in step #1 above.
-5) Ran script #6 (which can be downloaded at https://osf.io/f3m7s/) without any editing. Also see `Script6_Artifact_Rejection.m`) on the data created by edited script #5 to perform artifact rejection. 
+5) Ran script #6 (which can be downloaded at https://osf.io/f3m7s/) on the data outputs from step #5 above. Note that script #6 was not edited following downloading from https://osf.io/f3m7s/. This script performs a final artifact rejection step that must be re-run since we modifed the epochs produced by the step #5 script (see `Script6_Artifact_Rejection.m`).
 
-The steps listed above need not be completed by the user, as the modified data produced by these steps is already populated in the eeglab_data folder (See `xx_ERN_shifted_ds_reref_ucbip_hpfilt_ica_corr_cbip_elist_bins_epoch_interp_ar.set`).
+The steps listed above need not be completed by the user, as the modified data produced by these steps is already populated in the eeglab_data folder. The modified data use the following naming convention: `xx_ERN_shifted_ds_reref_ucbip_hpfilt_ica_corr_cbip_elist_bins_epoch_interp_ar.set`.
 
 |——`ptb_data`
 
