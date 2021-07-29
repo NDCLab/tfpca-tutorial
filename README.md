@@ -3,9 +3,9 @@
 
 ## Overview
 
-The TFPCA-Tutorial aims for serving as a jumping off point for more advanced analyses leveraging Cohen's class reduced interference distribution (RID) and/or Time-frequency Principle Components Analysis (TF-PCA) (Bernat, Williams & Gehring, 2005). It consists of template scripts to showcase how to :
-1) prepare data for psychophysiology toolbox (ptb);
-2) implement Cohen's class RID on the data to compute both average and total power by using the ptb; 
+The TFPCA-Tutorial serves as a companion to a forthcoming tutorial paper introducing researchers to the time-frequency principal components analysis (TF-PCA) technique for EEG data. The tutorial is designed to help researchers run TF-PCA analyses using the psychophysiology toolbox (ptb). Moreover, this tutorial can serve as a jumping off point for more advanced analyses leveraging Cohen's class reduced interference distribution (RID) and/or TF-PCA on one's own data. The tutorial consists of template scripts to demonstrate how to:
+1) convert one's data into the format required by the psychophysiology toolbox (ptb);
+2) use the ptb to compute TF representations of both average (phase-locked) and total (phase and non-phase locked) power via Cohen's class RID; 
 3) compute tf-pca on average power and then copy pc weights over to total power by using the ptb; 
 4) export variables for statistical analyses and conduct basic plotting.
 
@@ -13,11 +13,13 @@ The TFPCA-Tutorial aims for serving as a jumping off point for more advanced ana
   <img src="/.github/_assets/tfpca400.jpg" />
 </p>
 
-Additionally, the TFPCA-Tutorial also includes:
+Additionally, the TFPCA-Tutorial includes:
 1) example data (ERP CORE ERN) that was used with template scripts (https://osf.io/q6gwp/);
-2) psychophysiology toolbox 1.0.0 (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/);
-3) eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
-4) Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org). — would you please confirm the source link for tftb?
+2) a copy of the psychophysiology toolbox 1.0.0 (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/);
+3) a copy of eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
+4) a coput of the Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org).
+
+Currently, the TFPCA-Tutorial relies on Matlab-based programming, and thus, requires that users have a valid Matlab license to run the tutorial. Assuming a valid Matlab license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described. Note that while the TFPCA-Tutorial currently relies on Matlab, we plan to update the tutorial to remove the Matlab requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within. afully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
 
 
 ## Quick Start
