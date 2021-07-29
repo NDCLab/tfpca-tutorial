@@ -7,27 +7,26 @@
 ## Overview
 
 The TFPCA-Tutorial serves as a companion to a forthcoming tutorial paper introducing researchers to the time-frequency principal components analysis (TF-PCA) technique for EEG data. The tutorial is designed to help researchers run TF-PCA analyses using the psychophysiology toolbox (ptb). Moreover, this tutorial can serve as a jumping off point for more advanced analyses leveraging Cohen's class reduced interference distribution (RID) and/or TF-PCA on one's own data. The tutorial consists of template scripts to demonstrate how to:
-1) convert one's data into the format required by the psychophysiology toolbox (ptb);
-2) use the ptb to compute TF representations of both average (phase-locked) and total (phase and non-phase locked) power via Cohen's class RID; 
-3) compute tf-pca on average power and then copy pc weights over to total power by using the ptb; 
-4) export variables for statistical analyses and conduct basic plotting.
+1) Convert one's data into the format required by the psychophysiology toolbox (ptb);
+2) Use the ptb to compute TF representations of both average (phase-locked) and total (phase and non-phase locked) power via Cohen's class RID; 
+3) Compute tf-pca on average power and then copy pc weights over to total power by using the ptb; 
+4) Export variables for statistical analyses and conduct basic plotting.
 
 Additionally, the TFPCA-Tutorial includes:
-1) example data (ERP CORE ERN) that was used with template scripts (https://osf.io/q6gwp/);
-2) a copy of the psychophysiology toolbox 1.0.0 (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/);
-3) a copy of eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
-4) a coput of the Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org).
+1) Example data (ERP CORE ERN) that was used with template scripts (https://osf.io/q6gwp/);
+2) A copy of the psychophysiology toolbox 1.0.0 (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/);
+3) A copy of eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
+4) A coput of the Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org).
 
-Currently, the TFPCA-Tutorial relies on Matlab-based programming, and thus, requires that users have a valid Matlab license to run the tutorial. Assuming a valid Matlab license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described. Note that while the TFPCA-Tutorial currently relies on Matlab, we plan to update the tutorial to remove the Matlab requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within. afully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
+Currently, the TFPCA-Tutorial relies on MATLAB-based programming, and thus, requires that users have a valid MATLAB license to run the tutorial. Assuming a valid MATLAB license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described. Note that while the TFPCA-Tutorial currently relies on MATLAB, we plan to update the tutorial to remove the MATLAB requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within. afully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
 
 
 ## Quick Start
 
 1) Have perl installed. Perl is generally installed with Linux and Mac OS. Type `perl -v` on a command line to find out which version. For Windows, perl is needed to be downloaded and installed (https://www.perl.org/get.html);
 2) Have MATLAB installed (The MathWorks, Natick, MA);
-3) Have preprocessed "clean" data (artifacts removed, epoched, etc.);
-4) Git clone this repository;
-5) Go to the `analysis_template` folder and run `startup.m`.
+3) Git clone this repository;
+4) Go to the `analysis_template` folder and run `startup.m`.
 
 You should see messages indicating the toolbox was found :
 
@@ -65,9 +64,9 @@ FOUND: Matlab Wavelet Toolbox (Mathworks Inc.)
 Psychophysiology Toolbox completed verifying and adding paths.
 ```
 
-Note, the tfpca-tutorial needs a particular directory structure that has already been set in place. In other words, any changes in the directory structure of this repository may lead to running failure.
+Note, ptb expects a particular directory structure, which is reflected in the directory structure of this repository. In other words, any changes in the directory structure of this repository may lead to a running failure. Of course, advanced users can modfiy the directory structure as needed, but it is not reccomended that beginners attempt to alter the directory structure.
 
-Tfpca-tutorial tests were performed in Matlab R2021a (maybe add the version that you run with early on???) and macOS Big Sur (11.4). Other environments may work but have not been tested.
+Tfpca-tutorial tests were performed using Matlab R2021a and macOS Big Sur (11.4). However, the tutorial should likely work with most other environemnts, on both Windows and Linux/Unix, but have not been explicity tested and may require minor modifications. If you run into issues with set-up and running of the tutorial, please post an issue.
 
 
 ## Directory Structure & Scripts Descriptions
