@@ -18,7 +18,7 @@ Additionally, the TFPCA-Tutorial includes:
 3) A copy of eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
 4) A coput of the Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org).
 
-Currently, the TFPCA-Tutorial relies on MATLAB-based programming, and thus, requires that users have a valid MATLAB license to run the tutorial. Assuming a valid MATLAB license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described. Note that while the TFPCA-Tutorial currently relies on MATLAB, we plan to update the tutorial to remove the MATLAB requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within. afully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
+Currently, the TFPCA-Tutorial relies on MATLAB-based programming, and thus, requires that users have a valid MATLAB license to run the tutorial. Assuming a valid MATLAB license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described. Note that while the TFPCA-Tutorial currently relies on MATLAB, we plan to update the tutorial to remove the MATLAB requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within. a fully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
 
 
 ## Quick Start
