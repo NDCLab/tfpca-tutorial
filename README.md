@@ -1,5 +1,8 @@
 # TFPCA-Tutorial
 
+<p align="center">
+  <img src="/.github/_assets/tfpca400.jpg" />
+</p>
 
 ## Overview
 
@@ -8,10 +11,6 @@ The TFPCA-Tutorial serves as a companion to a forthcoming tutorial paper introdu
 2) use the ptb to compute TF representations of both average (phase-locked) and total (phase and non-phase locked) power via Cohen's class RID; 
 3) compute tf-pca on average power and then copy pc weights over to total power by using the ptb; 
 4) export variables for statistical analyses and conduct basic plotting.
-
-<p align="center">
-  <img src="/.github/_assets/tfpca400.jpg" />
-</p>
 
 Additionally, the TFPCA-Tutorial includes:
 1) example data (ERP CORE ERN) that was used with template scripts (https://osf.io/q6gwp/);
