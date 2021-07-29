@@ -109,7 +109,7 @@ This folder is populated with main template scripts, including implementing TF-P
 
 |——————`startup.m`
 
-This setup script adds all needed paths (eeglab, ptb toolbox, tufts toolbox and other template scripts and output paths.)
+This setup script adds all needed MATLAB paths (eeglab, ptb toolbox, tftb toolbox and other template scripts and output paths) and should be run first to set up the environment for the TFPCA-Tutorial.
 
 |——————`erp_core_35_locs.ced`
 
