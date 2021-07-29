@@ -73,7 +73,7 @@ Below, we provide an overview of the contents of the TFPCA-Tutorial repository. 
 
 |——`psychophysiology_toolbox-1.0.0`
 
-Psychophysiology Tool Box (PTB) is a scripting-based Matlab toolbox developed by Edward Bernat. PTB allows one to compute ERPs and TF representations (using Cohen's Class RID and RID-Rihaczek) and to decompose TF-PCA solutions on these data (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/). The PTB expects that data is formated in a particular manner and that a particular directory structure is used. Additionally, PTB expects that the user interacts with the toolbox by editing a series of scripts that must then be run from the appropriate working directory.
+Psychophysiology Tool Box (PTB) is a scripting-based Matlab toolbox developed by Edward Bernat and colleagues. PTB allows one to compute ERPs and TF representations (using Cohen's Class RID and RID-Rihaczek) and to decompose TF-PCA solutions on these data (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/). The PTB expects that data is formated in a particular manner and that a particular directory structure is used. Additionally, PTB expects that the user interacts with the toolbox by editing a series of scripts that must then be run from the appropriate working directory.
 
 |——`tftb`
 
@@ -97,11 +97,11 @@ Please note that the ERP CORE data available online (https://doi.org/10.18115/D5
 4) Ran the edited script #5 on the data downloaded in step #1 above.
 5) Ran script #6 (which can be downloaded at https://osf.io/f3m7s/) on the data outputs from step #5 above. Note that script #6 was not edited following downloading from https://osf.io/f3m7s/. This script performs a final artifact rejection step that must be re-run since we modifed the epochs produced by the step #5 script (see `Script6_Artifact_Rejection.m`).
 
-The steps listed above need not be completed by the user, as the modified data produced by these steps is already populated in the eeglab_data folder. The modified data use the following naming convention: `xx_ERN_shifted_ds_reref_ucbip_hpfilt_ica_corr_cbip_elist_bins_epoch_interp_ar.set`.
+The steps listed above need not be completed by the user, as the modified data produced by these steps is already populated in the 'eeglab_data' folder. The modified data use the following naming convention: `xx_ERN_shifted_ds_reref_ucbip_hpfilt_ica_corr_cbip_elist_bins_epoch_interp_ar.set`.
 
 |——`ptb_data`
 
-This folder is populated with the ERP CORE ERN data that has already been converted to the ptb native format. (The converting script will be introduced later in the `analysis_template` folder).
+This folder is populated with the ERP CORE ERN data that has already been converted to the format required by PTB. Therefore, the user does not need to convert the data found in the 'eeglab_data' folder. However, the user is nonetheless provided with the data in the 'eeglab_data' folder, and the script used to convert this data into the PTB format ('template_eeg2ptb_erplab.m' found in the 'scripts' folder) in order to illustrate how to convert data from the EEGLAB/ERPLAB format into the PTB format.
 
 |——`analysis_template`
 
