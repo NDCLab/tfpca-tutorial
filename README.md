@@ -77,28 +77,27 @@ Psychophysiology Tool Box (PTB) is a scripting-based Matlab toolbox developed by
 
 |——`tftb`
 
-The Time-Frequency Toolbox (TFTB) is a collection of about 100 scripts for GNU Octave and Matlab developed for the analysis of non-stationary signals using time-frequency distributions (http://tftb.nongnu.org).
+The Time-Frequency Toolbox (TFTB) is a collection of about 100 scripts for GNU Octave and Matlab developed for the analysis of non-stationary signals using time-frequency distributions (http://tftb.nongnu.org). A subset of these scripts are called by PTB, and thus, are needed to run the tutorial.
 
 |——`eeglab2021.0`
 
 EEGLAB is an interactive Matlab toolbox for processing continuous and event-related EEG, MEG and other electrophysiological data (https://sccn.ucsd.edu/eeglab).
-
-Note, to work with the example data (ERP CORE ERN), the erplab plugin (https://erpinfo.org/erplab) has been integrated.
+Note, to work with the example data (ERP CORE ERN), the erplab plugin (https://erpinfo.org/erplab) has been included. A copy of the EEGLAB toolbox (and the erplab plugin) are not neccesary to use the PTB, but are neccesary to run the provided example scripts for converting one's data into the format needed for PTB, as well as for the example scripts for plotting data after experting it from PTB.
 
 |——`eeglab_data`
 
-This folder is populated with the ERP CORE ERN data that this tutorial works with as the initial example data (https://osf.io/q6gwp/). 
+This folder is populated with a slightly modified version of the ERP CORE ERN. These data are used in the TFPCA tutorial.
 
-The ERP CORE (https://doi.org/10.18115/D5JW4R) is a freely available online resource consisting of optimized paradigms, experiment control scripts, example data from 40 neurotypical adults, data processing pipelines and analysis scripts, and a broad set of results for 7 widely used ERP components: N170, mismatch negativity (MMN), N2pc, N400, P3, lateralized readiness potential (LRP), and error-related negativity (ERN).
+The ERP CORE (https://doi.org/10.18115/D5JW4R) is a freely available online resource consisting of optimized paradigms, experiment control scripts, example data from 40 neurotypical adults, data processing pipelines and analysis scripts, and a broad set of results for 7 widely used ERP components: N170, mismatch negativity (MMN), N2pc, N400, P3, lateralized readiness potential (LRP), and error-related negativity (ERN). Only the ERN data are used for this tutorial.
 
-Several steps have been taken to get the final example data (in sequence):
-1) downloaded all 40 participants’ ERP CORE ERN data after processing step#4 (artifact-removed) (not being provided in this folder as the data can be downloaded at https://osf.io/ryk5u/);
-2) downloaded the script#5 (https://osf.io/4whf6/);
-3) edited the script#5 at line 52&53 - changing from [-600.0  400.0] (as being commented) segmentation into [-1000.0  2000.0] segmentation (See `Script5_Elist_Bin_Epoch.m`), with the aim of better showcasing TFPCA that needs longer epochs;
-4) run edited script#5 on the downloaded data;
-5) run script#6 (being downloaded at https://osf.io/f3m7s/ without any editing. Also see `Script6_Artifact_Rejection.m`) on the data created by edited script#5 to perform artifact rejection. 
+Please note that the ERP CORE data available online (https://doi.org/10.18115/D5JW4R) were modified slightly to optimize for subsequent TF decompositions. The modified version of these data are included in the eeglab_data folder. The following steps have been taken to modify the data (in sequence):
+1) Downloaded all 40 participants’ ERP CORE ERN data after processing step #4 (artifact-removed), which can be found here: (https://osf.io/ryk5u/);
+2) Downloaded script #5 (https://osf.io/4whf6/);
+3) Edited script #5 on lines 52 &5 3 - changing the segmentation delimiters from [-600.0  400.0] to [-1000.0  2000.0] (See `Script5_Elist_Bin_Epoch.m`).
+4) Ran the edited script #5 on the data downloaded in step #1 above.
+5) Ran script #6 (which can be downloaded at https://osf.io/f3m7s/) without any editing. Also see `Script6_Artifact_Rejection.m`) on the data created by edited script #5 to perform artifact rejection. 
 
-The final resulting data for 40 participants was provided in this folder (See `xx_ERN_shifted_ds_reref_ucbip_hpfilt_ica_corr_cbip_elist_bins_epoch_interp_ar.set`).
+The steps listed above need not be completed by the user, as the modified data produced by these steps is already populated in the eeglab_data folder (See `xx_ERN_shifted_ds_reref_ucbip_hpfilt_ica_corr_cbip_elist_bins_epoch_interp_ar.set`).
 
 |——`ptb_data`
 
