@@ -168,7 +168,7 @@ Main outputs:
     * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components.eps` - time-domain grand averages across all conditions, time-frequency domain grand averages across all conditions (the average power) and pc weights (based on the average power);
     * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree.eps` - scree plot of variance being explained;
     * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo.eps` - topographical plots of mean pc weights, peak pc weights (based on the average power);
-    * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_long-resp_comparisons.eps` - is the main plot that integrates all the plots genereated. Besides three plots described above, it further plots : 1) time-domain comparison(s), TF domain difference(s) and, pc-weighted TF difference(s) between conditions; 2) topographical plots of mean and peak pc-weighted TF differences between conditions; 3) statistical significance of mean and peak pc-weighted TF difference between conditions.
+    * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_long-resp_comparisons.eps` - is the main plot that integrates all the plots genereated. Besides three plots described above, it further plots : 1) time-domain comparison(s), TF domain difference(s) and, pc-weighted TF difference(s) between conditions; 2) topographical plots of mean and peak pc-weighted TF difference(s) between conditions; 3) statistical significance of mean and peak pc-weighted TF difference(s) between conditions.
 
 
 |————————————`Flanker_resp_ISFA_AMPL_theta_pcatfd.m`
@@ -190,7 +190,7 @@ Main output:
     * `Flanker_resp_ISFA_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components.eps` - time-domain grand averages across all conditions, time-frequency domain grand averages across all conditions (the total power) and pc weights (based on the total power);
     * `Flanker_resp_ISFA_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree.eps` - scree plot of variance being explained;
     * `Flanker_resp_ISFA_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo.eps` - topographical plots of mean pc weights, peak pc weights (based on the total power);
-    * `Flanker_resp_ISFA_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_long-resp_comparisons.eps` - is the main plot that integrates all the plots genereated. Besides three plots described above, it further plots : 1) time-domain comparison(s), TF domain difference(s) and, pc-weighted TF difference(s) between conditions; 2) topographical plots of mean and peak pc-weighted TF differences between conditions; 3) statistical significance of mean and peak pc-weighted TF difference between conditions.
+    * `Flanker_resp_ISFA_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_long-resp_comparisons.eps` - is the main plot that integrates all the plots genereated. Besides three plots described above, it further plots : 1) time-domain comparison(s), TF domain difference(s) and, pc-weighted TF difference(s) between conditions; 2) topographical plots of mean and peak pc-weighted TF difference(s) between conditions; 3) statistical significance of mean and peak pc-weighted TF difference(s) between conditions.
     
 
 |————————————`cp_avg_power_pcs.m`
