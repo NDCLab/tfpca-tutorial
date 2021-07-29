@@ -249,20 +249,24 @@ This folder is a copy of the `analysis-template` folder, but with all output fil
 
 ## Glossary
 
-<b>Cohen's class reduced interference distribution (RID)</b> - A time-frequency transformation method yielding improved time-frequency resolution without requiring a priori tailoring of the transformation. Cohen's class RID, particularly in combination with TF-PCA, has proven superiority in resolving time-frequency dynamics of human EEG.
+<b>Cohen's class reduced interference distribution (RID)</b> - A time-frequency transformation method yielding improved time-frequency resolution without requiring a priori parameterization for a restricted frequency band. 
 
-<b>Time-frequency Principle Components Analysis (TF-PCA)</b> - A data reduction technique that allows for isolating distinct processes in the time-frequency surface. TF-PCA involves application of principal component analysis to the time-frequency surface after first converting the 3-dimensional time- frequency surface to a 2-dimensional vector by “stacking” each frequency bin across time.
+<b>Time-frequency Principle Components Analysis (TF-PCA)</b> - A data reduction technique that allows for isolating distinct phenomena within the TF representation. TF-PCA involves application of principal component analysis (PCA) to the time-frequency representation after first converting each TF-representation into a long vector by conactenating frequency bins across time.
 
-<b>Average power</b> - A time-frequency distribution of power values that includes primarily phase-locked information and is computed from a time-frequency transformation of data that has already been averaged across trials of interest. 
+<b>Average power</b> - A TF representation computed from time domain data that has already been averaged across trials of interest. Thus, average power contains primarily phase-locked power data. 
 
-<b>Total power</b> - A time-frequency distribution of power values that includes both phase- and non-phase-locked information, and is computed from a time-frequency transformation of trial-level data that is then averaged across trials.(Buzzell et al., 2019)
+<b>Total power</b> - A TF representation that is computed for each trial, and then averaged across trials only after TF decomposition. Thus, total power contains both phase-locked and non-phase-locked power data.
 
-<b>PTB Native Format</b> - Data and index variables are stored together in a structured variable: cnt (continuous), erp (epoched), components (derived measures from erp variable).  The ptb toolbox operates as a flat-file database (a 'univariate' data setup).  A main 2-d data matrix (trials by waveforms) is indexed by vectors the same length as trials. Further details of this structure are available in the documentation directories (psychophysiology_toolbox-1.0.0/documentation/data_import/README_dataset-structure.txt)
+<b>PTB Format</b> - Data and index variables are stored together in a structured variable: cnt (continuous), erp (epoched), components (derived measures from erp variable).  The PTB toolbox operates as a flat-file database (a 'univariate' data setup).  A main 2-d data matrix (trials by waveforms) is indexed by vectors the same length as trials. Further details of this structure are available in the documentation directories (psychophysiology_toolbox-1.0.0/documentation/data_import/README_dataset-structure.txt)
 
 
 ## How to Cite 
 
-Please cite the forthcoming companion article: [tbd].
+If you use these resources, please cite *all three* of the following:
+1. The original TF-PCA methods paper: Bernat, E.M., Williams, W.J., Gehring, W.J., 2005. Decomposing ERP time–frequency
+energy using PCA. Clin. Neurophysiol. 116, 1314–1334.
+2. This github repository: https://github.com/NDCLab/tfpca-tutorial
+3. The companion tutorial article: Buzzell, G.A., Niu, Y., Bernat, E.M., _under review_. A Practical Introduction to Time-Frequency Principal Components Analysis (TF-PCA) of EEG Data.
 
 
 ## Contact Us
