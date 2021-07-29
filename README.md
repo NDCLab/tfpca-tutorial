@@ -113,11 +113,11 @@ This setup script adds all needed MATLAB paths (eeglab, ptb toolbox, tftb toolbo
 
 |——————`erp_core_35_locs.ced`
 
-The electrode location file for the ERP CORE ERN example data.
+This file contains the electrode locations file for the ERP CORE ERN example data included with the tutorial. 
 
 |——————`ptb_scripts`
 
-This folder is populated with main scripts that call the psychophysiology toolbox to implement TF-PCA.
+This folder contains the PTB template scripts that can be edited and then executed in order to compute ERPs, TF representations, and decompose TF-PCA solutions.
 
 |————————————`Flanker_resp_ISFA_base_averages.m`
 
@@ -125,12 +125,12 @@ This folder is populated with main scripts that call the psychophysiology toolbo
 
 |————————————`Flanker_resp_ISFA_base_loadvars.m`
 
-Those three scripts together produce an averaged ERP dataset. `Flanker_resp_ISFA_base_averages` is the run script. It calls `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` sets up basic information about how to find and process individual-subject data/files (file list and locations, baseline, etc). `Flanker_resp_ISFA_base_loadvars` sets up several parameters, including catcodes (category codes), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. electrode to plot) etc.. Furthermore, `Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) to get the list of each subject/data to be included (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subjects’ `.mat` dataset (in ptb format). 
+Together, these three scripts will produce an averaged ERP dataset. `Flanker_resp_ISFA_base_averages` is the run script that is executed by the user, whereas `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars` are essentially parameter files that are called by the `Flanker_resp_ISFA_base_averages` run script to load necessary parameters. Specifically, `Flanker_resp_ISFA_base_loaddata` designates basic information about where to find and how to process individual-subject data/files (file list and locations, time-domain baseline period, etc). `Flanker_resp_ISFA_base_loadvars` sets up several additional parameters, including "catcodes" (category codes; i.e. the conditions of interest), parameters for subsampling, electrode location files (.ced), output plot parameters (i.e. which electrode to plot) etc.. Furthermore, `Flanker_resp_ISFA_base_loaddata` calls `load_Flanker_resp_EEG_subnames.m` to loop over the data folder (`../ptb_data`) in order to get the list of each subject/data to be included in the analysis (each subject's data/file name will be used as the name for this subject). In most cases, `load_Flanker_resp_EEG_subnames.m` does not need to be edited as long as the data folder (`../ptb_data`) only includes subject files in the '.mat' PTB format.
 
-In sum, `Flanker_resp_ISFA_base_averages` is the run script to produce an averaged ERP dataset. Before running `Flanker_resp_ISFA_base_averages`,  parameters can be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
+In sum, `Flanker_resp_ISFA_base_averages` is the run script that is executed to produce an averaged ERP dataset, which is stored in 'data_cache'. Before running `Flanker_resp_ISFA_base_averages`,  parameters should be edited in `Flanker_resp_ISFA_base_loaddata` and `Flanker_resp_ISFA_base_loadvars`.
 
 Main output:
-* data_cache : 
+* data_cache: 
     * `Flanker_resp_ISFA_base_averages_128.mat` - Averaged ERP dataset;
     * `Flanker_resp_ISFA_base_averages_subsampling.mat` - Subsampling dataset.
 
@@ -141,7 +141,7 @@ Main output:
 
 |————————————`Flanker_resp_comparisons.m`
 		         
-Those three scripts together compute the average power and implement the TF-PCA on the average power. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) right after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Together, these three scripts compute the average power and implement the TF-PCA on the average power. `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up parameters including dataset name for averaged ERP dataset, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) right after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
 
 In sum, `Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script to compute the average power and implement the TF-PCA on the average power. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
 
