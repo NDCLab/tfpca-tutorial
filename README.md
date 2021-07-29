@@ -97,7 +97,7 @@ The ERP CORE (https://doi.org/10.18115/D5JW4R) is a freely available online reso
 Please note that the ERP CORE data available online (https://doi.org/10.18115/D5JW4R) were modified slightly to optimize for subsequent TF decompositions. The modified version of these data are included in the eeglab_data folder. The following steps have been taken to modify the data (in sequence):
 1) Downloaded all 40 participants’ ERP CORE ERN data after processing step #4 (artifact-removed), which can be found here: (https://osf.io/ryk5u/);
 2) Downloaded script #5 (https://osf.io/4whf6/);
-3) Edited script #5 on lines 52 &5 3 - changing the segmentation delimiters from [-600.0  400.0] to [-1000.0  2000.0] (See `Script5_Elist_Bin_Epoch.m`).
+3) Edited script #5 on lines 52 & 53 - changing the segmentation delimiters from [-600.0  400.0] to [-1000.0  2000.0] (See `Script5_Elist_Bin_Epoch.m`).
 4) Ran the edited script #5 on the data downloaded in step #1 above.
 5) Ran script #6 (which can be downloaded at https://osf.io/f3m7s/) on the data outputs from step #5 above. Note that script #6 was not edited following downloading from https://osf.io/f3m7s/. This script performs a final artifact rejection step that must be re-run since we modifed the epochs produced by the step #5 script (see `Script6_Artifact_Rejection.m`).
 
