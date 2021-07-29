@@ -234,7 +234,7 @@ This folder is a copy of the `analysis-template` folder, but with all output cac
 
 ## How to Cite 
 
-Upcoming …
+Please cite the forthcoming companion article: [tbd].
 
 
 ## Contact Us
@@ -243,11 +243,11 @@ For further information, questions, or feedback, please contact:
 
 George A. Buzzell, Ph.D - gbuzzell@fiu.edu
 
-Neural Dynamics of Control Laboratory Florida International University, Miami, Florida
+Neural Dynamics of Control Laboratory; Department of Psychology and the Center for Children and Families (CCF); Florida International University, Miami, Florida
 
 Yanbin Niu, MA  - yn2352@tc.columbia.edu
 
-Neural Dynamics of Control Laboratory Florida International University, Miami, Florida
+Neural Dynamics of Control Laboratory; Department of Psychology and the Center for Children and Families (CCF); Florida International University, Miami, Florida
 
 Edward Bernat, Ph.D. - ebernat@umd.edu
 
