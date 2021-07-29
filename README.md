@@ -64,16 +64,16 @@ FOUND: Matlab Wavelet Toolbox (Mathworks Inc.)
 Psychophysiology Toolbox completed verifying and adding paths.
 ```
 
-Note, ptb expects a particular directory structure, which is reflected in the directory structure of this repository. In other words, any changes in the directory structure of this repository may lead to a running failure. Of course, advanced users can modfiy the directory structure as needed, but it is not reccomended that beginners attempt to alter the directory structure.
-
 Tfpca-tutorial tests were performed using Matlab R2021a and macOS Big Sur (11.4). However, the tutorial should likely work with most other environemnts, on both Windows and Linux/Unix, but have not been explicity tested and may require minor modifications. If you run into issues with set-up and running of the tutorial, please post an issue.
 
 
 ## Directory Structure & Scripts Descriptions
 
+Below, we provide an overview of the contents of the TFPCA-Tutorial repository. Please note that PTB expects a particular directory structure, which is reflected in the directory structure of this repository. In other words, any changes in the directory structure of this repository may lead to a running failure. Of course, advanced users can modfiy the directory structure as needed, but it is not reccomended that beginners attempt to alter the directory structure.
+
 |——`psychophysiology_toolbox-1.0.0`
 
-Psychophysiology Tool Box (PTB) is a scripting-based Matlab toolbox with primary aim to conduct PCA in the time, freq, and time-freq domains (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/).
+Psychophysiology Tool Box (PTB) is a scripting-based Matlab toolbox developed by Edward Bernat. PTB allows one to compute ERPs and TF representations (using Cohen's Class RID and RID-Rihaczek) and to decompose TF-PCA solutions on these data (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/). The PTB expects that data is formated in a particular manner and that a particular directory structure is used. Additionally, PTB expects that the user interacts with the toolbox by editing a series of scripts that must then be run from the appropriate working directory.
 
 |——`tftb`
 
