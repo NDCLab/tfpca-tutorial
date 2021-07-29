@@ -105,7 +105,7 @@ This folder is populated with the ERP CORE ERN data that has already been conver
 
 |——`analysis_template`
 
-This folder is populated with main template scripts, including implementing TF-PCA with the ptb toolbox, and plotting the results.
+This folder contains all scripts that the user will interact with to run the tutorial, as well as pre-populated data resulting from running the scripts. As described below, the `analysis_template` folder contains subfolders for example PTB scripts (`ptb_scripts`), example scripts for converting data to the PTB format, as well as for exporting and plotting the data outside of PTB ('scripts'), and several subfolders for various outputs created by running the tutorial scripts ('data_cache', 'output_data', 'output_plots', 'extra_out_data).
 
 |——————`startup.m`
 
