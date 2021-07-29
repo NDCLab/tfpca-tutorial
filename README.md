@@ -134,9 +134,9 @@ Main outputs:
     * `Flanker_resp_ISFA_base_averages_128.mat` - Averaged ERP dataset;
     * `Flanker_resp_ISFA_base_averages_subsampling.mat` - Subsampling dataset.
 * output_plots :
-    *  plot_x - brief description;
-    *  plot_y - brief description;
-    *  plot_z - brief description 
+    *  'plot_x' - brief description;
+    *  'plot_y' - brief description;
+    *  'plot_z' - brief description 
 
 
 |————————————`run_Flanker_resp_AVGS_AMPL_theta_pcatfd.m`
@@ -145,7 +145,7 @@ Main outputs:
 
 |————————————`Flanker_resp_comparisons.m`
 		         
-Together, these three scripts compute "average power" (phase-locked) TF representations and decompose TF-PCA solutions for these TF representations. `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script that is executed by the user, whereas`Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' are scripts that act as parameter files called by the `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` run script to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up various parameters, including the electrode_locations file to use, the TF transformation method to use, and the dataset name that will be used in all related outputs to 'data_cache', 'output_data', and 'output_plots'. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` calls an additional script to perform filtering of the data (`preproc_filter'). 'Flanker_resp_comparisons' defines the parameters associated with plotting and statistical comparisons between condtiions (catcodes).
+Together, these three scripts compute "average power" (phase-locked power) TF representations and decompose TF-PCA solutions for these TF representations. `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script that is executed by the user, whereas`Flanker_resp_AVGS_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' are scripts that act as parameter files called by the `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` run script to load necessary parameters. Specifically, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` sets up various parameters, including the electrode_locations file to use, the TF transformation method to use, and the dataset name that will be used in all related outputs to 'data_cache', 'output_data', and 'output_plots'. Furthermore, `Flanker_resp_AVGS_AMPL_theta_DatasetDef` calls an additional script to perform filtering of the data (`preproc_filter'). 'Flanker_resp_comparisons' defines the parameters associated with plotting and statistical comparisons between condtiions (catcodes).
 
 In sum, `run_Flanker_resp_AVGS_AMPL_theta_pcatfd` is the run script executed by the user in order to compute average (phase-locked) power and decompose TF-PCA solutions. Before running `Flanker_resp_AVGS_AMPL_theta_pcatfd`, parameters should be edited in `Flanker_resp_AVGS_AMPL_theta_DatasetDef`, `preproc_filter`, and 'Flanker_resp_comparisons'.
 
@@ -155,9 +155,9 @@ Main outputs:
 * output_data :	
     * `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - pc weights (based on the average power).
 * output_plots :
-    *  plot_x - brief description; 
-    *  plot_y - brief description; 
-    *  plot_z - brief description 
+    *  'plot_x' - brief description;
+    *  'plot_y' - brief description;
+    *  'plot_z' - brief description 
 
 
 |————————————`Flanker_resp_ISFA_AMPL_theta_pcatfd.m`
@@ -166,9 +166,9 @@ Main outputs:
 
 |————————————`Flanker_resp_comparisons.m`
 
-Those three scripts together compute the total power and implement the TF-PCA on the total power. `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script. It calls `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' to load necessary parameters. Specifically, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up parameters including information about how to find and process individual-subject data,  parameters for subsampling, electrode_locations and the TF transformation method. 'Flanker_resp_comparisons' sets up comparison parameters. Furthermore, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up the theta filter (`preproc_theta`) right after loading the data. In other words, `preproc_theta` needs to be edited to obtain intended filtering. 
+Together, these three scripts compute "total power" (phase-locked and non-phase locked power) TF representations and decompose TF-PCA solutions for these TF representations. `run_Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script that is executed by the user, whereas`Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons' are scripts that act as parameter files called by the `run_Flanker_resp_ISFA_AMPL_theta_pcatfd` run script to load necessary parameters. Specifically, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` sets up various parameters, including information about how to find and process individual-subject data,  parameters for subsampling, the electrode locations file to use, and the dataset name that will be used in all related outputs to 'data_cache', 'output_data', and 'output_plots'. Furthermore, `Flanker_resp_ISFA_AMPL_theta_DatasetDef` calls an additional script to perform filtering of the data (`preproc_filter'). 'Flanker_resp_comparisons' defines the parameters associated with plotting and statistical comparisons between condtiions (catcodes).
 
-In sum, `Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script to compute the total power and implement the TF-PCA on the total power. Before running `Flanker_resp_ISFA_AMPL_theta_pcatfd`, parameters can be edited in `Flanker_resp_ISFA_AMPL_theta_DatasetDef` and 'Flanker_resp_comparisons'. If filtering is needed, edit `preproc_theta` as well.
+In sum, `run_Flanker_resp_ISFA_AMPL_theta_pcatfd` is the run script executed by the user in order to compute total (phase-locked and non-phase locked) power and decompose TF-PCA solutions. Before running `Flanker_resp_ISFA_AMPL_theta_pcatfd`, parameters should be edited in `Flanker_resp_ISFA_AMPL_theta_DatasetDef`, `preproc_filter`, and 'Flanker_resp_comparisons'.
 
 Main output: 
 * data_cache : 
@@ -176,9 +176,10 @@ Main output:
 * output_data :
     * `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` - pc weights (based on the total power).
 * output_plots :
-    *  plot_x - brief description; 
-    *  plot_y - brief description; 
-    *  plot_z - brief description 
+    *  'plot_x' - brief description;
+    *  'plot_y' - brief description;
+    *  'plot_z' - brief description 
+    
 
 |————————————`cp_avg_power_pcs.m`
 
