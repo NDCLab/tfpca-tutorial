@@ -10,7 +10,7 @@
 % Run the preproc_filter.m script to apply a filter specified inside of 'preproc_filter.m' prior to further analyses.
 % Additional steps to further modify the overall dataset can be specified and performed here as well.
   DatasetDef.loaddata     = ['load Flanker_resp_ISFA_base_averages_128;' ...          % Dataset to load - typically from base_averages and left in the data_cache folder. 
-                             'preproc_theta;' ...                                     % Executes a filtering script, which can be used to isolate certain frequencies. For more info, check the referenced script.       
+                             'preproc_filter;' ...                                     % Executes a filtering script, which can be used to isolate certain frequencies. For more info, check the referenced script.       
                             ];
 
 % Options set via the SETvars structured variable - See README_loadvars_keywords (in ptb/documentation).
