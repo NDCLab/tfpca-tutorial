@@ -1,5 +1,5 @@
 % -----------------------------------------------------------------------------
-% DatasetDef parameters - ‘DatasetDef’ scripts tell run script how to run.
+% DatasetDef parameters - ‘DatasetDef’ scripts specify parameters that influence how the associated run script.
 % Set up several parameters - Dataset name, loaddata, loadvars.
 % -----------------------------------------------------------------------------
 % Specifies the name of the dataset.
@@ -17,6 +17,5 @@
 % Then set the TF transformation method as binomial2.
   DatasetDef.loadvars     = ['Flanker_resp_ISFA_base_loadvars;' ...                          % Specifies the base_loadvars to load information about catcodes and subsampling.
                              'SETvars.TFDparams.method    = ''binomial2'';'...
-                           % 'SETvars.data_postprocessing = ''postproc_load_ID;'';' ...        % Postprocessing script used to load individual differences into the dataset created in "DatasetDef.loaddata".
                             ];
 
