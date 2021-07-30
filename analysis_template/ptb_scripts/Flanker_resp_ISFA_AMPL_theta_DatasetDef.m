@@ -1,4 +1,5 @@
 % -----------------------------------------------------------------------------
+% DatasetDef parameter script for total (phase and non-phase-locked) power ("ISFA_AMPL")
 % DatasetDef parameters - ‘DatasetDef’ scripts specify parameters that influence how the associated run script.
 % Set up several parameters - Dataset name, loaddata, loadvars.
 % -----------------------------------------------------------------------------
