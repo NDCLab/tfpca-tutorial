@@ -2,14 +2,14 @@
 % power (../data_cache) from ptb format into a format that is easy to
 % plot/analyze etc.
 %
-% Finally, the data will be saved to (../extra_out_data).
+% Finally, the data will be saved to (../exported_data).
 
 % ---------------------------------------------------------------------------------------------
 %
 % Reorganize the Average Power data into a subject x condition x channel x freq x time array
 % that is convenient for plotting (see template script "template_plots.m") and intended
 % statistical analysis (no template script provided).
-% Save the result into "extra_out_data" folder.
+% Save the result into "exported_data" folder.
 %
 % ---------------------------------------------------------------------------------------------
 % load the average power data from the '../data_cache' folder.
@@ -43,12 +43,12 @@ end
 AvgPower_resp_TFD.subs = subs';
 
 % create folder if not exist
-if exist('../extra_out_data','dir') == 0,
-    mkdir('../extra_out_data');
+if exist('../exported_data','dir') == 0,
+    mkdir('../exported_data');
 end
 
 % save data
-save(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat'], 'AvgPower_resp_TFD');
+save(['../exported_data' filesep 'AvgPower_resp_TFD.mat'], 'AvgPower_resp_TFD');
 
 
 % ---------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ save(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat'], 'AvgPower_resp_TFD')
 % Reorganize the Total Power data into a subject x condition x channel x freq x time array
 % that is convenient for plotting (see template script "template_plots.m") and intended
 % statistical analysis (no template script provided).
-% Save the result into "extra_out_data" folder.
+% Save the result into "exported_data" folder.
 %
 % ---------------------------------------------------------------------------------------------
 % load the total power from ptb 'data_cache' folder.
@@ -90,5 +90,5 @@ end
 TotalPower_resp_TFD.subs = subs';
 
 % save data
-save(['../extra_out_data' filesep 'TotalPower_resp_TFD.mat'], 'TotalPower_resp_TFD');
+save(['../exported_data' filesep 'TotalPower_resp_TFD.mat'], 'TotalPower_resp_TFD');
 

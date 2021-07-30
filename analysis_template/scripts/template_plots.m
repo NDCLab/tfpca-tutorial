@@ -8,7 +8,7 @@
 %                     Weighted TFD(total power) Plotting
 %
 % ------------------------------------------------------------------------
-load(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
+load(['../exported_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
 
 WeightedTFD_total = Theta_TotalPower_resp_TFD_pcWeighted.WeightedTFD_total;
 
@@ -151,7 +151,7 @@ colorbar;
 %              Plottig for Total power with dB conversion 
 %
 % ------------------------------------------------------------------------
-load(['../extra_out_data' filesep 'TotalPower_resp_TFD_baseRemoved.mat']);
+load(['../exported_data' filesep 'TotalPower_resp_TFD_baseRemoved.mat']);
 TFD_baseRemoved_total = TotalPower_resp_TFD_baseRemoved.TFD_baseRemoved_total;
 
 % select conditions
@@ -225,7 +225,7 @@ colorbar();
 % "xxx-fac1-PCs.mat" stores the 1pc weights (derived from the average power TF surface)
 % here take 1 factor pc weight as the example. You can load the pc weights that you are
 % interested (i.e. "xxx-fac2-PCs.mat", "xxx-fac3-PCs.mat" etc.)
-load(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
+load(['../exported_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat']);
 
 DataToPlot = Theta_TotalPower_resp_TFD_pcWeighted.Pmat;
 

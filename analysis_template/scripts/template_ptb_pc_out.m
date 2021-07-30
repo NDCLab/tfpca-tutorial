@@ -1,12 +1,12 @@
 % Here assume that the average power and the total power have already been
 % converted to an easy-to-understand format in (template_ptb_cache_out.m)
-% and the resulting data has been saved to (../extra_out_data).
+% and the resulting data has been saved to (../exported_data).
 %
 % This template sript is mainly for applying pc weights (in ../output_data)
 % to the average power and the total power. The resulting data along with the pc weight used
 % will also be converted to a format that is easy to plot/analyze etc.
 %
-% Finally, the data will be saved to (../extra_out_data).
+% Finally, the data will be saved to (../exported_data).
 %
 % This template takes 1 factor solution as the example.
 
@@ -16,11 +16,11 @@
 % 
 % ---------------------------------------------------------------------------------------------
 % load the average and total power data that has been already saved 
-% in "../extra_out_data" folder with "template_ptb_cache_out.m"
-load(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat']);
+% in "../exported_data" folder with "template_ptb_cache_out.m"
+load(['../exported_data' filesep 'AvgPower_resp_TFD.mat']);
 avgTFD = AvgPower_resp_TFD.avgTFD;
 
-load(['../extra_out_data' filesep 'TotalPower_resp_TFD.mat']);
+load(['../exported_data' filesep 'TotalPower_resp_TFD.mat']);
 totalTFD = TotalPower_resp_TFD.totalTFD;
 
 % load the pc weight from ptb 'output_data' folder
@@ -101,7 +101,7 @@ Theta_TotalPower_resp_TFD_pcWeighted.Pmat = Pmat;
 Theta_TotalPower_resp_TFD_pcWeighted.WeightedTFD_total = WeightedTFD_total;
 Theta_TotalPower_resp_TFD_pcWeighted.subs = TotalPower_resp_TFD.subs;
 
-% save data into '../extra_out_data'
-save(['../extra_out_data' filesep 'Theta_AvgPower_resp_TFD_pcWeighted.mat'], 'Theta_AvgPower_resp_TFD_pcWeighted');
-save(['../extra_out_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat'], 'Theta_TotalPower_resp_TFD_pcWeighted');
+% save data into '../exported_data'
+save(['../exported_data' filesep 'Theta_AvgPower_resp_TFD_pcWeighted.mat'], 'Theta_AvgPower_resp_TFD_pcWeighted');
+save(['../exported_data' filesep 'Theta_TotalPower_resp_TFD_pcWeighted.mat'], 'Theta_TotalPower_resp_TFD_pcWeighted');
 

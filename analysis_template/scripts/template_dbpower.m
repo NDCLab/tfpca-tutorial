@@ -1,19 +1,19 @@
 % Here assume that the average power and the total power have already been
 % converted to an easy-to-understand format in (template_ptb_cache_out.m)
-% and the resulting data has been saved to (../extra_out_data).
+% and the resulting data has been saved to (../exported_data).
 %
 % This emplate script is mainly for conducting dB power conversion for the average power 
 % and the total power.
 %
-% Finally, the data will be saved to (../extra_out_data).
+% Finally, the data will be saved to (../exported_data).
 
 % ---------------------------------------------------------------------------------------------
 % 
 %                             The average power with dB conversion
 %
 % ---------------------------------------------------------------------------------------------
-% load the average power data that has been already saved in "../extra_out_data" folder with "template_ptb_cache_out.m"
-load(['../extra_out_data' filesep 'AvgPower_resp_TFD.mat']);
+% load the average power data that has been already saved in "../exported_data" folder with "template_ptb_cache_out.m"
+load(['../exported_data' filesep 'AvgPower_resp_TFD.mat']);
 avgTFD = AvgPower_resp_TFD.avgTFD;
 
 [subNum, conNum, chanNum, FreqNum, SampNum]= size(avgTFD);
@@ -40,7 +40,7 @@ end %end time loop
 AvgPower_resp_TFD_baseRemoved.TFD_baseRemoved_avg = TFD_baseRemoved_avg;
 AvgPower_resp_TFD_baseRemoved.subs = AvgPower_resp_TFD.subs;
 
-save(['../extra_out_data' filesep 'AvgPower_resp_TFD_baseRemoved.mat'], 'AvgPower_resp_TFD_baseRemoved');
+save(['../exported_data' filesep 'AvgPower_resp_TFD_baseRemoved.mat'], 'AvgPower_resp_TFD_baseRemoved');
 
 
 % ---------------------------------------------------------------------------------------------
@@ -48,8 +48,8 @@ save(['../extra_out_data' filesep 'AvgPower_resp_TFD_baseRemoved.mat'], 'AvgPowe
 %                          The total power with dB conversion
 %
 % ---------------------------------------------------------------------------------------------
-% load the total power data that has been already saved in "../extra_out_data" folder with "template_ptb_cache_out.m"
-load(['../extra_out_data' filesep 'TotalPower_resp_TFD.mat']);
+% load the total power data that has been already saved in "../exported_data" folder with "template_ptb_cache_out.m"
+load(['../exported_data' filesep 'TotalPower_resp_TFD.mat']);
 totalTFD = TotalPower_resp_TFD.totalTFD;
 
 [subNum, conNum, chanNum, FreqNum, SampNum]= size(totalTFD);
@@ -75,5 +75,5 @@ end %end time loop
 TotalPower_resp_TFD_baseRemoved.TFD_baseRemoved_total = TFD_baseRemoved_total;
 TotalPower_resp_TFD_baseRemoved.subs = TotalPower_resp_TFD.subs;
 
-save(['../extra_out_data' filesep 'TotalPower_resp_TFD_baseRemoved.mat'], 'TotalPower_resp_TFD_baseRemoved');
+save(['../exported_data' filesep 'TotalPower_resp_TFD_baseRemoved.mat'], 'TotalPower_resp_TFD_baseRemoved');
 
