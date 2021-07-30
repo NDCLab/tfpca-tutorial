@@ -1,4 +1,5 @@
 % -----------------------------------------------------------------------------
+% DatasetDef parameter script for average (phase-locked) power ("AVGS_AMPL")
 % DatasetDef parameters - ‘DatasetDef’ scripts specify parameters that influence how the associated run script.
 % Set up several parameters - Dataset name, loaddata, loadvars.
 % -----------------------------------------------------------------------------
