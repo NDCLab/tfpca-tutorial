@@ -1,0 +1,26 @@
+function [retval] = base_plots_Merge_run(IDvars,SETvars),
+% [retval] = base_plots_Merge_run(IDvars),
+%  
+% Psychophysiology Toolbox, Components, University of Minnesota  
+
+% vars 
+  retval = 1;
+  base_function_initvars; 
+
+% create merged plot PDF
+
+    [mergename_basic,retval] = base_plots_Merge_basic(IDvars,SETvars);
+
+  if isfield(SETvars,'comparisons'), 
+   %[mergename_short,retval] = base_plots_Merge_short(IDvars,SETvars);
+    [mergename_long ,retval] =  base_plots_Merge_long(IDvars,SETvars);
+
+%   if exist([output_plots_path filesep mergename_short '.eps'])~=0 | ...  
+%      exist([output_plots_path filesep mergename_long  '.eps'])~=0, 
+    if exist([output_plots_path filesep mergename_long  '.eps'])~=0, 
+%      delete([output_plots_path filesep ID '-plot_*.eps']);                                             % for basic  
+       delete([output_plots_path filesep ID '-plot_*_comparison_*' SETvars.comparisons_label '*.eps' ]); % for diffs  
+    end 
+
+  end
+

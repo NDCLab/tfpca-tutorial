@@ -1,0 +1,171 @@
+#!/usr/bin/perl -w
+#
+#
+#
+########################################################################
+####								    ####
+####		    EPSMERGE INSTALLATION PROGRAM		    ####
+####								    ####
+########################################################################
+
+
+
+BEGIN {
+    unshift @INC, "./lib";
+}
+
+use Config;
+use File::Find;
+
+
+my @MODULES = qw(Cell.pm CellFactory.pm Driver.pm Eps.pm
+		 Formatter.pm Io.pm MainCell.pm Options.pm
+		);
+
+my @DEVFILES = qw(epsmerge.pod);
+
+my @TOPFILES = qw(epsmerge README VERSION INSTALL COPYING);
+
+
+
+make_dist();
+
+
+exit 0;
+
+
+
+#### MAKE FUNCTIONS ####
+
+
+####   D I S T   ####
+
+# When I develop epsmerge I keep everything in the same directory.  The
+# following function copies the distribution files into a special
+# directory and packs it up ready for traveling.  You won't need to run
+# this, hence you don't need to check it, so this is a somewhat denser
+# programming style...
+
+sub make_dist {
+    # Check that all files are present (in current directory)
+    manifest( @TOPFILES, @DEVFILES, @MODULES ) or exit;	# manifest() prints a warning if wrong
+
+    # Check that version numbering is set correctly in the files, typical thinko
+    my @VER = get_version();
+    my $s = $VER[0]; $s =~ s/\./\\\./g;
+    grep_file("Official_Version.*$s.*$VER[1]", "epsmerge") or die "Couldn't find correct version string in epsmerge";
+    grep_file("documents version $s", "epsmerge.pod") or die "Couldn't find correct version string in epsmerge.pod";
+
+    # Build distribution directory
+    $s = "epsmerge-$VER[0]";
+    -d $s and die "Directory $s exists: stop";
+    mkdir $s
+	and mkdir "$s/devel" and mkdir "$s/docs" and mkdir "$s/lib"
+	    or die "Couldn't create directory hierarchy";
+    if( system "cp @MODULES $s/lib"
+	or system "cp @DEVFILES $s/devel"
+	or system "cp @TOPFILES $s" )
+	{ die "Couldn't copy files into $s: $!"; }
+
+    # Generate the generateable files
+    # Could be problems if I'd had umask 0777...
+    umask 022;
+    system "pod2html epsmerge.pod >$s/docs/epsmerge.html" and print "Warning: pod2html failed: $!\n";
+    print "Warning: $s/docs/epsmerge.html may require manual editing\n";
+    system "pod2man epsmerge.pod >$s/docs/epsmerge.1" and print "Warning: pod2man failed: $!\n";
+    system "pod2text epsmerge.pod >$s/docs/epsmerge.txt" and print "Warning: pod2text failed: $!\n";
+
+    # Set proper permissions
+    chmod 0755, $s;
+    find( sub { -d and chmod 0755, $_ or $_ eq "epsmerge" and chmod 0755, $_ or chmod 0644, $_ },
+	  $s);
+
+    # Pack the tarballs
+    if( system "tar cf $s.tar $s"
+	or system "gzip -9 <$s.tar >$s.tar.gz"
+	or system "bzip2 $s.tar" )
+	{ die "Couldn't pack the tarballs: $!";	}
+    chmod 0644, "$s.tar.gz", "$s.tar.bz2";
+
+    # create the .deb; builds by default .*-1_all.deb
+    my $debdir = "epsmerge_$VER[0]-1_all";
+    mkdir $debdir
+	and chdir "$debdir"
+	    or die "Couldn't build deb directory";
+    system "mkdirhier usr/bin usr/share/doc/epsmerge usr/share/man/man1 usr/share/epsmerge DEBIAN"
+	and die "Couldn't build deb hierarchy";
+    system "cp ../$s/docs/epsmerge.1 usr/share/man/man1" and die ".deb: copy man page failed";
+    system "cp ../README ../$s/docs/epsmerge.html ../$s/docs/epsmerge.txt usr/share/doc/epsmerge"
+	and die ".deb: copy doc pages failed";
+    foreach (@MODULES) {
+	system "cp ../$_ usr/share/epsmerge" and die ".deb: couldn't copy $_";
+    }
+    system "cp ../epsmerge usr/share/epsmerge" and die ".deb: couldn't copy $_";
+    system "cp ../COPYING usr/share/doc/epsmerge/copyright" and die ".deb: couldn't copy COPYING";
+    find( sub { -d and chmod 0755, $_ or $_ eq "epsmerge" and chmod 0755, $_ or chmod 0644, $_ },
+	  $s);
+    symlink "usr/share/epsmerge/epsmerge", "usr/bin/epsmerge" or die ".deb: couldn't symlink epsmerge";
+    chdir ".." or die ".deb: Couldn't cd out of $debdir";
+    system "dpkg-deb -b $debdir" or die ".deb: dpkg-deb failed";
+    chmod 0644, "$debdir.deb";
+
+    # And remove the distribution directory; there may also be some
+    # fluff created by the pod2foo commands above...?
+    system "rm -r $s $debdir" and die "Couldn't remove dist directory";
+}
+
+
+#### DIST HELPER FUNCTIONS ####
+
+# The following checks whether a directory is in the path, but
+# using a fairly simple test which should be OK as long as they
+# all are absolute.
+
+sub is_in_path {
+    my $dir = shift;
+    $dir =~ s%/$%%;
+    foreach ( split /:/, $ENV{PATH} ) {
+	s%/$%%;
+	return 1 if $_ eq $dir;
+    }
+    return 0;
+}
+
+
+# VERSION is supposed to be a two-line file in the current directory,
+# the first line giving the version number and the second the codename
+# for the release (which usually follows the second version number
+# (release)).
+sub get_version {
+    open(VER, "VERSION") or die "No version file";
+    my @ver = <VER>;
+    close VER;
+    die "Version file should have \"number\ncodename\n\"" unless @ver == 2;
+    chomp $ver[0]; chomp $ver[1];
+    return @ver;
+}
+
+# Grep if a string is present in *all* files given as arguments;
+sub grep_file {
+    my $string = shift;
+    foreach (@_) {
+	my $val = system "egrep", "-q", "$string", "$_";
+	die "Couldn't find egrep" if $val == 0xff00;
+	if( $val ) {
+	    die "egrep returned $val: $!" if $val > 0x100;
+	    return 0;
+	}
+    }
+    return 1;
+}
+
+# Check that all files are present; return false if they aint.
+sub manifest {
+    foreach (@_) {
+	unless( -e ) {
+	    print "File $_ is missing!\n";
+	    return;
+	}
+    }
+    return 1;
+}
