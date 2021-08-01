@@ -530,6 +530,7 @@ After getting the weighted average power and the weighted total power, this scri
 </p>
 
 2)	Line 6～100 plots weighted total power differences (two differences based on our interest). 
+
 a)	It loads the data that was saved in previous step (weighted total power) from the `extra_out_data` folder. Line 19-21 extracts the weighted total power for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 19-21 based on the interested conditions from your data. 
 
 ```
@@ -565,6 +566,7 @@ d)	The following lines plot two difference respectively. Run Line 6～100 by sel
 </p>
 
 3)	Line 103～146 plots topographical maps for two differences. 
+
 a)	Line 111～113 extracts the weighted total power by factor 1 for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 111～113 based on the interested conditions from your data. 
 
 ```
