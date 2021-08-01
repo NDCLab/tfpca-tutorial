@@ -525,6 +525,9 @@ After getting the weighted average power and the weighted total power, this scri
 
 1)	Line 219～250 plots pc weights. Keep in mind, the pc weights here were computed by using the average power. Plotting the pc weights that were computed using the total power is not provided here, but they are very similar. Run Line 219～250 by selecting Line 219～250 and then right click and select “Evaluate Selection”. Here you have the plot for pc weights (we use 1 factor pc weight here as the example).
  
+<p align="center">
+  <img src="/.github/_assets/scripts_7.bmp"/>
+</p>
 
 2)	Line 6～100 plots weighted total power differences (two differences based on our interest). 
 a)	It loads the data that was saved in previous step (weighted total power) from the `extra_out_data` folder. Line 19-21 extracts the weighted total power for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 19-21 based on the interested conditions from your data. 
@@ -553,7 +556,13 @@ W1TFD_cong_incong_Diff_MFC_subAvg = W1TFD_incong_corr_MFC_subAvg - W1TFD_cong_co
 
 d)	The following lines plot two difference respectively. Run Line 6～100 by selecting Line 6～100 and then right click and select “Evaluate Selection”. Here you have two plots for weighted total power difference between incongruent & error condition and incongruent & correct condition, as well as weighted total power difference between incongruent & correct condition and congruent & correct condition.
  
+<p align="center">
+  <img src="/.github/_assets/scripts_1.bmp"/>
+</p>
  
+<p align="center">
+  <img src="/.github/_assets/scripts_2.bmp"/>
+</p>
 
 3)	Line 103～146 plots topographical maps for two differences. 
 a)	Line 111～113 extracts the weighted total power by factor 1 for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 111～113 based on the interested conditions from your data. 
@@ -582,7 +591,13 @@ topoplot([DataToPlot],'../erp_core_35_locs.ced','maplimits', [-.1 .1], 'electrod
 
 d)	Run Line 103～146 by selecting Line103～146 and then right click and select “Evaluate Selection”. Here you have two topographical plots for weighted total power difference between incongruent & error condition and incongruent & correct condition, as well as weighted total power difference between incongruent & correct condition and congruent & correct condition.
  
+<p align="center">
+  <img src="/.github/_assets/scripts_3.bmp"/>
+</p>
  
+<p align="center">
+  <img src="/.github/_assets/scripts_4.bmp"/>
+</p>
 
 To sum up, in Step 6, the template scripts 1) reorganized and exported data for average power, total power, weighted average power and weighted total power; 2) plots the pc weight, weighted total power differences of interest and topographical maps for weighted total power differences of interest. Of course, we do not intend to exhaust all the data exporting and plotting scenarios, but to provide a jumping off point for more advanced analyses and plotting tailored to your research.
 
@@ -635,7 +650,13 @@ TFD_Diff_Incong_cong = TFD_incongruent_corr_FCz_subAvg - TFD_congruent_corr_FCz_
 
 4)	The following lines plot two differences respectively. Run Line 149～216 by selecting Line 149～216 and then right click and select “Evaluate Selection”. Here you have two plots for the total power (with dB conversion) difference between incongruent & error condition and incongruent & correct condition, as well as the total power difference (with dB conversion) between incongruent & correct condition and congruent & correct condition.
  
+<p align="center">
+  <img src="/.github/_assets/scripts_5.bmp"/>
+</p>
  
+<p align="center">
+  <img src="/.github/_assets/scripts_6.bmp"/>
+</p>
 
 Here we only provide the plotting for the total power with dB conversion. The plotting for the average power with dB conversion can be very similar as we already have the data (the average power with dB conversion) saved in the `../extra_out_data` folder.
 
