@@ -165,26 +165,41 @@ Running base averages will yield several outputs, both printed to screen and sav
 
 #### Plots printed at screen
 1)	From top to bottom, Figure 1 shows grand averages and components being set in `Flanker_resp_ISFA_base_averages.m`.
- 
 
-2)	From top to bottom, Figure 2 shows mean and peak topographic maps of grand averages and components being set in `Flanker_resp_ISFA_base_averages.m`. 
- 
+<p align="center">
+  <img src="/.github/_assets/erp_1.bmp"/>
+</p>
 
-#### Data being save in the `data_cache` folder
+2)	From top to bottom, Figure 2 shows mean and peak topographic maps of grand averages and components being set in `Flanker_resp_ISFA_base_averages.m`.
+ 
+<p align="center">
+  <img src="/.github/_assets/erp_2.bmp"/>
+</p>
+
+#### Data being saved in the `data_cache` folder
 
 Two sets of data were saved in the `data_cache` folder.
 1)	`Flanker_resp_ISFA_base_averages_subsampling.mat` is the subsampling data. Particularly, `static_sets.sweeps` field saves trials that were randomly selected for computing for each subject and for each condition. For each subject and each condition, there is an 8*25 array (as being set up in `Flanker_resp_ISFA_base_loadvars.m`) which saves the trials that were randomly selected. This subsampling data will be used in the future whenever the same subject needs subsampling. As you may already notice, this subsampling data only has 38 subjects and data of subject#5 and subject#9 was missed here. This is because subject#5 and subject#9 do not have enough trials (as being set as 8) for all conditions. Thus, both were excluded from computing. Therefore, delete those two subjects from `ptb_data` folder to avoid running failure while computing total power (in the step 4).
- 
+
+<p align="center">
+  <img src="/.github/_assets/subsampling.png"/>
+</p>
 
 2)	`Flanker_resp_ISFA_base_averages_128.mat` is the erp data. Particularly, `data` field saves erp data for each subject x channel x condition. Specifically, `data` is a 3534*384 array. 3534 equals 38(subjects)*3(conditions)*31(channels). 384 equals 3(-1s～2s per epoch)*128(time bins per second). In `data` filed, the first 31 rows are the data for subject1, condition1 and channels1-31, and the second 31 rows are the data for subject1, condition2 and channels1-31, and so on so forth. `elec` and `subnum` fields saves sweeps for channels and subjects respectively. `subs` field is subject names (names of files that store subject data in the `ptb_data` folder).
- 
 
-#### Data being save in the `output_data` folder
+<p align="center">
+  <img src="/.github/_assets/erp_data.png"/>
+</p>
+
+#### Data being saved in the `output_data` folder
 
 1)	`Flanker_resp_ISFA_base_averages-win-rs128-StandardComps.mat` is the components data. Particularly, `components` field saves components data that was set up in `Flanker_resp_ISFA_base_averages.m`. Specifically, `wwm` is the mean across the whole window, `wwp` is the peak across the whole window, `ernm` is the mean across 0～100ms (ERN), ` ernp` is the peak across 0～100ms (ERN) and so on so forth. Moreover, similar to the `erp.data` field, this components data is for each subject x channel x condition (38*3*31).
- 
 
-#### Data being save in the `output_plots` folder
+<p align="center">
+  <img src="/.github/_assets/components_data.png"/>
+</p>
+
+#### Data being saved in the `output_plots` folder
 
 1)	`Flanker_resp_ISFA_base_averages-win-rs128-StandardComps-plot_components` is the figure for components (as shown in Figure1).
 
@@ -292,46 +307,82 @@ Similarly, running `Flanker_resp_AVGS_AMPL_theta_pcatfd` will yield several outp
 #### Plots printed at screen
 
 1)	From top to bottom, Figure 1 shows grand average time-domain theta across all conditions (as we set up frequency cut-off 3～9Hz), grand average time-frequency domain theta across all conditions (the average power – correct?) and pc weights.
- 
+
+<p align="center">
+  <img src="/.github/_assets/avg_1.bmp"/>
+</p>
 
 2)	From left to right, Figure 2 shows topographical plots of mean pc weights, peak pc weights, xxxx and yyyy (what are the other two for?). 
- 
+
+<p align="center">
+  <img src="/.github/_assets/avg_2.bmp"/>
+</p>
 
 3)	Figure 20 shows scree plot of variance being explained.
  
+<p align="center">
+  <img src="/.github/_assets/avg_20.bmp"/>
+</p>
 
 4)	From top to bottom, Figure 7 (1) shows time-domain theta comparison, TF domain theta difference and, pc-weighted TF differences between incongruent & error condition and incongruent & correct condition. From top to bottom, Figure 7 (2) shows time-domain theta comparison, TF domain theta difference and, pc-weighted TF differences between incongruent & correct condition and congruent & correct condition. Notably, the plot for difference between incongruent & error condition and incongruent & correct condition has been overwritten by the plot for incongruent & correct condition and congruent & correct condition.
- 
- 
+
+<p align="center">
+  <img src="/.github/_assets/avg_7.bmp"/>
+</p>
+
+<p align="center">
+  <img src="/.github/_assets/avg_7_2.bmp"/>
+</p>
 
 5)	From left to right, Figure 8 (1) shows topographical plots of mean and peak pc-weighted TF difference between incongruent & error condition and incongruent & correct condition. From left to right, Figure 8 (2) shows topographical plots of mean and peak pc-weighted TF difference between incongruent & correct condition and congruent & correct condition. (what are the other two for??)
- 
- 
+
+<p align="center">
+  <img src="/.github/_assets/avg_8.bmp"/>
+</p>
+
+<p align="center">
+  <img src="/.github/_assets/avg_8_2.bmp"/>
+</p>
 
 6)	From left to right, Figure 9 (1) shows statistical significance of mean and peak pc-weighted TF difference between incongruent & error condition and incongruent & correct condition. From left to right, Figure 9 (2) shows statistical significance of mean and peak pc-weighted TF difference between incongruent & correct condition and congruent & correct condition. (what are the other two for??)
  
+<p align="center">
+  <img src="/.github/_assets/avg_9.bmp"/>
+</p>
  
+<p align="center">
+  <img src="/.github/_assets/avg_9_2.bmp"/>
+</p>
 
-#### Data being save in the `data_cache` folder
+#### Data being saved in the `data_cache` folder
 
 A set of data was saved in the `data_cache` folder –`Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat` which is the average power. Particularly, `data` field is the average power for each subject x channel x condition x frequency bins x time bins. Specifically, `data`field is an 3534*33*96 array. 3534 equals 38(subjects)*3(conditions)*31(channels). 33 is the number of frequency bins (as being set in `Flanker_resp_AVGS_AMPL_theta_pcatfd.m`). 96 equals 3(-1s～2s per epoch)*32(time bins per second). `elec` and `subnum` fields are sweeps for channels and subjects respectively. `subs` field is subject names (names of files that store subject data in the `ptb_data` folder).
- 
 
-#### Data being save in the `output_data` folder
+<p align="center">
+  <img src="/.github/_assets/avg_tf_data.png"/>
+</p>
+
+#### Data being saved in the `output_data` folder
 
 1)	In `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`, `Pmat` is a 13*33*n array which is the pc weight matrix. 13 is the difference between the start time bin and the end time bin (16-(-16)+1 = 33). 33 is the difference between the start frequency bin and the frequency time bin (19-7+1=13). `n` represents the number of factors being extracted. Taking 1 factor solution as the example. `Pmat` is a 13*33 (13*33*1) array. Should we interpret other 3 data (explained, latent and p)
 
 2)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat` not really sure how to interpret this data??
- 
 
-#### Data being save in the `output_plots` folder
+<p align="center">
+  <img src="/.github/_assets/avg_components_data.png"/>
+</p>
+
+#### Data being saved in the `output_plots` folder
 1)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components.eps` is the Figure 1 that was plotted at screen (as described above).
 2)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree.eps` is the Figure 20 that was plotted at screen (as described above).
 3)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo.eps` is the Figure 2 that was plotted at screen (as described above)
 4)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_basic.eps` is a merged plot for three above.
 5)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_long-resp_comparisons.eps` is the main plot that integrates all the plots that were described above (being printed at screen), including two differences plotting. Specifically, 1) the first plot in the first row is grand average time-domain theta across all conditions, grand average time-frequency domain theta across all conditions (average power) and pc weights; 2) the second plot in the first row is the topographical plots of pc weights; 3) the third plot in the first row is the scree plot; 4) the first plot in the second row is time-domain theta comparison between incongruent & error condition and incongruent & correct condition, TF domain theta differences between incongruent & error condition and incongruent & correct condition, pc-weighted TF differences between incongruent & error condition and incongruent & correct condition; 5) the second plot in the second row is topographical plots of pc-weighted TF differences between incongruent & error condition and incongruent & correct condition; 6) the third plot in the second row is statistical significance of pc-weighted TF difference between incongruent & error condition and incongruent & correct condition. Similarly, plots in the third row are for differences between incongruent & correct condition and congruent & correct condition.
  
-
+<p align="center">
+  <img src="/.github/_assets/avg_merged.png"/>
+</p>
+ 
 Again, these can be useful as a preliminary look, but it is preferred that you generate your own plots using the plotting template scripts being introduced later (in Step 6).
 
 
@@ -382,7 +433,7 @@ Similarly, running `Flanker_resp_ISFA_AMPL_theta_pcatfd` will yield several outp
 
 The interpretations of six plots generated is very similar to those in step3. The only difference is those plots are based on the total power rather than the average power. To avoid repetition, the detailed interpretations are skipped (see them in Step 3).
 
-#### Data being save in the `data_cache` folder
+#### Data being saved in the `data_cache` folder
 
 Three set of data was saved to the `data_cache` folder.
 
@@ -392,13 +443,13 @@ Three set of data was saved to the `data_cache` folder.
 
 3)	`Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` is the total power which stays in same format as the average power. To avoid repetition, the detailed description is skipped (see it in Step 3).
 
-#### Data being save in the `output_data` folder
+#### Data being saved in the `output_data` folder
 
 1)	`Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` stores pc weights computed based on the total power which stays in same format as pc weights computed based on the average power. To avoid repetition, the detailed description is skipped (see it in Step 3).
 
 2)	`Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat` not really sure how to interpret this data??
 
-#### Data being save in the `output_plots` folder
+#### Data being saved in the `output_plots` folder
 
 Similar to Step 3, five files were saved. The only difference is those plotting files are based on the total power rather than the average power. To avoid repetition, the detailed interpretations are skipped (see them in Step 3). 
 
