@@ -1,0 +1,38 @@
+EMCP
+
+This is a distribution of EMCP, a version of Gabriele Gratton's
+Eye Movement Correction Procedure (EMCP), originally
+developed at the Cognitive Psychophysiology Laboratory at the
+University of Illinois.  It is based on a version (emcpx) written
+for AIX by James Turner. This version is a modification of that code, 
+designed for use with the NeuroScan Inc. EEG data files. 
+
+More information can be found in EMCP.DOC.
+
+Disclaimer:  There is no warranty or guarantee of any sort regarding any
+file in this distribution.  Use this program at your own risk.
+
+You may modify this program.  If you choose to modify and distribute
+it, you must include the acknowledgments above and all material in
+this distribution, including EMCP.DOC, with the modification.
+
+
+William J. Gehring
+Human Brain Electrophysiology Laboratory
+Department of Psychology
+University of Michigan
+Ann Arbor, Michigan 48109-1109
+wgehring@umich.edu
+
+April 16, 1996
+
+Brian Foote
+Cognitive Psychophysiology Laboratory
+Department of Psychology
+University of Illinois at Urbana-Champaign
+603 E. Daniel
+Champaign, IL  61820
+(217) 333-3411
+foote@p300.cpl.uiuc.edu
+
+22 May 1996

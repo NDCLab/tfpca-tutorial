@@ -1,0 +1,71 @@
+function [response_data] = response_cnt(cnt,stimuluscodes,responsecodes,verbose,options), 
+
+% [response_data] = response_cnt(cnt,stimuluscodes,responsecodes,verbose,options),
+% 
+%   cnt = structured cnt variable (can have empty data matrix, or only one column)  
+% 
+%   stimuluscodes - codes to search from  
+% 
+%   responsecodes - codes to search for between stimulus codes   
+% 
+%   options/direction 
+% 
+%        direction = string - (F)orward or (R)everse 
+% 
+%        options - structured variable - not currectly defined         
+% 
+
+if ~exist('verbose'),     verbose     =         1; end 
+if ~exist('options'),     options     =       'F'; end
+
+search_direction = options; 
+
+cnt.event = double(cnt.event); 
+
+tevents = zeros(size(cnt.event)); 
+for jj = 1:length(stimuluscodes), 
+
+  tevent  = cnt.event==stimuluscodes(jj); 
+  tevents = tevent + tevents; 
+
+end 
+
+events = tevents~=0; 
+event_idx = find(events~=0); 
+
+if     isequal(search_direction,'F'),
+  event_idx = [event_idx length(cnt.event)];
+  events2search = 1:length(responsecodes)-1; 
+elseif isequal(search_direction,'R'),
+  event_idx = [1 event_idx]; 
+  events2search = 2:length(responsecodes);
+end
+
+clear response_data  
+for t=events2search, 
+
+  cur_resp_idx = []; 
+  for jj = 1:length(responsecodes),  
+    if     isequal(search_direction,'F'),  
+      cur_resp_idx = [cur_resp_idx find(cnt.event(event_idx(t)+1:event_idx(t+1)-1)==responsecodes(jj))];  
+    elseif isequal(search_direction,'R'),
+      cur_resp_idx = [cur_resp_idx find(cnt.event(event_idx(t-1)+1:event_idx(t)-1)==responsecodes(jj))];
+    end 
+  end 
+  if ~isempty(cur_resp_idx),
+    response_data(t).stimulus = cnt.event(event_idx(t)); 
+    clear tresp trt  
+    for kk = 1:length(cur_resp_idx), 
+    tresp(kk) = cnt.event(event_idx(t)+cur_resp_idx(kk));    
+    trt(kk)   = (cur_resp_idx(kk)) * (1000/cnt.samplerate);     
+    end  
+    response_data(t).response  = tresp; 
+    response_data(t).rt        = trt; 
+  else, 
+    response_data(t).stimulus  = cnt.event(event_idx(t));
+    response_data(t).response  = 0; 
+    response_data(t).rt        = 0; 
+  end  
+
+end 
+

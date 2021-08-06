@@ -1,0 +1,69 @@
+Version 0.8 Released 8 July 1999
+	- renamed Atomic directory to Chirplets directory
+	- replaced 'atom' with 'chirplet' everywhere 
+	- updated almost every file in Chirplets directory
+	- added Utils/ptfd_marg
+	- swapped time_shear and freq_shear
+	- added Symplectic/chirp2rot
+	- added signal covariance, instf, and gd to sig_mom
+	- fixed little bug in wigner1 (computing f)
+
+Version 0.7 Released 2 February 1999
+	- changed copyright to GNU GPL
+	- updated almost every file in Atomic directory
+	- removed find_atoms_em (incorporated into find_atoms)
+	- added hessian, fisher, crlb, KandQ
+	- added Symplectic directory with time_shear, freq_shear, and 
+          scale
+        - moved fracft to Symplectic directory and changed it to be
+          simpler and more robust
+	- added fmcubic, acf and lwigner
+	- changed center point in fmpoly (now always symmetric)
+	- changed wigner1 and lacf1 to allow cross-WDs
+
+Version 0.6 Released 1 September 1998
+	- changed implementation of tcd
+	- added fracft, hermite
+	- added Atomic directory with angle2cr, best_atom, cr2angle,
+	  est_c, est_cd_global, est_d, est_tf, f_atom, find_atoms,
+          find_atoms_em, and g_atom
+	- added demo_atoms
+	- fixed bugs in demo_wigner4, stft4
+	- changed default window in stft2
+	- added sig_mom, lconv, cconv
+	- changed duration and chirp rate parameters in atoms
+	- changed and updated sinc_interp (no longer extrapolates)
+	- changed qfun to laf
+
+Version 0.5 Released 27 April 1998
+	- added page2 and levin2 (useless, but easy to do...)
+	- eliminated nested loops in binomial2 and born_jordan2 (speed!)
+	- removed Signals directory
+	- added stft1 and fixed spec1
+	- added Demos directory with demo_wigner4, demo_types, demo_ltvf,
+	  demo_tcd, and demo_localized
+	- fixed TFDs so that they sum to E^2
+	- fixed yet another bug in rihaczek1
+	- added tcd, localized, add_noise, smooth1, and Richman's m-file
+
+Version 0.4 Released 10 February 1998
+	- fixed choi_williams1
+	- fixed bug in stft2 and stft4
+	- added ltv_filter, atoms, qfun, fmsin, fmpoly
+	
+Version 0.3 Released 28 October 1997
+	- greatly increased the speed of some routines 
+	  (wigner1, wigner4, binomial2, qwigner2, born_jordan2)
+	- fixed spelling of Margenau
+	- added spec1
+	- fixed bug in rihaczek1
+
+Version 0.2 Released 18 June 1997
+	- changed overall structure (no cohen*.m routines)
+	- better documentation with "help"
+	- added Contents.m file
+	- added margeneau_hill*.m routines
+	- added wigner4.m for odd length signals
+	- added DTFDPath.m
+
+Version 0.1 Released 13 March 1997

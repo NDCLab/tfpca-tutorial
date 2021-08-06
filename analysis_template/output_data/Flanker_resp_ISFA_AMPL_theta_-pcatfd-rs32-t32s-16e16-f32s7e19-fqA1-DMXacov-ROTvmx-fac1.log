@@ -1,0 +1,113 @@
+START RUNNING ID:	Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1
+MESSAGE: computed decomposition and components:  Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat not found in cache, computing ...
+MESSAGE: computed decomposition:  Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat not found in cache, computing ...
+Size of PCA matrix -- Rows:  3534 Cols:       429
+PCASVD -- decomposition type: association_Covariance
+
+Unrotated_VarianceExplained =
+
+   42.6767
+
+Finding the orthogonal Varimax rotation using delta tolerance 1.000000e-04...
+#1 - delta = 0
+Reordering rows...
+ 
+PCASVD -- decomposition and rotation processing time: 0.072033 seconds 
+ 
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components
+{Unable to perform assignment because the size of the left side is 1-by-1 and the size of the right
+side is 0-by-1.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('base_plot_topo', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_plot_topo.m', 80)" style="font-weight:bold">base_plot_topo</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_plot_topo.m',80,0)">line 80</a>)
+              enums(r,c) = strmatch(deblank(cur_ename),components.elecnames,'exact');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('base_startup_inner', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_startup_inner.m', 115)" style="font-weight:bold">base_startup_inner</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_startup_inner.m',115,0)">line 115</a>)
+    figure(2);        [retval,time_plot_topo]       =
+    base_plot_topo(IDvars,SETvars,erp,real(erptfd),1);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('pcatfd_startup', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/pcatfd_startup.m', 67)" style="font-weight:bold">pcatfd_startup</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/pcatfd_startup.m',67,0)">line 67</a>)
+  base_startup_inner;
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Flanker_resp_ISFA_AMPL_theta_pcatfd', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/analysis_template/ptb_scripts/Flanker_resp_ISFA_AMPL_theta_pcatfd.m', 32)" style="font-weight:bold">Flanker_resp_ISFA_AMPL_theta_pcatfd</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/analysis_template/ptb_scripts/Flanker_resp_ISFA_AMPL_theta_pcatfd.m',32,0)">line 32</a>)
+    pcatfd_startup(DatasetDef,
+    32,32,-16,16,32,7,19,fq,dmx,rot,fa,PlotAvgs,Comparison,PlotsMerge,ExportAscii,Verbose);
+} 
+Flanker_resp_ISFA_AMPL_theta_pcatfd
+Preparing variables variables for run (SETvars): start 
+     looking for loadvars source: start
+          trying to run loadvars string as passed: Flanker_resp_ISFA_base_loadvars;SETvars.TFDparams.method    = 'binomial2';
+          running loadvars string as passed: Flanker_resp_ISFA_base_loadvars;SETvars.TFDparams.method    = 'binomial2';
+     looking for loadvars source: end  
+     looking for local loadvars source: start
+          trying to run local loadvars string as passed: Flanker_resp_comparisons
+     looking for local loadvars source: end
+          SETvars currently contains the following values: 
+
+SETvars = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+                 exists: 1
+                trl2avg: [1×1 struct]
+              cache_erp: 1
+    electrode_locations: ''erp_core_35_locs.ced''
+      electrode_to_plot: 'FCz'
+              TFDparams: [1×1 struct]
+      comparisons_label: '-resp_comparisons'
+            comparisons: [1×2 struct]
+             plotcolors: [14×3 char]
+                  ptype: 'epsc2'
+
+Preparing variables variables for run (SETvars): done 
+Loading cached ERP file: Flanker_resp_ISFA_AMPL_theta_
+          base_loaddata_prepvars_from_erp: processing variables after loading data: start
+readlocs(): 'chanedit' format assumed from file extension
+Reading file (lines): 10 20 30 35
+readlocs() warning: Fewer columns in the input than expected.
+                    See >> help readlocs
+          base_loaddata_prepvars_from_erp: processing variables after loading data: end 
+    ERP Data Matrix Size: 3534 (rows/trials) X 96 (bins)
+Loading TFD data 
+    Loading cached TFD file: Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat 
+      timebins: 96   freqbins: 33   Records: 3534
+      timebins: 96   freqbins: 33   Records: 3534
+FREQ: 1/F energy adjustment
+    TFD Data Matrix Size: 3534 (rows/trials) X 429 (TFD: 13 freq X 33 time)
+START RUNNING ID:	Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1
+MESSAGE: computed decomposition and components:  Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat found in cache, not recomputing ...
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components_comparison_differences-resp_comparisons-CATError-Correct
+Number of subjects for: base_plot_topo_comparison_differences
+         Set: Error	 N:38
+         Set: Correct	 N:38
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo_comparison_differences-resp_comparisons-CATError-Correct
+Number of subjects for: base_plot_topo_comparison_statistics
+             statistic: wilcoxon [within-subjects]
+         Set: Error	 N: 38
+         Set: Correct	 N: 38
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo_comparison_statistics-resp_comparisons-CATError-Correct
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components_comparison_differences-resp_comparisons-CATIncongruent-Congruent
+Number of subjects for: base_plot_topo_comparison_differences
+         Set: Incongruent	 N:38
+         Set: Congruent	 N:38
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo_comparison_differences-resp_comparisons-CATIncongruent-Congruent
+Number of subjects for: base_plot_topo_comparison_statistics
+             statistic: wilcoxon [within-subjects]
+         Set: Incongruent	 N: 38
+         Set: Congruent	 N: 38
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_topo_comparison_statistics-resp_comparisons-CATIncongruent-Congruent
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree
+Writing out file: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_basic
+Printing: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_scree
+Writing out file: Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plots_Merge_long-resp_comparisons
+Processing Time
+     time_plot_components:					  0.87 
+     time_plot_topo:						  0.79 
+     time_plot_components_comparison_differences:		  3.61 
+     time_plot_topo_comparison_differences:			  2.81 
+     time_plot_comparison_statistics:				  2.90 
+     time_total:						 14.12
+END RUNNING ID:		Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1

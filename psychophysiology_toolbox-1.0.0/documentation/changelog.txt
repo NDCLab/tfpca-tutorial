@@ -1,0 +1,323 @@
+
+version 1.0.0 
+  - copy of 0.9.19, minor cleaning up ... EB (09/2019) 
+
+version 0.9.19 
+  MAJOR UPDATES
+  -cleaned up old versions of scripts (e.g. files with 'hold' and 'org', etc., unused oldver versions) EB (09/2019)  
+
+version 0.9.18
+
+  MAJOR UPDATES
+  - The following is a list of scripts that were changed by JH in 08/2019 to update the PTB for Matlab 2018b compatibility. All edits have been commented within each script.
+    - extract_averages - % use of continue requires a for or while loop. wrapped the chunk of code in a dummy for loop to fix
+    - extract_base_loadprep_data - % use of continue requires a for or while loop. wrapped the chunk of code in a dummy for loop to fix
+    - base_loaddata - % use of break requires a for or while loop. wrapped the chunk of code in a dummy for loop to fix
+    - suptitle - % removed +4 for font size (default font size is larger in recent Matlab versions); 
+    - suptitle_multi - % Old version (commented out) padded the title with a large amount of blank. This caused the text to print off of the page when printing the eps file. In the edited version below, the blank padding ensures that all elements of the suptitles structure are as long as the longest element.
+  - psychophysiology_toolbox_paths_defaults - edited to add a default path to the ghostscript directory (which should reside next to, not in, the PTB direcotry)
+    
+
+  BUG FIXES
+  - base_loaddata_prep4run_tfd - % in the Standardized within band by baseline activity 'k' option, the code did not use the baseline index (e.g., -300 to -100) for standard deviation calculation like it does for the mean. Instead, it calculated the standard deviation of the entire epoch and uses that for Z-transforming. i.e., the code was std(erptfd(ii,:,:)), where it should correctly be sdata =  std(erptfd(ii,BL_start:BL_end,:)). This was fixed, so now the mean/SD calculations both correctly use the data from the (same) specified baseline - JH 08/2019
+
+  - merge_data2stim used && where first condition tested for OPTIONS variable, but was checking for any presence, rather than presence of OPTIONS as a variable (somethng in 2019a was present aside from variable) ... changed to evaluate only for the variable, now works fine - EB 09/2019 
+
+version 0.9.16
+
+  BUG FIXES
+    - tag_artifacts -- added and fixed 'ALL' for critELECs (e.g. any elec that meets criteria drops whole trial). 
+
+  FEATURE MODIFICATIONS 
+    - short plots no longer created (code still there in Merge scripts, but disabled) ... 
+    - log files -- now creates separate log files for loaddata process in data_cache per datasetname 
+    - subsampling/resampling 
+      - extract_averages_subsampling.m - added functionality to determine subsample length based on number of sweeps across catcodes within a
+      subject, similar in function to the static_sets (CRN_sets) code. added a parameter to indicate the minimum number of sweeps necassary to
+      continue (if a subject does not have enough, it is removed from the list). - JH 052113
+      - extract_averages_subsampling.m - added functionality to predetermine the subsample length for each subject, which can be used to equate trial number
+      across tasks/time points in a longitudinal design/etc., and allows for cross-task or age comparisons. - JH 021214 
+    
+  BUG FIXES
+    - aggregate_and_bootstrap_erp.m & aggregate_erp.m - fixed a bug where a 1-electrode time-domain erp structure would be passed back as a 3d structure because the matrix size was not predefined. Took code from extract_averages to switch cases between TD and TF, and now it works as it should. - JH 052113
+
+version 0.9.15
+
+  BUG FIXES 
+   - long2mat_tfddata - was passing back inmat instead of outmat, so nothing was modified! 
+   - generate_TFPS_interelec.m - strmatch not using 'exact' and thus crashing on some elecnames (e.g. '5') which had multiple matches.  Changed to use the 'exact' parameter.  
+   - extract_averages.m - TFPS in the help section incorrectly put TFPS parameters in OPTIONS.  Now correctly in the domain parameter 
+
+  FEATURE - ADDED ROBUST STATS 
+   - Robust Statistics (JH 10.04.12) - edited the statistics in PTB to include robust measures of association (correlations and regressions). Changes were made to the following scripts: base_comparison_set, base_comparison_statistics, base_cur_diffcat, base_plot_topo_comparison_differences, base_plot_topo_comparison_statistics, pca_plot_components_comparison_differences, pcatfd_plot_components_comparison_differences, win_plot_components_comparison_differences, wintfd_plot_components_comparison_differences. Specific edits are as follows:
+     - base_comparison_set: evaluates existence of correlation or regression for breaktype, rather than just correlation
+     - base_comparison_statistics: correlation now uses corr function (old method was regstats). Correlation can now be done with Pearson (default), Kendall, or Spearman, which can be specified in stats =
+     'correlation|correlation-pearson|correlation-spearman|correlation-kendall'. Can plot p-values and correlation coefficients. Regression (comparisons(1).stats = 'regression') now performed in robustfit (old method was regstats), and OLS
+     (default), huber, and bisquare methods can be specified in stats = 'rgression-ols|regression-huber|regression-bisquare'. Both robust methods try to reduce the weight of outliers on the model. The stats that can be extracted for plotting are p-values (p), t-scores (t) and beta weights (beta). Method backwards compatible with old regression comparisons using correlation and COV (changes .stat to regression and runs ols regression). Like ttest, we can now plot the Wilcoxon Signed-Rank and Z-Stat stats using stats_plots='stats.signedrank|zval', as the WIlcoxon code [p,h] =  signrank(Cvals(1).vals); has been changed to [p,h,stats] =  signrank(Cvals(1).vals);
+     - base_cur_diffcat: Backwards compatibility with old regression scripts (using corr and COV) is done here. If the old method of COV and corr is used, this script changes the cur_comparison.stats to 'regression' and runs an ols model (default). Results are equivalent to old method.
+     - The following scripts only had a small mod to evaluate stats.correlation and stats.regression for plotting topomaps (from if ~isempty(findstr('correlation',cur_comparison.stats)) to if ~isempty(findstr('correlation',cur_comparison.stats)) | ~isempty(findstr('regression',cur_comparison.stats));:
+       base_plot_topo_comparison_differences
+       base_plot_topo_comparison_statistics
+       pca_plot_components_comparison_differences
+       pcatfd_plot_components_comparison_differences
+       win_plot_components_comparison_differences
+       wintfd_plot_components_comparison_differences
+
+version 0.9.13-0.9.14 
+
+   - Intertrial TFPS (generate_TFPS_intertrial.m) - was based on sequential phase differences between adjacent trials in the dataset.  Scott Burwell found that a number of people instead calculated the difference of each trial and the average.  This seems more stable, and less vulnerable to local (trial-to-trial) differences, e.g. experimental effects related to sequence.  We ran some comparisons, and the measures were quite similar, but the average reference surface approach was consistently more statistically significant, and indexed higher frequencies like theta more effectively.  We changed to this approach.
+
+   - edited tag_artifacts.m to fix a problem with the critchannel option (JH) 
+     - old tag_artifacts could not handle situations where erp.sweep was missing some values (i.e., did not go from 1:end without missing a sweep). the index used to tag bad trials was incorrect (it was using 1:length(unique(erp.sweep)), which created a faulty index). new version now uses unique(erp.sweep) so that the values accurately match that in erp.sweep, and the indexing works correctly. also, the if/end conditional logic for creating the rejection vector was incorrect (could not correctly index the vectors, and would incorrectly return a false if only one critchannel exceeded AT threshold), and has now been changed to correct logic using the any() function.
+     - moved old tag_artifacts.m to tag_artifacts.m.20120629 and edited old
+
+   - EEGLAB compatibility version 
+     - in extract_trials/averages 
+     - in components, including ISF  
+
+   - topomap N intermittent inconsistency problem fixed 
+     - used to pull N from last elec computed, now median across topomap  
+
+   - fix: extract_averages with only one elec and one catcode - made 3-d data 
+              matrix for time and freq domain instead of 2-d ... now makes 2-d  
+              (fixed code at end of extract_averages bberp)    
+
+   - add alias for epoch_cnt from epoch - so not to conflict with EEGLAB 
+
+   - fix: a few problems with loaddata preprocessing, e.g. for EEGLAB files in OPTIONS.loaddata.
+          extract_base_loadprep_data_external_loaddata_interface had loaddata instead of OPTIONS.loaddata  
+          base_loaddata_ISF_oneindivsubfile: moved EEG2erp until after OPTIONS.loaddata, like extract_averages  
+
+   - fix: local load vars (e.g. comparisons) failed to load if in cell format,
+          now tries to convert to string and eval.  
+
+version 0.9.12.
+
+   - TFPS functionality roll-up version -- list of TFPS features: 
+     -Complex TF Dist: RID Rihaczek and Matlab Wavelets  
+     -TF averaging now includes TFPS option for complex TF distributions. 
+      -inter-trial phase-synchrony  
+      -inter-elec  phase-synchrony (functional connectivity) 
+
+version 0.9.11. 
+   - TFPS Fix problem where PLV denominator could be incorrect (too high).  
+       This was due to using for/next loop counter, but needed independent counter. 
+   - TFPS Fix problem with inter-electrode TFPS implementation -- didn't function in extract_averages correctly. 
+   - plotting - base_uni2multi 
+     -problem: not correctly excluding missing data per electrode (zero value was entered). 
+               this generally gave incorrect non-sig results at one elec, because extra zero was in there. 
+     -fix:     now appropriately excludes missing values.   
+
+version 0.9.10 
+
+   - Integrate TFPS into PTB - new TFDparams.TFPS paramter for complex TF distributions  
+     -run from extract_averages 
+     -run from components toolbox (via extract_averages) 
+   - OPTIONS parameter created for extract_averages  
+     - OPTIONS.loaddata for loading external files (e.g. EEGLAB) 'on the fly'
+       in extract_averages and thus also components toolbox via ISF   
+   - external scripts 
+     - eeglab readlocs file eeglab1020.ced was missing, and reading external .asc files didn't work.  
+       added form 6.01b archive, and all is ok now. 
+   - data_import 
+     - cnt2mat and cnt2mat_events - modified to handle 'SS' start/stop events from appending files 
+                                    These had trigger values of zero, and offset was non-integer. 
+                                    These events are now excluded and a warning is given. 
+ 
+version 0.9.9 
+
+   - external scripts 
+     -eeglab plotting routines updates to 6.01b
+   - components
+     -doPCA - integrated Joe Dien's PCA_Toolbox (doPCA).  Now available via additional DMX and ROT options. 
+     -base_reduceelecs2topomap.m - minor loop change for enums2keep_vect to be more standard 
+   - data_processing 
+     -extract_trials/averages - new OPTIONS (replaces XX unused) -- accepts .loaddata 
+                                this is added to import data, like convert EEGLAB to PTB format for integration 
+     -aggregate_erp: subnum handling -- now removes subnum/subname from output data structure 
+                                        (assumes averaging across subnums -- use extract_averages if subavgs desired) 
+                     stim variables were not handled before (omitted in error)  
+     -remove_artifacts_erp - wrapper for tag_artifacts.  Accepts AT structure and removes those trials. 
+ 
+   - general
+
+version 0.9.8 
+
+   - components
+     - extract_trials/averages - if incoming erp.tbin = startbin, tbin was incorrectly defined -- now fixed.
+                               - multisub mode: subnums and subnames could become unsynched 
+                                    if subnums weren't consecutive 1:end.  There was a bug in using: 
+                                      ~findstr('multisub',mode) -- changed to -- isempty(findstr('multisub',mode))   
+                                    - variable 'mode' changed to 'proc_mode' for matlab 7. 
+ 
+     - comparisons - added 'regress' statistics type (useful to covary -- e.g. partial correlations)  
+   - data_processing
+     - reduce_erp - now when reduce_text fails, give WARNING back, but completes. 
+     - plot_erp - use freq type (amplitude/power) from erp.domain, in the plot titles 
+                - modify catcodes.name to accept numbers as well as text  
+     - generate_TFDs - added progress counter in percentage  
+     - sort_erp - added to sort rows of the erp structure by specified vector  
+     - EOG_correction_Gratton - wrapper for EMCP, original Gratton EOG correction (djemcp/demcp.exe now bundled)  
+     - rereference_elecs - incorrectly handled cnt files (was sweep = 1:length(cnt.elec), now sweep = ones(size(erp.elec)) ) 
+     - added review_trials function for data screening 
+   - general
+ 
+
+version 0.9.7 
+
+   - components 
+     - modified data_name parameter when imput as a structured variable to default loaddata to [datset_name '_loaddata']. 
+       This means, a .loaddata need not be passed -- e.g. if only a adds/mods to loadvars is desired... 
+     - modified comparisons for correlations to new shorter syntax -- i.e.
+       only have to define the continuous variable, and it defaults to
+       correlating with the current component and a median breakset on the
+       continuous. 
+     - flip_components function added - allows manual flipping direction of components. 
+
+   - data_processing 
+     - combine_files - added preprocessing parameter, like extract_averages/trials.  Can now execute 
+                       any commands prior to trying to combine each file. 
+     - export_ascii - BUG - only effected waveform exports -- NOT component exports. FIXED   
+                            tbin was written as a variable, but not the actual data -- making data one column off.
+                    - outname no longer required (will use components_inname if a string and change to .dat). 
+     - find_events_cnt - added to replace response_cnt - allow Forward or Reverse events 
+                       - added sort command becuase multiple events were not sorted in time 
+     - extract_trials/averages - if incoming erp.tbin = startbin, tbin was incorrectly defined -- now fixed. 
+
+   - general 
+     - read_ascii_dataset - needed an fclose at the end (too many files left open on multiple calls). 
+
+ version 0.9.6 
+
+   - components 
+     - SETvars.data_postprocessing - added to base_loaddata, to postprocess final erp structure in any way. 
+     - changed internal dir_sep variable to the standard matlab filesep 
+     - improved path search script at beginning, also added output.  All aimed to make more user-friendly 
+     - added support for DiscreteTFD Toolbox by Jeff Oneil.  This adds GPL RID support. 
+     - split generate_TFD to have an external script for each TFD method.  This effectively creates an 
+       interface for others to add new TFD methods. 
+ 
+   - general 
+     - modified all TFT references to TFD, to make consistency 
+
+   - many small bug fixes 
+
+ version 0.9.5 
+
+   - data_import
+   - data_processing
+   - components
+       - base_cur_diff - modified correlation stat so that one can just specify what to correlate, 
+                         without specifying that anything about the component (entire component contents used) 
+   - general
+
+   - bugfix when defining statistical colormap axes -- 0.9.3 introduced the SETvars.plots variables for scaling. 
+       This was incorrectly listing 'Varied' for stats colormap axes, so that the color relationship to the p-values
+       could not be known from the plots.  Now correct reports p values display when consistent across topomaps.  
+
+   - many small bug fixes
+
+ version 0.9.4 
+
+   - data_import
+     - epoch - fixed bug where space was allocated for all requested triggers, but then when 
+               beginning or ending trigger exceeded availble data they were not used.  This 
+               produced ranges with zeros where the trial would have been.  Now, this check is 
+               performed before allocating memory, and that the space is not allocated. 
+     - rereference() - modified to check for multi-sub input, and fail to attempt running it. 
+     - avg2mat - fix scaling problem, by now dividing values by elec.n value (number of trials). 
+     - cnt2mat/cnt2mat_events - modified loop that was missing some events under some circumstances. 
+
+   - data_processing
+     - extract_averages/trials - P1/P2 can now be passed inline script as well as external script 
+     - extract_averages/trials - fixed bug where singlesub mode with subnums included in files 
+                                 created wrong subnum vector 
+     - extract_averages/trials - now can produce domain 'TFT' using TFTB (e.g. RID) or CWT wavelet  
+     - modifications to deal with new 'TFT' domain type: 
+       - changed to handle TFT domain files: reduce_erp.m, combine_files.m
+       - modified to display error or warning with TFT domain files: 
+         - baseline_erp.m
+         - resample_erp.m
+         - tag_artifacts.m
+         - get_components.m
+         - review_components.m
+     - extract_average/trials - bugfix - single-sub passed as erp structure failed with an error, this is now fixed. 
+     - generate_TFTs - creates a TFT for each trial in erp structure - used by extract_averages/trials for doomain 'TFT'. 
+          Can create using Quantum Signal TFTB or wavelets (currently cwt from matlab wavelet toolbox). 
+ 
+   - components
+     - individual subject files can now be used as the dataset -- e.g. for processing time-freq 
+       averaging each entered file to save memory.  This can be done via a passed erpcomp.loaddata 
+       command, or by defining the structure in the _loaddata script.  
+     - modified to use extract_averages/trials with 'TFT' domain type - all internal mods (no user change) 
+
+   - general 
+     - WARNING/ERROR messages (many of them) now include mfilename, to make it easier to know where the error is from 
+
+ version 0.9.3 (full matlab 7 compatibility version -- plotting was remaining problem fixed here)  
+ 
+   - data_import 
+
+   - data_processing 
+     - extract_update - and associated wrappers extract_averages_update/extract_trials_update 
+         These functions evaluate how many subnames from the top are in the current file, and 
+         then add only those remaining on the list.  
+     - extract_averages - now can have ascii catcodes (i.e. .name) -- although ALL ascii or ALL numbers req.  
+     - merge_data2stim - adds information to .stim variables, based on key field in mergedata. 
+     - optimization - building erp.data vectors - use erpnew.data(ref:ref,:) = erpnew.data;    
+         combine_files, extract_aerages, extract_trials 
+
+   - components  
+     - eeglab topoplot routines updated to 4.512
+             - mod required -- topoplot.m rem out req for > 32 gridscale
+             - used eeblab 'ced' eloc file (because Neuroscan won't load in 4.512)
+             also created bigger default file -- more elecs (83 instead of 75)
+     - subplot commands all now have 'align' parameter, needed for matlab 7 plotting 
+               Heads too small if this is not done. 
+     - new scaling options using SETvars: 
+       % axis and colormap options
+       SETvars.plots.colormap[.plottype][.~plotcontent]  = 'HSV';  % defaults to 'default' (JET) 
+       SETvars.plots.axis[.plottype][.~plotcontent][.~measuretype] = [-2 2]; % default:autoscale or [.10 .05] for stats 
+       SETvars.plots.scalefactor[.plottype][.~plotcontent][.~measuretype][.~componentname] =  .8;
+
+         % plottype: topomap, two_dim, one_dim
+         % plotcontent: averages, differences, statstics
+         % measuretype: (m)ean, (p)eak, (l)atency, (t)ime (f)req
+         % componenntname: given by component definitions from user
+
+         % NOTE: scalefactor only valid for plottype topomap 
+     - SETvars - now defined as SETvars.exists = 1, if no SERvars values are defined so tests won't crash 
+
+ version 0.9.2 
+
+   data_processing 
+   - review_components - removed requirement that zero be displayed in Y axis.  
+                         Historical, no longer needed.   
+   - extract_averages  - modified to allow there to be an erp.subnum and erp.subs.name 
+                         variable in file-single mode files. 
+   - trialtype_count   - modified so that countvect and splitvect could be names or
+                         actual vectors. 
+
+ version 0.9.1 
+
+  GUI added - see there for changelog, etc.  
+ 
+  psychophysiology_toolbox_startup - modified to not crash if components required directories are missing 
+
+  data_processing 
+   - extract_averages - modified to allow character names as well as numbers
+
+  components 
+    - passing data and vars is changed -- *_startup scripts can now take: 
+      - pathname to data file as input (no longer need _loadvars or _loaddata, default values used instead). 
+      - structure containing erp and dataset_name, and optionally _loadvars?. 
+
+ version 0.9.0 
+
+ First beta version of the psychophysiology toolbox.  This integrates: 
+
+    psychophys_components-0.0.8
+    psychophys_data2mat-0.0.6-5
+    psychophys_dataproc-0.0.5-7
+    psychophys_general-0.0.1-5
+
