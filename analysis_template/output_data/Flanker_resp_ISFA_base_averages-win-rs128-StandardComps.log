@@ -1,0 +1,76 @@
+START RUNNING ID:	Flanker_resp_ISFA_base_averages-win-rs128-StandardComps
+MESSAGE: computed decomposition and components:  Flanker_resp_ISFA_base_averages-win-rs128-StandardComps.mat not found in cache, computing ...
+Deriving Component Scores...
+    Component: ww
+    Component: ern
+    Component: pe
+End Deriving Component Scores
+if system_dependent('IsDebugMode')==1, dbcont; end
+if system_dependent('IsDebugMode')==1, dbcont; end
+Printing: Flanker_resp_ISFA_base_averages-win-rs128-StandardComps-plot_components
+{Unable to perform assignment because the size of the left side is 1-by-1 and the size of the right side is
+0-by-1.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('base_plot_topo', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_plot_topo.m', 80)" style="font-weight:bold">base_plot_topo</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_plot_topo.m',80,0)">line 80</a>)
+              enums(r,c) = strmatch(deblank(cur_ename),components.elecnames,'exact');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('base_startup_inner', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_startup_inner.m', 115)" style="font-weight:bold">base_startup_inner</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/base_startup_inner.m',115,0)">line 115</a>)
+    figure(2);        [retval,time_plot_topo]       =
+    base_plot_topo(IDvars,SETvars,erp,real(erptfd),1);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('win_startup', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/win_startup.m', 43)" style="font-weight:bold">win_startup</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/psychophysiology_toolbox-1.0.0/components/win_startup.m',43,0)">line 43</a>)
+  base_startup_inner;
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Flanker_resp_ISFA_base_averages', '/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/analysis_template/ptb_scripts/Flanker_resp_ISFA_base_averages.m', 49)" style="font-weight:bold">Flanker_resp_ISFA_base_averages</a> (<a href="matlab: opentoline('/Users/yanbinniu/Project/TF_PCA/OSF/tfpca-tutorial/analysis_template/ptb_scripts/Flanker_resp_ISFA_base_averages.m',49,0)">line 49</a>)
+    win_startup(DatasetDef,128,comps_name,comps_defs,1,Comparison,1,ExportAscii,Verbose);
+} 
+Flanker_resp_ISFA_base_averages
+Preparing variables variables for run (SETvars): start 
+     looking for loadvars source: start
+          trying to run loadvars string as passed: Flanker_resp_ISFA_base_loadvars;SETvars.trl2avg.OPTIONS.subsampling.method = 'subsample_without_replacement';SETvars.trl2avg.OPTIONS.subsampling = rmfield(SETvars.trl2avg.OPTIONS.subsampling,'static_sets');
+          running loadvars string as passed: Flanker_resp_ISFA_base_loadvars;SETvars.trl2avg.OPTIONS.subsampling.method = 'subsample_without_replacement';SETvars.trl2avg.OPTIONS.subsampling = rmfield(SETvars.trl2avg.OPTIONS.subsampling,'static_sets');
+     looking for loadvars source: end  
+     looking for local loadvars source: start
+          trying to run local loadvars string as passed: 0
+
+ans =
+
+     0
+
+     looking for local loadvars source: end
+          SETvars currently contains the following values: 
+
+SETvars = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+                 exists: 1
+                trl2avg: [1×1 struct]
+              cache_erp: 1
+    electrode_locations: ''erp_core_35_locs.ced''
+      electrode_to_plot: 'FCz'
+      comparisons_label: ''
+             plotcolors: [14×3 char]
+                  ptype: 'epsc2'
+
+Preparing variables variables for run (SETvars): done 
+Loading cached ERP file: Flanker_resp_ISFA_base_averages
+          base_loaddata_prepvars_from_erp: processing variables after loading data: start
+readlocs(): 'chanedit' format assumed from file extension
+Reading file (lines): 10 20 30 35
+readlocs() warning: Fewer columns in the input than expected.
+                    See >> help readlocs
+          base_loaddata_prepvars_from_erp: processing variables after loading data: end 
+    ERP Data Matrix Size: 3534 (rows/trials) X 384 (bins)
+START RUNNING ID:	Flanker_resp_ISFA_base_averages-win-rs128-StandardComps
+MESSAGE: computed decomposition and components:  Flanker_resp_ISFA_base_averages-win-rs128-StandardComps.mat found in cache, not recomputing ...
+if system_dependent('IsDebugMode')==1, dbcont; end
+if system_dependent('IsDebugMode')==1, dbcont; end
+Printing: Flanker_resp_ISFA_base_averages-win-rs128-StandardComps-plot_components
+Printing: Flanker_resp_ISFA_base_averages-win-rs128-StandardComps-plot_topo
+Writing out file: Flanker_resp_ISFA_base_averages-win-rs128-StandardComps-plots_Merge_basic
+Processing Time
+     time_plot_components:					  4.99 
+     time_plot_topo:						  1.72 
+     time_total:						  7.56
+END RUNNING ID:		Flanker_resp_ISFA_base_averages-win-rs128-StandardComps
