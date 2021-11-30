@@ -23,12 +23,13 @@ Currently, the TFPCA-Tutorial relies on MATLAB-based programming, and thus, requ
 
 ## Quick Start
 
-1) Have perl installed. Perl is generally installed with Linux and Mac OS. Type `perl -v` on a command line to find out which version. For Windows, perl is needed to be downloaded and installed (https://www.perl.org/get.html);
-2) Have MATLAB installed (The MathWorks, Natick, MA);
+Before running the PTB, there are several steps to set everything up.
+1) Have perl installed. Perl is generally installed with Linux and Mac OS. Type `perl -v` on a command line to determine the version of Perl installed. For Windows, perl is needed to be downloaded and installed (https://www.perl.org/get.html);
+2) Have a valid MATLAB (The MathWorks, Natick, MA) license and have MATLAB installed ;
 3) Git clone this repository;
-4) Go to the `analysis_template` folder and run `startup.m`.
+4) Navigate to the `analysis_template` folder and run `startup.m`.
 
-You should see messages indicating the toolbox was found :
+You should see messages indicating that the necessary toolboxes have been found :
 
 ```
 Psychophysiology Toolbox veryfying and adding paths ... 
@@ -69,7 +70,10 @@ Tfpca-tutorial tests were performed using Matlab R2021a and macOS Big Sur (11.4)
 
 ## Directory Structure & Scripts Descriptions
 
-Below, we provide an overview of the contents of the TFPCA-Tutorial repository. Please note that PTB expects a particular directory structure, which is reflected in the directory structure of this repository. In other words, any changes in the directory structure of this repository may lead to a running failure. Of course, advanced users can modfiy the directory structure as needed, but it is not reccomended that beginners attempt to alter the directory structure.
+Below, we provide an overview of the contents of the TFPCA-Tutorial repository. Please note that PTB expects a particular directory structure, which is reflected in the directory structure of this repository. In other words, any changes in the directory structure of this repository may lead to errors. Of course, advanced users can modfiy the directory structure as needed, but it is not reccomended that beginners attempt to alter the directory structure.
+<p align="center">
+  <img src="/.github/_assets/directory_structure.png" />
+</p>
 
 
 |——`psychophysiology_toolbox-1.0.0`
