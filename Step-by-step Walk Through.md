@@ -483,13 +483,13 @@ Related Scripts:
 
 `analysis_template/scripts/template_plots.m`
 
-This step helps you export ptb format output data into a format that is easy-to-understand/plot/analyze. This step also helps you generate your own plots by using the plotting template scripts.
+This step helps the user export PTB format output data into a format that is easy-to-understand / plot / analyze. This step also helps the user generate the user’s own plots by using the plotting template scripts.
 
 ### `template_ptb_cache_out.m`
 
-This script loads the average and total power data and reorganize both into a subject x condition x channel x frequency x time array respectively.
+This script loads TF representations of average and total power data and reorganizes both into a subject x condition x channel x frequency x time array respectively.
 
-1)	Line 15～48 loads average power data from the `data_cache` folder (`Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat`), and then reorganize the data into a subject x condition x channel x frequency x time array. You may need to edit Line 36～40, if you want numerical subject names. However, this depends on how you name your data and how you are going to use the converted data (you can even delete Line36～40 if a subject name filed is not needed). Besides Line 36～40, other parts can largely leave them as they are. The converted resulting data will be saved in the `../extra_out_data` folder.
+1)	Lines 15～48 load TF representation of average power from the `data_cache` folder (`Flanker_resp_AVGS_AMPL_theta_32_t32f32.mat`), and then reorganize the data into a subject x condition x channel x frequency x time array (see below). The user may need to edit Line 36～40, and this depends on how the user names their data. Besides Line 36～40, other parts can largely leave them as they are. The converted resulting data will be saved in the `../exported_data` folder.
 
 ```
 for i = 1:length(erptfd.subs.name)
@@ -498,13 +498,13 @@ for i = 1:length(erptfd.subs.name)
 end
 ```
 
-2)	Similarly, Line 62～90 pulls out total power data from the `data_cache` folder (`Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat`), and then reorganizes the data into a subject x condition x channel x frequency x time array. Edit Line 36～40 if needed. The converted data will also be saved in the `../extra_out_data` folder.
+2)	Similarly, Lines 62～90 pull out total power data from the `data_cache` folder (`Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat`), and then reorganize the data into a subject x condition x channel x frequency x time array. Edit Line 36～40 if needed. The converted data will also be saved in the `../exported_data` folder.
 
 ### `template_ptb_pc_out.m`
 
-1)	This script first loads pc weights that was computed using the average power (`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`). Then the pc weights were applied to the average power and the total power respectively, resulting in weighted average power and weighted total power.
+1)	This script first loads the PC weights that was derived from average power (`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`), then applies PC weights to average power and total power respectively, resulting in weighted average power and weighted total power.
 
-2)	Edit Line 36 to cut the average power down to the part of surface that PCA was run in Step 3. Recall that we set the start and end time bins to -16～16 to get the data from -500ms～500ms in the run script in Step 3. In addition, we also set the start and end frequency bins to 7～19 to get the data from 3Hz～9Hz. Correspondingly, here we also need to cut the average power down to -500ms～500ms and 3Hz～9Hz. However, it may be confusing that the 0ms position in the time bins that were used in Step 3 is different from the 0ms position in the time bins in the average power. Specifically, the 0ms is the 0 time bin in the Step 3 (thus we have negative time bin -16) and 0ms is the 33 time bin in the average power data (thus we do not have negative time bin here). Looking into the average power data (`erptfd.tbin field`) will help you find 0ms is in which time bin. Therefore, to set -500ms～500ms here, we actually need to set the start time bin to 17 (33-16) and end time bin to 49 (33+16). Moreover, in terms of frequency bins, they are the same between the bins we used in Step 3 and the bins used by the average power data. Thus, we keep the start and end frequency bins unchanged, which is 7～19 to get 3Hz～9Hz. In sum, in Line 36, we set the start and end time bins to 17～49, and the start and end frequency bins to 7～19. Edit those numbers in Line 36 based on your own data.
+2)	The user needs to edit Line 36 (see below) to cut the TF representation of average power down to the part of surface that TF-PCA was run in Step 3. In Step 3, we set the start and end time bins to -16～16 to extract the data from -500ms～500ms. In addition, we also set the start and end frequency bins to 7～19 to extract the data from 3Hz～9Hz. Correspondingly, here we need to cut the TF representation of average power down to -500ms～500ms and 3Hz～9Hz. However, it may be confusing that the 0ms position in the time bins that was used in Step 3 is different from the 0ms position in the time bins in the average power. Specifically, the 0ms is the 0th time bin in the Step 3 (thus we have negative time bin (-16) and 0ms is the 33th time bin in the average power data (thus we do not have negative time bin here). Looking into average power data (`erptfd.tbin field`) will help the user find which time bin 0ms is in. Therefore, to set -500ms～500ms here, we actually need to set the start time bin to 17 (33-16) and end time bin to 49 (33+16). Moreover, frequency window is 7～19 (3Hz～9Hz). In sum, in Line 36, we set the start and end time bins to 17～49, and the start and end frequency bins to 7～19. Edit those numbers in Line 36 based on the user’s own data.
 
 ```
 DataToWeight_avg = avgTFD(:, :, channel, 7:19, 17:49);
@@ -512,21 +512,21 @@ DataToWeight_avg = avgTFD(:, :, channel, 7:19, 17:49);
 
 3)	Similarly, Line 72 sets the start and end time bins, as well as the start and end frequency bins for the total power (17～49 and 7～19 respectively). Edit those numbers in Line 72 based on your own data as well.
 
-4)	The other part of this script can largely leave them as they are. Then run this script in the current path (analysis_template/scripts) to get the weighted average power and weighted total power. The resulting data along with the pc weights data (`Pmat`) is saved in the `../extra_out_data` folder.
+4)	Other part of this script can largely leave it as it is. Then run this script in the current path (analysis_template/scripts) to get the weighted average power and weighted total power. The resulting data along with the PC weights data (`Pmat`) is saved in the `../exported_data` folder.
 
 ### `template_plots.m`
 
-After getting the weighted average power and the weighted total power, this script helps you plot them and pc weights themselves as well.
+This script helps the user plot weighted average power, weighted total power and PC weights themselves as well.
 
-1)	Line 219～250 plots pc weights. Keep in mind, the pc weights here were computed by using the average power. Plotting the pc weights that were computed using the total power is not provided here, but they are very similar. Run Line 219～250 by selecting Line 219～250 and then right click and select “Evaluate Selection”. Here you have the plot for pc weights (we use 1 factor pc weight here as the example).
+1)	Lines 219～250 plot PC weights derived from average power (See below). Run Line 219～250 by selecting Line 219～250 and then right click and select “Evaluate Selection”. Here would generate a figure for PC weights (we use 1 factor PC weight here as the example; See Figure below).
  
 <p align="center">
   <img src="/.github/_assets/scripts_7.bmp"/>
 </p>
 
-2)	Line 6～100 plots weighted total power differences (two differences based on our interest). 
+2)	Lines 6～100 plot weighted total power differences. 
 
-a)	It loads the data that was saved in previous step (weighted total power) from the `extra_out_data` folder. Line 19-21 extracts the weighted total power for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 19-21 based on the interested conditions from your data. 
+a)	It loads the data that was saved in the previous step (weighted total power) from the `exported_data` folder. Lines 19-21 extract the weighted total power for each condition (correct congruent, error incongruent, and correct incongruent). Edit Lines 19-21 based on your interested conditions. 
 
 ```
 W1TFD_congruent_corr = squeeze(WeightedTFD_total(:,:,1,:,:,:));
@@ -534,13 +534,13 @@ W1TFD_incongruent_error = squeeze(WeightedTFD_total(:,:,2,:,:,:));
 W1TFD_incongruent_corr = squeeze(WeightedTFD_total(:,:,3,:,:,:));
 ```
 
-b)	Line 26 sets up the interested channel cluster (channel 20 for medial frontal cortex (MFC)). Edit Line 26 to set up the interested channel cluster based on your study. 
+b)	Line 26 sets up the interested channel cluster (channel 20 for medial frontal cortex (MFC)). Edit Line 26 to set up the interested channel cluster based on your own study. 
 
 ```
 chansToAvg = [20];
 ```
 
-c)	Then the total power for each condition was averaged across subjects. Line 46 computes the differences between incongruent & error condition and incongruent & correct condition. Line 48 computes the differences between incongruent & correct condition and congruent & correct condition. Edit Line 46 & 48 to get the interested difference(s) based on your study. 
+c)	Data for each condition was averaged across subjects. Line 46 computes the differences between error incongruent and correct incongruent. Line 48 computes the differences between correct incongruent and correct congruent. Edit Line 46 & 48 to get the interested difference(s) based on your own study. 
 
 ```
 % interested comparison
@@ -550,7 +550,7 @@ W1TFD_incong_errorDiff_MFC_subAvg = W1TFD_incong_err_MFC_subAvg - W1TFD_incong_c
 W1TFD_cong_incong_Diff_MFC_subAvg = W1TFD_incong_corr_MFC_subAvg - W1TFD_cong_corr_MFC_subAvg;
 ```
 
-d)	The following lines plot two difference respectively. Run Line 6～100 by selecting Line 6～100 and then right click and select “Evaluate Selection”. Here you have two plots for weighted total power difference between incongruent & error condition and incongruent & correct condition, as well as weighted total power difference between incongruent & correct condition and congruent & correct condition.
+d)	The following lines plot two differences respectively. Run Lines 6～100 by selecting Lines 6～100 and then right click and select “Evaluate Selection”. Here would generate two figures for weighted total power difference between error incongruent and correct incongruent, as well as weighted total power difference between correct incongruent and correct congruent..
  
 <p align="center">
   <img src="/.github/_assets/scripts_1.bmp"/>
@@ -560,9 +560,9 @@ d)	The following lines plot two difference respectively. Run Line 6～100 by sel
   <img src="/.github/_assets/scripts_2.bmp"/>
 </p>
 
-3)	Line 103～146 plots topographical maps for two differences. 
+3)	Lines 103～146 plot topographical maps for two weighted total power differences respectively – the difference between error incongruent and correct incongruent, as well as the difference between correct incongruent and correct congruent. 
 
-a)	Line 111～113 extracts the weighted total power by factor 1 for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 111～113 based on the interested conditions from your data. 
+a)	Line 111～113 extracts the weighted total power by factor 1 for each condition (congruent & correct, incongruent & error and incongruent & correct). 
 
 ```
 F1_TFD_congruent_corr = squeeze(WeightedTFD_total(1,:,1,:,:,:));
@@ -570,7 +570,7 @@ F1_TFD_incongruent_error = squeeze(WeightedTFD_total(1,:,2,:,:,:));
 F1_TFD_incongruent_corr = squeeze(WeightedTFD_total(1,:,3,:,:,:));
 ```
 
-b)	Line 130 computes the differences between incongruent & error condition and incongruent & correct condition. Line 134 computes the differences between incongruent & correct condition and congruent & correct condition. Edit Line 130 & 134 to get the interested difference(s) based on your study. 
+b)	Lines 130 and 134 compute two differences. 
 
 ```
 % interested comparison
@@ -580,13 +580,13 @@ F1_error_Favg_subAvg_DIFF = F1_incongruent_error_Favg_subAvg - F1_incongruent_co
 F1_cong_Favg_subAvg_DIFF = F1_incongruent_corr_Favg_subAvg - F1_congruent_corr_Favg_subAvg;
 ```
 
-c)	Line 139 & 145 sets up the electrode location file what was used for plotting. Edit Line 139 & 145 based on your own data.
+c)	Lines 139 and 145 set up the electrode location file what was used for plotting.
 
 ```
 topoplot([DataToPlot],'../erp_core_35_locs.ced','maplimits', [-.1 .1], 'electrodes', 'ptsnumbers', 'gridscale', 100,  'whitebk', 'on');
 ```
 
-d)	Run Line 103～146 by selecting Line103～146 and then right click and select “Evaluate Selection”. Here you have two topographical plots for weighted total power difference between incongruent & error condition and incongruent & correct condition, as well as weighted total power difference between incongruent & correct condition and congruent & correct condition.
+d)	Run Line 103～146 by selecting Line103～146 and then right click and select “Evaluate Selection”. Here would generate two topographical plots for weighted total power difference between error incongruent and correct incongruent, as well as weighted total power difference between correct incongruent and correct congruent.
  
 <p align="center">
   <img src="/.github/_assets/scripts_3.bmp"/>
@@ -596,7 +596,7 @@ d)	Run Line 103～146 by selecting Line103～146 and then right click and select
   <img src="/.github/_assets/scripts_4.bmp"/>
 </p>
 
-To sum up, in Step 6, the template scripts 1) reorganized and exported data for average power, total power, weighted average power and weighted total power; 2) plots the pc weight, weighted total power differences of interest and topographical maps for weighted total power differences of interest. Of course, we do not intend to exhaust all the data exporting and plotting scenarios, but to provide a jumping off point for more advanced analyses and plotting tailored to your research.
+To sum up, in Step 6, the template scripts: 1) reorganize and exported data for average power, total power, weighted average power, and weighted total power; 2) plot PC weights, weighted total power differences, and topographical maps for weighted total power. Of course, we do not intend to exhaust all the data exporting and plotting scenarios, but to provide a jumping off point for more advanced analyses and plotting tailored to the user’s own study.
 
 
 ## Step 7 – dB power conversion and plotting
@@ -607,24 +607,24 @@ Related Scripts:
 
 `analysis_template/scripts/template_plots.m`
 
-As you may already know, EEG data shows decreasing power at increasing frequencies. This characteristic can be problematic while visualizing power across frequency bands, conducting quantitative comparisons and statistical analysis across frequency bands etc.. One of the most common methods used to alleviate this problem is to baseline correct raw power values by dividing each time point by the mean activity in a baseline period at each frequency. The resulting values are then converted to decibels (dB) by taking their logarithm (with base 10) and multiplying it by 10 (Cohen, 2014). Discussion of whether a dB power conversion should be run prior to running TF-PCA is beyond the scope of this step-by-step tutorial. Nevertheless, a template script for conducting dB power conversion is provided here. 
+These template scripts conduct dB power conversion to average power and total power respectively, and plot average power and total power after dB power correction. 
 
 ### `template_dbpower.m`
 
-This template script conducts dB power conversion to the average power and the total power respectively.
+This template script conducts dB power conversion to average power and total power respectively.
 
-1)	Line 3～36 conducts dB power conversion to the average power. Special attention should be given to Line 21 which sets up the baseline period. Computing the baseline period is similar to computing the start and the end time bins as we already went through in Step 6. Taking -400ms～-200ms as an example, 33 –400*32/1000 equals 20.2 (approximately 20) is set for the start time bin of the baseline period (recall that 0ms is the 33th time bin in the average power data). Similarly, 33 – 200*32/1000 equals 26.6 (approximately 27) is set for the end time bin of the baseline period. Taken together, Line 21 sets up the baseline period (20～27) - Would you please confirm this? In your original script, it’s 19-26 (1 less). Edit Line 21 to set up the baseline period based on you own data. Likewise, Line 39～71 conducts dB power conversion to the total power. Edit Line 57 to set up the baseline period based on you own data as well.
+1)	Lines 3～36 conduct dB power conversion to average power. Line 21 sets up the baseline period. Computing the baseline period is similar to computing the start and the end time bins as we already went through in Step 6. Taking -400ms～-200ms as an example, 33 –400*32/1000 equals 20.2 (approximately 20) is set for the start time bin of the baseline period (0ms is the 33th time bin in the average power data). Similarly, 33 – 200*32/1000 equals 26.6 (approximately 27) is set for the end time bin of the baseline period. Taken together, Line 21 sets up the baseline period (20～27). Likewise, Lines 39～71 conduct dB power conversion to the total power.
 
 ```
 TFD_baseline_avg = squeeze(mean(avgTFD(:,:,:,:, 19:26), 5));
 ```
 
-2)	Other parts of this script can largely leave them as they are. Run this whole script in the current path (analysis_template/scripts) by either typing the name of the script (`template_dbpower`) in the command window and pressing enter or clicking “run” at the top of Matlab editor. The resulting data (the average power with dB conversion and the total power with dB conversion) is saved in the `../extra_out_data` folder. It is worth noting that the resulting data stays in the same format as the data converted in Step 6, which is a subject x channel x condition x frequency bins x time bins array.
+2)	Other parts of this script can largely leave them as they are. Run this whole script in the current path (analysis_template/scripts) by either typing the name of the script (`template_dbpower`) in the command window and pressing enter or clicking “run” at the top of the MATLAB editor. The resulting data (average power and the total power with dB power correction) is saved in the `../exported_data` folder. It is worth noting that the resulting data stays in the same format as the data converted in Step 6, which is a subject x channel x condition x frequency bins x time bins array.
 
 
 ### `template_plots.m`
 
-1)	Line 149～216 plots differences of the total power with dB conversion (two differences based on our interest). Specifically, Line 153 loads the data that we saved in the previous step from the `../extra_out_data` folder. Line 158～160 extracts the total power with dB conversion for each condition (congruent & correct, incongruent & error and incongruent & correct). Edit Line 158～160 based on the interested conditions from your data.
+1)	Lines 149～216 plot differences of total power with dB power correction. Specifically, Line 153 loads the data that we saved in the previous step from the `../exported_data` folder. Lines 158～160 extract total power with dB power correction for each condition (correct congruent, error incongruent, and correct incongruent).
 
 ```
 TFD_congruent_corr = squeeze(TFD_baseRemoved_total(:,1,:,:,:));
@@ -632,20 +632,20 @@ TFD_incongruent_error = squeeze(TFD_baseRemoved_total(:,2,:,:,:));
 TFD_incongruent_corr = squeeze(TFD_baseRemoved_total(:,3,:,:,:));
 ```
 
-2)	Line 163 sets up the interested channel cluster (channel 20 for MFC). Edit Line 163 to set up the interested channel cluster based on your study.
+2)	Line 163 sets up the interested channel cluster (channel 20 for MFC).
 
 ```
 chansToAvg = [20];
 ```
 
-3)	Then the total power with dB conversion for each condition was averaged across subjects. Line 174 computes the differences between incongruent & error condition and incongruent & correct condition. Line 175 computes the differences between incongruent & correct condition and congruent & correct condition. Edit Line 174 & 175 to get the interested difference(s) based on your study.
+3)	Then total power with dB power correction for each condition was averaged across subjects. Line 174 computes the difference between error incongruent and correct incongruent. Line 175 computes the difference between correct incongruent and correct congruent.
 
 ```
 TFD_Diff_Incong_Error_Correct = TFD_incongruent_error_FCz_subAvg - TFD_incongruent_corr_FCz_subAvg;
 TFD_Diff_Incong_cong = TFD_incongruent_corr_FCz_subAvg - TFD_congruent_corr_FCz_subAvg;
 ```
 
-4)	The following lines plot two differences respectively. Run Line 149～216 by selecting Line 149～216 and then right click and select “Evaluate Selection”. Here you have two plots for the total power (with dB conversion) difference between incongruent & error condition and incongruent & correct condition, as well as the total power difference (with dB conversion) between incongruent & correct condition and congruent & correct condition.
+4)	The following lines plot two differences respectively. Run Lines 149～216 by selecting Lines 149～216 and then right click and select “Evaluate Selection”. Here would generate two plots for total power with dB power correction difference between error incongruent and correct incongruent, as well as the difference between correct incongruent and correct congruent.
  
 <p align="center">
   <img src="/.github/_assets/scripts_5.bmp"/>
@@ -656,5 +656,3 @@ TFD_Diff_Incong_cong = TFD_incongruent_corr_FCz_subAvg - TFD_congruent_corr_FCz_
 </p>
 
 Here we only provide the plotting for the total power with dB conversion. The plotting for the average power with dB conversion can be very similar as we already have the data (the average power with dB conversion) saved in the `../extra_out_data` folder.
-
-Finally, you can convert the data (the average power or the total power with dB conversion) back into ptb format and feed back into ptb toolbox, if you wanted to run TF-PCA on dB power converted data. This might alleviate the need for high pass filter (would normalize Delat effects). It might also allow for less streaky total power pca decomposition, instead of needing to rely on the average power PCA decomposition that is copied over.
