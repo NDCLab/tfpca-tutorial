@@ -15,18 +15,17 @@ The TFPCA-Tutorial serves as a companion to a forthcoming tutorial paper introdu
 Additionally, the TFPCA-Tutorial includes:
 1) Example data (ERP CORE ERN) that was used with template scripts (https://osf.io/q6gwp/);
 2) A copy of the psychophysiology toolbox 1.0.0 (http://www.ccnlab.umd.edu/Psychophysiology_Toolbox/);
-3) A copy of eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php);
-4) A coput of the Time-Frequency Toolbox (TFTB) (http://tftb.nongnu.org).
+3) A copy of eeglab2021.0 (https://sccn.ucsd.edu/eeglab/downloadtoolbox.php).
 
-Currently, the TFPCA-Tutorial relies on MATLAB-based programming, and thus, requires that users have a valid MATLAB license to run the tutorial. Assuming a valid MATLAB license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described. Note that while the TFPCA-Tutorial currently relies on MATLAB, we plan to update the tutorial to remove the MATLAB requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within a fully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
+Currently, the TFPCA-Tutorial relies on MATLAB-based programming, and thus, requires that users have a valid MATLAB license to run the tutorial. Assuming a valid MATLAB license and install, the tutorial contains all additional toolboxes and scripts needed to run the analyses described (For tftb toolbox, please email Edward Bernat (ebernat@umd.edu) with a name and an email address per the agreement with UMICH). Note that while the TFPCA-Tutorial currently relies on MATLAB, we plan to update the tutorial to remove the MATLAB requirement, either through an Octave or Python port of the code. Additionally, we have plans to update the tutorial to accept BIDS data and run within a fully containerized environment (Docker/Singularity). If you are interested in contributing to future developments for the TFPCA tutorial please contact us.
 
 
 ## Quick Start
 
 Before running the PTB, there are several steps to set everything up.
 1) Have perl installed. Perl is generally installed with Linux and Mac OS. Type `perl -v` on a command line to determine the version of Perl installed. For Windows, perl is needed to be downloaded and installed (https://www.perl.org/get.html);
-2) Have a valid MATLAB (The MathWorks, Natick, MA) license and have MATLAB installed ;
-3) Git clone this repository;
+2) Have a valid MATLAB (The MathWorks, Natick, MA) license and have MATLAB installed;
+3) Git clone this repository (or download directly);
 4) Navigate to the `analysis_template` folder and run `startup.m`.
 
 You should see messages indicating that the necessary toolboxes have been found :
@@ -272,7 +271,7 @@ If you use these resources, please cite *all three* of the following:
 1. The original TF-PCA methods paper: Bernat, E.M., Williams, W.J., Gehring, W.J., 2005. Decomposing ERP time–frequency
 energy using PCA. Clin. Neurophysiol. 116, 1314–1334.
 2. This github repository: https://github.com/NDCLab/tfpca-tutorial
-3. The companion tutorial article: Buzzell, G.A., Niu, Y., Bernat, E.M., _under review_. A Practical Introduction to Time-Frequency Principal Components Analysis (TF-PCA) of EEG Data.
+3. The companion tutorial article: Buzzell, G.A., Niu, Y., Aviyente, S., Bernat, E.M., _under review_. A Practical Introduction to Time-Frequency Principal Components Analysis (TF-PCA) of EEG Data.
 
 
 ## Contact Us
@@ -283,7 +282,7 @@ George A. Buzzell, Ph.D - gbuzzell@fiu.edu
 
 Neural Dynamics of Control Laboratory; Department of Psychology and the Center for Children and Families (CCF); Florida International University, Miami, Florida
 
-Yanbin Niu, MA  - yn2352@tc.columbia.edu
+Yanbin Niu, MA  - yniu@fiu.edu
 
 Neural Dynamics of Control Laboratory; Department of Psychology and the Center for Children and Families (CCF); Florida International University, Miami, Florida
 
