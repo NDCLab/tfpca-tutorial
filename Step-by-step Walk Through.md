@@ -1,12 +1,12 @@
 # Step-by-step Walk Through
 
-Interacting with the PTB toolbox relies on editing a series of template scripts that call each other. Additionally, data must be converted to the PTB format, and placed in the appropriate subdirectory prior to running the scripts. In order to facilitate use of the toolbox, we providing initial template scripts and the following step-by-step walk-through. After completing this walk-through, users can modify the template scripts to run similar analyses on their own data.
+Interacting with the PTB toolbox relies on editing a series of template scripts that call each other. Additionally, data must be converted to the PTB format, and placed in the appropriate subdirectory prior to running the scripts. In order to facilitate the use of the toolbox, we provide initial template scripts and the following step-by-step walk-through. After completing this walk-through, users shoule be able to modify the template scripts to run similar analyses on their own data.
 
 ## Step1 - Convert data to PTB format
 
 Related Scripts: `analysis_template/scripts/ template_eeg2ptb_erplab.m`
 
-The first step assumes that the user already has preprocessed “clean” epoched data (artifacts removed, epoched to events of interest). Assuming that this is the case, the user then needs to convert their data to the PTB format, which is described in table S3. More detailed information regarding the PTB data format and structure are available in the PTB documentation directory (`psychophysiology_toolbox-1.0.0/documentation/data_import/README_dataset-structure.txt`).
+The first step assumes that the user already has preprocessed “clean” epoched data (artifacts removed, epoched to events of interest). Assuming that this is the case, the user then needs to convert their data to the PTB format, which is described in the table below. More detailed information regarding the PTB data format and structure is available in the PTB documentation directory (`psychophysiology_toolbox-1.0.0/documentation/data_import/README_dataset-structure.txt`).
 
 ### `template_eeg2ptb_erplab.m`
 
@@ -20,7 +20,7 @@ data_location = '../../eeglab_data/';
 out_location = '../../ptb_data/';
 ```
 
-2)	Particular attention should be given to Lines 79～88 and similarly Lines 42～44 (see below), which are critical for setting up the `catcodes` (category codes) in the following steps. Specifically, in the ERP CORE ERN data (which is based on a Flanker task), the `event.binlabel` field has been set up such that: `B2,4` denotes a congruent stimulus and a correct response; `B1,5` represents an incongruent stimulus and an error response; `B2,6` represents an incongruent stimulus and a correct response (for more information, see the original ERP CORE documentation: https://osf.io/qxyz8/). In order to analyze these three trial types in the PTB, they need to be labeled within the PTB format, either by creating a new `erp.stim` field (e.g., `erp.stim.bin`) or denoting them in `erp.ttype`. To this end, we modified Lines 79～88 in order to assign numbers (4, 5 and 6) to `erp.stim.bin` in order to denotre each of the three trial types of interest (4 = correct congruent; 5 = error incongruent; 6 = correct incongruent). Thus, the user needs to modify these Lines in order to assign numerical designations to a new `erp.stim` field (or `erp.ttype`) for the trial types of interest.
+2)	Particular attention should be given to Lines 79～88 and similarly Lines 42～44 (see below), which are critical for setting up the `catcodes` (category codes) in the following steps. Specifically, in the ERP CORE ERN data (which is based on a Flanker task), the `event.binlabel` field has been set up such that: `B2,4` denotes a congruent stimulus and a correct response; `B1,5` represents an incongruent stimulus and an error response; `B2,6` represents an incongruent stimulus and a correct response (for more information, see the original ERP CORE documentation: https://osf.io/qxyz8/). In order to analyze these three trial types in the PTB, they need to be labeled within the PTB format, either by creating a new `erp.stim` field (e.g., `erp.stim.bin`) or denoting them in `erp.ttype` field. To this end, we modified Lines 79～88 in order to assign numbers (4, 5 and 6) to `erp.stim.bin`, denoting each of the three trial types of interest (4 = correct congruent; 5 = error incongruent; 6 = correct incongruent). Thus, the user needs to modify these lines in order to assign numerical designations to a new `erp.stim` field (or `erp.ttype` field) for the trial types of interest.
 
 ```
 % populate the .stim field with all of the (numeric) info about this trial
@@ -35,7 +35,7 @@ else
 end
 ```
 
-3)	Run this script in the current path (`analysis_template/scripts`) by either typing the name of the script (template_eeg2ptb_erplab) in the command window and pressing enter or clicking “run” at the top of Matlab editor. 
+3)	Run this script in the current path (`analysis_template/scripts`) by either typing the name of the script (template_eeg2ptb_erplab) in the command window and pressing enter or clicking “run” at the top of the MATLAB editor. 
 
 4)	Ensure the converted ptb format data is in the `ptb_data` folder (if you change the output path, ensure you copy the data into the `ptb_data` folder).
 
@@ -48,7 +48,7 @@ PTB Format
 | ---  | ---  |
 | <b>DATA matrix</b> |
 | erp.data | main data array, trial/sweeps in rows, timepoints in columns |
-| <b>INDEX vectors - vertical vectors, same length as number of rows in erp.data. |
+| <b>INDEX vectors - vertical vectors, same length as number of rows in erp.data |
 | erp.elec | electrode index |
 | erp.sweep | trial/sweep index |
 | <b>SWEEP index vectors</b> - identify various attributes of the sweeps. |
@@ -111,7 +111,7 @@ catcodes(2).name = 2; catcodes(2).text = 'erp.stim.bin==5'; % incongruent & erro
 atcodes(3).name = 3; catcodes(3).text = 'erp.stim.bin==6'; % incongruent & corr
 ```
 
-2)	Line 30 denotes the electrode locations for the data files, and Line 31 denotes which electrode will be plotted in the default PTB plots that will be automatically generated when the scripts are run (see below). Thus, the user can edit Lines 30 and 31 based on their own data.
+2)	Line 30 denotes the electrode locations for the data, and Line 31 denotes which electrode will be plotted in the default PTB plots that will be automatically generated when the scripts are run (see below). Thus, the user can edit Lines 30 and 31 based on their own data.
 
 ```
 SETvars.electrode_locations = '''erp_core_35_locs.ced''';
@@ -125,11 +125,11 @@ SETvars.trl2avg.OPTIONS.subsampling                   = [];
 SETvars.trl2avg.OPTIONS.subsampling.method           = 'user_defined';
 SETvars.trl2avg.OPTIONS.subsampling.subsample_length   = [ 8];
 SETvars.trl2avg.OPTIONS.subsampling.num_of_subsamples = [ 25];
-SETvars.trl2avg.OPTIONS.subsampling.boot_samples      = [ 0];
+SETvars.trl2avg.OPTIONS.subsampling.boot_samples      = [ ];
 SETvars.trl2avg.OPTIONS.subsampling.static_sets = 'Flanker_resp_ISFA_base_averages_subsampling';   
 ```
 
-It is worth noting that the subsampling is typically only computed once, for each condition, for each participant. The index of trials going into each subsample is saved into the `data_cache` folder, so that the exact same mixture of trials can be used when computing additional EEG metrics.
+It is worth noting that the subsampling is typically only computed once, for each condition, for each participant. The indexes of trials going into each subsample are saved into the `data_cache` folder, so that the exact same mixture of trials can be used when computing additional EEG metrics.
 
 #### `Run_Flanker_resp_ISFA_base_averages.m`
 
@@ -175,7 +175,7 @@ Running `Flanker_resp_ISFA_base_averages.m` will yield several outputs, both pri
 #### Data being saved in the `data_cache` folder
 
 Two sets of data were saved in the `data_cache` folder.
-1)	`Flanker_resp_ISFA_base_averages_subsampling.mat` reflects subsampling information, indicating which trials were pulled for the subsamples. Specifically, the `static_sets.sweeps` field saves trials that were randomly selected for each subject, for each condition. Based on the parameters described above, `Flanker_resp_ISFA_base_loadvars.m`, there is an 8*25 array for each subject and each condition, which denotes the trials that were randomly selected. This subsampling file can be recalled when computing additional EEG metrics (e.g. average power), ensuring that the same subsamples of trials are used. Note that the subsampling file only indicates the trial subsamples for 38 subjects; subject #5 and subject #9 are missing from the file. This is because subject #5 and subject #9 did not have the minimum number of trials needed for each subsample (8 or more per condition). Thus, both of these subjects were excluded from further analysis when performing subsampling and computing ERPs. As a result, the user will also need to delete these two subjects from the `ptb_data` folder to avoid a runtime error when later computing total power (in step 4, described below). Otherwise, and error will be thrown because these two subjects are missing subsampling information.
+1)	`Flanker_resp_ISFA_base_averages_subsampling.mat` reflects subsampling information, indicating which trials were pulled for the subsamples. Specifically, the `static_sets.sweeps` field saves trials that were randomly selected for each subject, for each condition. Based on the parameters described above, `Flanker_resp_ISFA_base_loadvars.m`, there is an 8*25 array for each subject and each condition, which denotes the trials that were randomly selected. This subsampling file can be recalled when computing additional EEG metrics (e.g. average power), ensuring that the same subsamples of trials are used. Note that the subsampling file only indicates the trial subsamples for 38 subjects; subject #5 and subject #9 are missing from the file. This is because subject #5 and subject #9 did not have the minimum number of trials needed for each subsample (8 or more per condition). Thus, both were excluded from further analysis when performing subsampling and computing ERPs. As a result, the user will also need to delete these two subjects from the `ptb_data` folder to avoid a runtime error when later computing total power (in step 4, described below). Otherwise, an error will be thrown because these two subjects are missing subsampling information.
 
 <p align="center">
   <img src="/.github/_assets/subsampling.png"/>
@@ -222,14 +222,14 @@ Having computed averaged ERP data, TF representations of average power can now b
 
 ### `Flanker_resp_AVGS_AMPL_theta_DatasetDef.m`
 
-1)	This script sets up various parameters, including the electrode location file, the TF transformation method, and the dataset name that will be used in all related outputs. Furthermore, this script calls `preproc_filter.m` to perform filtering (if necessary). Specifically, Lines 12～14 (see below) denotes: 1) the name of the data that will be used as an input, (i.e., the data that was generated by the prior ERP computation step); 2) a filtering script (`preproc_filter.m`) which is run after loading the ERP, but before computing TF transfomations of the data.
+1)	This script sets up various parameters, including the electrode location file, the TF transformation method, and the dataset name that will be used in all related outputs. Furthermore, this script calls `preproc_filter.m` to perform filtering (if necessary). Specifically, Lines 12～14 (see below) denote: 1) the name of the data that will be used as an input, (i.e., the data that was generated by the prior ERP computation step); 2) a filtering script (`preproc_filter.m`) which is run after loading the ERP, but before computing TF transformations of the data.
 
 ```
 DatasetDef.loaddata = ['load Flanker_resp_ISFA_base_averages_128;' ... 
                    'preproc_theta;'];
 ```
 
-2)	Lines 18～21 (see below) denotes: 1) the file name for electrode locations file; 2) the TF transformation method; 3) the preferred plotting electrode. Lines 18～21 should be edited as appropriate for the user’s own data.
+2)	Lines 18～21 (see below) denote: 1) the file name for electrode locations file; 2) the TF transformation method; 3) the preferred plotting electrode. Lines 18～21 should be edited as appropriate for the user’s own data.
 
 ```
 DatasetDef.loadvars = ['SETvars.electrode_locations = ''''''erp_core_35_locs.ced'''''';'...
@@ -239,7 +239,7 @@ DatasetDef.loadvars = ['SETvars.electrode_locations = ''''''erp_core_35_locs.ced
 
 ### `preproc_theta.m `
 
-1)	As previously mentioned, the `preproc_filter.m` script is used to filter the data (if needed) prior to performing any transformation to TF representations. Specifically, Lines 3 and 4 denotes the high-pass and low-pass filters, respectively (see below). In Line 3, `2/(erp.samplerate/2)` specifies a high-pass filter for 2Hz. In Line 4, `4/(erp.samplerate/2)` specifies a low-pass filter for 4Hz. The user can edit Line 3 and 4 based on their own study.
+1)	As previously mentioned, the `preproc_filter.m` script is used to filter the data (if needed) prior to performing any transformation to TF representations. Specifically, Lines 3 and 4 denote the high-pass and low-pass filters, respectively (see below). In Line 3, `2/(erp.samplerate/2)` specifies a high-pass filter for 2Hz. In Line 4, `4/(erp.samplerate/2)` specifies a low-pass filter for 4Hz. The user can edit Line 3 and 4 based on their own study.
 
 ```
 erp.data = filts_highpass_butter(erp.data,(2/(erp.samplerate/2)));
@@ -248,7 +248,7 @@ erp.data = filts_highpass_butter(erp.data,(2/(erp.samplerate/2)));
 
 ### `Flanker_resp_comparisons.m`
 
-1)	This script denotes the comparisons of interest. Specifically, for the example ERP CORE ERN dataset, we were interested in comparing the difference between error-incongruent responses (category 2) and correct-incongruent responses (category 3). We were also interested in comparing correct-incongruent trials (category 3) and correct-congruent trials (category 1). Thus, for the first comparison, Lines 17～23 denotes: 1) a label for the comparison; 2) the type of the comparison (`within-subjects`); 3) the statistical test that will be run (`wilcoxon `); and 4) the catcodes (previously denoted in `Flanker_resp_ISFA_base_loadvars.m` such that catcodes 1 = correct-congruent, catcodes 2 = error-incongruent, and catcode 3 = correct-incongruent) that are associated with the comparison. Similarly, Lines 25～31 specifies parameters for the second comparison. The user needs to edit these Lines based on their comparison(s) of interest and based on the catcodes that the user specified in Step 2.
+1)	This script denotes the comparisons of interest. Specifically, for the example ERP CORE ERN dataset, we were interested in comparing the difference between error-incongruent responses (category 2) and correct-incongruent responses (category 3). We were also interested in comparing correct-incongruent trials (category 3) and correct-congruent trials (category 1). Thus, for the first comparison, Lines 17～23 denote: 1) a label for the comparison; 2) the type of the comparison (`within-subjects`); 3) the statistical test that will be run (`wilcoxon `); and 4) the catcodes (previously denoted in `Flanker_resp_ISFA_base_loadvars.m` such that catcodes 1 = correct-congruent, catcodes 2 = error-incongruent, and catcode 3 = correct-incongruent) that are associated with the comparison. Similarly, Lines 25～31 specify parameters for the second comparison. The user needs to edit these lines based on their comparison(s) of interest and based on the catcodes that the user specified in Step 2.
 
 ```
 comparisons(1).label = 'Error-Correct';
@@ -273,13 +273,13 @@ comparisons(2).set(2).var.crit = 'erp.stim.catcodes == 1';
 Running this script is will compute TF representations of average power and decompose TF-PCA solutions. As previously mentioned, running 
 `Run_Flanker_resp_AVGS_AMPL_theta_pcatfd.m` calls `Flanker_resp_AVGS_AMPL_theta_DatasetDef.m` (and in turn `preproc_filter.m`) and `Flanker_resp_comparisons.m`. However, `Run_Flanker_resp_AVGS_AMPL_theta_pcatfd.m` has additional parameters that can be modified as well.
 
-1)	Line 16 denotes the number of PCA factors to extract. Typically, it is most efficient to run the script such that 1 factor is extracted in order to more quickly generate the scree plot. Based on inspection of the scree plot, the user can then determine how many factors to extract, modify the script accordingly and re-run it. The user can also specify an array of factor solutions to extract (see below).
+1)	Line 16 denotes the number of PCA factors to extract. Typically, it is most efficient to run the script such that 1 factor is extracted in order to more quickly generate the scree plot. Based on inspection of the scree plot, the user can then determine how many factors to extract, modify the script accordingly, and re-run it. The user can also specify an array of factor solutions to extract (see below).
 
 ```
 facs = [1 2 3 4];
 ```
 
-2)	Line 19～21 points to `Flanker_resp_comparisons.m` to load the comparisons parameter (we have already set it up in the `Flanker_resp_comparisons.m`).
+2)	Lines 19～21 point to `Flanker_resp_comparisons.m` to load the comparisons parameter (we have already set it up in the `Flanker_resp_comparisons.m`).
 
 ```
 Comparisons = {
@@ -319,7 +319,7 @@ Similarly, running `Flanker_resp_AVGS_AMPL_theta_pcatfd` will yield several outp
   <img src="/.github/_assets/avg_20.bmp"/>
 </p>
 
-4)	From top to bottom, Figure 7 (1) shows time-domain theta comparison, TF domain theta difference and, pc-weighted TF differences between incongruent & error condition and incongruent & correct condition. From top to bottom, Figure 7 (2) shows time-domain theta comparison, TF domain theta difference and, pc-weighted TF differences between incongruent & correct condition and congruent & correct condition. Notably, the plot for difference between incongruent & error condition and incongruent & correct condition has been overwritten by the plot for incongruent & correct condition and congruent & correct condition.
+4)	From top to bottom, Figure 7 (1) shows time-domain theta comparison, TF domain theta difference and, pc-weighted TF differences between incongruent & error condition and incongruent & correct condition. From top to bottom, Figure 7 (2) shows time-domain theta comparison, TF domain theta difference and, pc-weighted TF differences between incongruent & correct condition and congruent & correct condition. Notably, the plot for the difference between incongruent & error condition and incongruent & correct condition has been overwritten by the plot for incongruent & correct condition and congruent & correct condition.
 
 <p align="center">
   <img src="/.github/_assets/avg_7.bmp"/>
@@ -426,15 +426,15 @@ Similarly, running `Flanker_resp_ISFA_AMPL_theta_pcatfd` will yield several outp
 
 #### Plots printed at screen
 
-The interpretations of six plots generated is very similar to those in step3. The only difference is those plots are based on the total power rather than the average power. To avoid repetition, the detailed interpretations are skipped (see them in Step 3).
+The interpretations of six plots generated is very similar to those in step3. The only difference is that those plots are based on the total power rather than the average power. To avoid repetition, the detailed interpretations are skipped (see them in Step 3).
 
 #### Data being saved in the `data_cache` folder
 
 Three set of data was saved to the `data_cache` folder.
 
-1)	`Flanker_resp_ISFA_AMPL_theta__subsampling.mat` is the subsampling data which is exactly same data as `Flanker_resp_ISFA_base_averages_subsampling.mat`. If you do not delete `Flanker_resp_ISFA_base_averages_subsampling.mat` that was generated by Step 2, this step would load it to make sure that the total power computation uses the exact same mixture of trials. To avoid repetition, the detailed description of the subsampling data is skipped (see it in Step 2).
+1)	`Flanker_resp_ISFA_AMPL_theta__subsampling.mat` is the subsampling data which is exactly same data as `Flanker_resp_ISFA_base_averages_subsampling.mat`. If you do not delete `Flanker_resp_ISFA_base_averages_subsampling.mat` that was generated by Step 2, this step would load it to make sure that the total power computation uses the exact same mixture of trials. To avoid repetition, the detailed description of the subsampling data is skipped (see Step 2).
 
-2)	`Flanker_resp_ISFA_AMPL_theta__32.mat` is the erp data with 32 sampling rate. To avoid repetition, the detailed description is skipped (see it in Step 2).
+2)	`Flanker_resp_ISFA_AMPL_theta__32.mat` is the erp data with 32 sampling rate. To avoid repetition, the detailed description is skipped (see Step 2).
 
 3)	`Flanker_resp_ISFA_AMPL_theta__32_t32f32.mat` is the total power which stays in same format as the average power. To avoid repetition, the detailed description is skipped (see it in Step 3).
 
@@ -446,7 +446,7 @@ Three set of data was saved to the `data_cache` folder.
 
 #### Data being saved in the `output_plots` folder
 
-Similar to Step 3, five files were saved. The only difference is those plotting files are based on the total power rather than the average power. To avoid repetition, the detailed interpretations are skipped (see them in Step 3). 
+Similar to Step 3, five files were saved. The only difference is that those plotting files are based on the total power rather than the average power. To avoid repetition, the detailed interpretations are skipped (see them in Step 3). 
 
 The names for five files are:
 1)	`Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-plot_components.eps`
@@ -464,9 +464,9 @@ Related Scripts:
 
 `analysis_template/ptb_scripts/cp_avg_power_pcs.m`
 
-1)	If the total power weighted by the average power TF-PCA loadings is of interest, further calculation (applying identified average power factor loadings to the total power) is involved. To preview/visualize the results, `Flanker_resp_ISFA_AMPL_theta_pcatfd` could be run again but with the average power TF-PCA loadings. To do this, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` needs to be replaced by `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`. Futermore, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.log` and `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat` need to be deleted. Instead of doing this tedious and error-prone operations manually, `cp_avg_power_pcs.m` is the script to do such copy and paste operations.
+1)	If the total power weighted by the average power TF-PCA loadings is of interest, further calculation (applying identified average power factor loadings to the total power) is involved. To preview/visualize the results, `Flanker_resp_ISFA_AMPL_theta_pcatfd` could be run again but with the average power TF-PCA loadings. To do this, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat` needs to be replaced by `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`. Futermore, `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.log` and `Flanker_resp_ISFA_AMPL_theta_-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat` need to be deleted. Instead of doing these tedious and error-prone operations manually, `cp_avg_power_pcs.m` is the script to do such copy and paste operations.
 
-2)	Run this script in the current path (analysis_template/ptb_scripts as opposed to the parent directory) by either typing the name of the script (`cp_avg_power_pcs `) in the command window and pressing enter or clicking “run” at the top of Matlab editor. 
+2)	Run this script in the current path (analysis_template/ptb_scripts as opposed to the parent directory) by either typing the name of the script (`cp_avg_power_pcs `) in the command window and pressing enter or clicking “run” at the top of the Matlab editor. 
 
 3)	After running `cp_avg_power_pcs.m`, `Flanker_resp_ISFA_AMPL_theta_pcatfd.m` can be run again (Step 4) to generate the plots for the total power measure weighted by the average power TF-PCA loadings.
 
