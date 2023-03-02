@@ -359,7 +359,7 @@ A set of data was saved in the `data_cache` folder –`Flanker_resp_AVGS_AMPL_th
 
 #### Data being saved in the `output_data` folder
 
-1)	In `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`, `Pmat` is a 13*33*n array which is the pc weight matrix. 13 is the difference between the start time bin and the end time bin (16-(-16)+1 = 33). 33 is the difference between the start frequency bin and the frequency time bin (19-7+1=13). `n` represents the number of factors being extracted. Taking 1 factor solution as the example. `Pmat` is a 13*33 (13*33*1) array. Should we interpret other 3 data (explained, latent and p)
+1)	In `Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1-PCs.mat`, `Pmat` is a 13x33xn array which is the pc weight matrix. 13 is the difference between the start time bin and the end time bin (16-(-16)+1 = 33). 33 is the difference between the start frequency bin and the frequency time bin (19-7+1=13). `n` represents the number of factors being extracted. Taking 1 factor solution as the example. `Pmat` is a 13x33 (13x33x1) array.
 
 2)	`Flanker_resp_AVGS_AMPL_theta-pcatfd-rs32-t32s-16e16-f32s7e19-fqA1-DMXacov-ROTvmx-fac1.mat` saves the data for mean PC-weighted average power, peak PC-weighted average power, the time of peak PC-weighted average power, and the frequency of peak PC-weighted average power.
 
